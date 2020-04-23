@@ -15,3 +15,15 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+
+import '../stylesheets/application'
+
+
+// Bootstrap
+import './bootstrap_custom.js'
+
+// Activates all tooltips
+document.addEventListener("turbolinks:load", () => {
+  $('[data-toggle="tooltip"]').tooltip()
+})
