@@ -12,7 +12,7 @@ class CartsController < ApplicationController
 			} 
 		end
 
-		Stripe.api_key = 'sk_test_1pbaYM0eAgUpayQFERiis1mf00hA3oN4nC'
+		Stripe.api_key = ENV['STRIPE_TEST_SECRET_KEY']
 
 		@session = Stripe::Checkout::Session.create(
 		  payment_method_types: ['card'],
