@@ -7,7 +7,7 @@ ruby '2.5.1'
 # Self-Added Gems:
 
 gem 'devise'
-
+gem 'stripe'
 
 
 
