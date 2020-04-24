@@ -9,9 +9,7 @@ ruby '2.5.1'
 gem 'devise'
 gem 'stripe'
 gem 'simple_form'
-
-
-
+gem 'font_awesome5_rails'
 
 
 
