@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+	root to: 'pages#home'
+
   devise_for :users
-  root to: 'pages#home'
+
+  resources :products, only: [:index, :show]
+  resources :orders, only: [:create, :update, :destroy]
 
   get 'cart/:id/checkout', to: 'carts#checkout', as: 'cart_checkout'
 end
