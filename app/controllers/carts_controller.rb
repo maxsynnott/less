@@ -21,4 +21,8 @@ class CartsController < ApplicationController
 		  cancel_url: 'http://localhost:3000',
 		)
 	end
+
+	def show
+		@cart = Cart.find(params[:id])
+	end
 end

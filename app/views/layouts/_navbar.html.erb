@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light bg-light sticky-top">
   <%= link_to 'less', root_path %>
 
-  <%= link_to "Cart " + current_user.cart.orders.length.to_s, '#' %>
+  <%= link_to "Cart " + current_user.cart.orders.length.to_s, cart_path(id: current_user.cart.id) %>
 </nav>

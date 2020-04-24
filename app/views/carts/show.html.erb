@@ -1,0 +1,11 @@
+<ul class='list-group'>
+	<% @cart.orders.each do |order| %>
+		<li class='list-group-item'>
+			<h5><%= order.product.name %></h5>
+
+			<p>Quantity: <%= order.quantity %></p>
+		</li>
+	<% end %>
+</ul>
+
+<%= link_to "Checkout", cart_checkout_path(id: current_user.cart.id), class: "btn btn-success" %>
