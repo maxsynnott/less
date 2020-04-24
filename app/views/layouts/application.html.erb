@@ -9,10 +9,12 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <script src="https://js.stripe.com/v3/"></script> <!-- This should be changed as to not be included everywhere -->
+    <script src='https://js.stripe.com/v3/'></script> <!-- This should be changed as to not be included everywhere -->
   </head>
 
   <body>
+    <%= render 'layouts/navbar' %>
+    
     <%= yield %>
   </body>
 </html>
