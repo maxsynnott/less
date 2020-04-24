@@ -1,9 +1,29 @@
-<nav class="navbar navbar-light bg-light sticky-top">
-  <%= link_to 'less', root_path %>
+<nav class='navbar navbar-light bg-light sticky-top'>
+	<div class="d-flex">
+		<%= link_to root_path, class: 'navbar-brand' do %>
+			<%= image_tag 'temp_logo', id: 'logo', alt: 'less logo' %>
+		<% end %>
 
-  <% if current_user %>
-  	<%= link_to cart_path(id: current_user.cart.id) do %>
-  		<%= fa_icon "shopping-cart", text: current_user.cart.orders.length.to_s %>
-  	<% end %>
-  <% end %>
+		<ul class="nav">
+		  <li class="nav-item">
+		    <a class="nav-link active text-secondary" href="#">Products</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link text-secondary" href="#">About</a>
+		  </li>
+		</ul>
+	</div>
+
+	<div class="d-flex">
+		<form class="form-inline">
+		  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+		  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		</form>
+
+		<% if current_user %>
+			<%= link_to cart_path(id: current_user.cart.id), class: 'ml-3' do %>
+				<%= fa_icon 'shopping-cart', text: current_user.cart.orders.length.to_s %>
+			<% end %>
+		<% end %>
+	</div>
 </nav>
