@@ -15,7 +15,7 @@ num_products = 10
 
 puts "Creating #{num_products} products:"
 num_products.times do
-	product = Product.create(name: Faker::Food.unique.ingredient, description: Faker::Food.description, price: rand(10..3000))
+	product = Product.create(name: Faker::Food.unique.ingredient, description: Faker::Food.description, price: rand(0.001..0.1))
 
 	puts "Created #{product.name}."
 end
@@ -39,9 +39,9 @@ puts "Admin cart created."
 
 num_orders = rand(2..5)
 
-num_orders.times do
-	Order.create(product_id: Product.all.sample.id, cart_id: cart.id, quantity: rand(1..10000))
-end
+products = Product.all.sample(num_orders)
+
+products.each { |product| cart.add_product(product, rand(1..3000)) }
 
 puts "Admin cart populated with #{num_orders} orders."
 

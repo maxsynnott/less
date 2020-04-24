@@ -10,7 +10,7 @@ class Order < ApplicationRecord
   	amount >= quantity ? destroy : update(quantity: quantity - amount)
   end
 
-  def containerize
+  def containerized
   	containers = Container.all.sort_by(&:size)
 
   	remaining = quantity

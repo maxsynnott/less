@@ -38,15 +38,14 @@ class Cart < ApplicationRecord
 
     orders.each do |order|
       product = order.product
-      containerized_order = order.containerize
 
-      containerized_order.each do |item|
+      order.containerized.each do |item|
         item = {
           name: "#{product.name} | #{item[:quantity]}g",
           description: item[:container].name,
           quantity: 1,
           currency: 'eur',
-          amount: product.price * item[:quantity]
+          amount: product.cents_price_for(item[:quantity])
         }
 
         items << item
