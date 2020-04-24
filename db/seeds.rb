@@ -15,10 +15,9 @@ num_products = 10
 
 puts "Creating #{num_products} products:"
 num_products.times do
-	product_name = Faker::Food.unique.ingredient
-	Product.create(name: product_name, description: Faker::Food.description, price: rand(10..3000))
+	product = Product.create(name: Faker::Food.unique.ingredient, description: Faker::Food.description, price: rand(10..3000))
 
-	puts "Created #{product_name}."
+	puts "Created #{product.name}."
 end
 
 puts "\n"
@@ -45,3 +44,13 @@ num_orders.times do
 end
 
 puts "Admin cart populated with #{num_orders} orders."
+
+puts "\n"
+
+puts "Generating containers"
+
+[500, 1000, 1500].each do |i|
+	container = Container.create(name: "#{i.to_s}g container", size: i)
+
+	puts "Created #{container.name}"
+end

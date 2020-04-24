@@ -1,7 +1,9 @@
 <nav class="navbar navbar-light bg-light sticky-top">
   <%= link_to 'less', root_path %>
 
-  <%= link_to cart_path(id: current_user.cart.id) do %>
-  	<%= fa_icon "shopping-cart", text: current_user.cart.orders.length.to_s %>
+  <% if current_user %>
+  	<%= link_to cart_path(id: current_user.cart.id) do %>
+  		<%= fa_icon "shopping-cart", text: current_user.cart.orders.length.to_s %>
+  	<% end %>
   <% end %>
 </nav>
