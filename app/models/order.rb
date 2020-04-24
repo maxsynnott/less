@@ -25,7 +25,7 @@ class Order < ApplicationRecord
 
   		containerized_order << {
   			container: container,
-  			amount: amount
+  			quantity: amount
   		}
 
   		remaining -= amount

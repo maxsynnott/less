@@ -32,4 +32,27 @@ class Cart < ApplicationRecord
   def find_order(product)
   	orders.find { |order| order.product_id == product.id }
   end
+
+  def line_items
+    items = []
+
+    orders.each do |order|
+      product = order.product
+      containerized_order = order.containerize
+
+      containerized_order.each do |item|
+        item = {
+          name: "#{product.name} | #{item[:quantity]}g",
+          description: item[:container].name,
+          quantity: 1,
+          currency: 'eur',
+          amount: product.price * item[:quantity]
+        }
+
+        items << item
+      end
+    end
+
+    items
+  end
 end
