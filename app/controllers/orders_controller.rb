@@ -10,11 +10,19 @@ class OrdersController < ApplicationController
   end
 
   def update
+    order = Order.find(params[:id])
 
+    order.update(order_params)
+
+    redirect_to cart_path(id: order.cart.id)
   end
 
   def destroy
+    order = Order.find(params[:id])
 
+    order.destroy
+
+    redirect_to cart_path(id: order.cart.id)
   end
 
   private

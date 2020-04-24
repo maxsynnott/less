@@ -3,7 +3,15 @@
 		<li class='list-group-item'>
 			<h5><%= order.product.name %></h5>
 
-			<p>Quantity: <%= order.quantity %></p>
+			<%= simple_form_for(order) do |f| %>
+				<%= f.input :quantity, value: order.quantity %>
+
+				<%= f.submit %>
+			<% end %>
+
+			<%= link_to order_path(id: order.id), method: :delete, class: "text-danger" do %>
+				<%= fa_icon "times-circle" %>
+			<% end %>
 		</li>
 	<% end %>
 </ul>
