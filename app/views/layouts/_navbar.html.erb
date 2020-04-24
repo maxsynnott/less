@@ -1,12 +1,12 @@
-<nav class='navbar navbar-light bg-light sticky-top'>
+<nav class="navbar navbar-light bg-light sticky-top">
 	<div class="d-flex">
-		<%= link_to root_path, class: 'navbar-brand' do %>
-			<%= image_tag 'temp_logo', id: 'logo', alt: 'less logo' %>
+		<%= link_to root_path, class: "navbar-brand" do %>
+			<%= image_tag "temp_logo", id: "logo", alt: "less logo" %>
 		<% end %>
 
 		<ul class="nav">
 		  <li class="nav-item">
-		    <a class="nav-link active text-secondary" href="#">Products</a>
+		  	<%= link_to "Products", products_path, class: "nav-link active text-secondary" %>
 		  </li>
 		  <li class="nav-item">
 		    <a class="nav-link text-secondary" href="#">About</a>
@@ -21,9 +21,11 @@
 		</form>
 
 		<% if current_user %>
-			<%= link_to cart_path(id: current_user.cart.id), class: 'ml-3' do %>
-				<%= fa_icon 'shopping-cart', text: current_user.cart.orders.length.to_s %>
+			<%= link_to cart_path(id: current_user.cart.id), class: "ml-3" do %>
+				<%= fa_icon "shopping-cart", text: current_user.cart.orders.length.to_s %>
 			<% end %>
+		<% else %>
+			<%= link_to "Sign in", new_user_session_path, class: "btn btn-primary", title: "Click here to sign in", data: { toggle: "tooltip", placement: "right" } %>
 		<% end %>
 	</div>
 </nav>
