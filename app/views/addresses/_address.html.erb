@@ -5,3 +5,5 @@
 <p><b>City:</b> <%= address.city %></p>
 <p><b>State:</b> <%= address.state %></p>
 <p><b>Country:</b> <%= address.country %></p>
+
+<%= link_to "Delete address", address_path(id: address.id), method: :delete, class: "btn btn-danger" %>

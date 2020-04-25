@@ -17,6 +17,14 @@ class AddressesController < ApplicationController
 		redirect_to addresses_path
 	end
 
+	def destroy
+		@address = Address.find(params[:id])
+
+		@address.destroy
+
+		redirect_to addresses_path
+	end
+
 	private
 
 	def address_params
