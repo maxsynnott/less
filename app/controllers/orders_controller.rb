@@ -1,10 +1,18 @@
 class OrdersController < ApplicationController
   def create
   	order = Order.new(order_params)
-  	
-  	order.cart_id = current_user.cart.id
 
-  	order.save
+    product = order.product
+    cart = current_user.cart
+  	
+  	order.cart_id = cart.id
+
+    # Rework this
+    if cart.find_order(product)
+      cart.add_product(product, order.quantity)
+    else
+      order.save
+    end
 
   	redirect_to products_path
   end
