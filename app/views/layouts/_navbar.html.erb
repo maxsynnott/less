@@ -15,10 +15,10 @@
 	</div>
 
 	<div class="d-flex">
-		<form class="form-inline">
-		  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-		  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		</form>
+		<%= form_with url: products_path, method: :get, local: true, class: "form-inline" do %>
+		  <%= search_field_tag :q, nil, placeholder: "What are you craving?", class: "form-control mr-sm-2" %>
+		  <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
+		<% end %>
 
 		<% if current_user %>
 			<%= link_to cart_path(id: current_user.cart.id), class: "ml-3" do %>
