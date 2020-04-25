@@ -6,10 +6,15 @@
 
 		<ul class="nav">
 		  <li class="nav-item">
-		  	<%= link_to "Products", products_path, class: "nav-link active text-secondary" %>
+		  	<%= link_to "Products", products_path, class: "nav-link text-secondary" %>
 		  </li>
+
 		  <li class="nav-item">
 		    <a class="nav-link text-secondary" href="#">About</a>
+		  </li>
+
+		  <li class="nav-item">
+		  	<%= link_to "Account", edit_user_registration_path, class: "nav-link text-secondary" %>
 		  </li>
 		</ul>
 	</div>
