@@ -6,7 +6,7 @@ class Product < ApplicationRecord
 		description: 'B'
 	}
 
-	has_many :orders
+	has_many :cart_items
 
 	def price_for(amount)
 		price * amount

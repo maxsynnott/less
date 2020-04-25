@@ -1,4 +1,4 @@
-class Order < ApplicationRecord
+class CartItem < ApplicationRecord
   belongs_to :cart
   belongs_to :product
 
@@ -15,7 +15,7 @@ class Order < ApplicationRecord
 
   	remaining = quantity
 
-  	containerized_order = []
+  	containerized_item = []
 
   	until remaining.zero?
   		container = containers.find { |container| container.size >= remaining }
@@ -23,7 +23,7 @@ class Order < ApplicationRecord
 
   		amount = [remaining, container.size].min
 
-  		containerized_order << {
+  		containerized_item << {
   			container: container,
   			quantity: amount
   		}
@@ -31,6 +31,6 @@ class Order < ApplicationRecord
   		remaining -= amount
   	end
 
-  	containerized_order
+  	containerized_item
   end
 end

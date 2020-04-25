@@ -22,7 +22,7 @@
 
 		<% if current_user %>
 			<%= link_to cart_path(id: current_user.cart.id), class: "ml-3" do %>
-				<%= fa_icon "shopping-cart", text: current_user.cart.orders.length.to_s %>
+				<%= fa_icon "shopping-cart", text: current_user.cart.cart_items.length.to_s %>
 			<% end %>
 		<% else %>
 			<%= link_to "Sign in", new_user_session_path, class: "btn btn-primary", title: "Click here to sign in", data: { toggle: "tooltip", placement: "right" } %>

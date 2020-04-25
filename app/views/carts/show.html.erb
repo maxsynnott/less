@@ -1,15 +1,15 @@
 <ul class='list-group'>
-	<% @cart.orders.each do |order| %>
+	<% @cart.cart_items.each do |cart_item| %>
 		<li class='list-group-item'>
-			<h5><%= order.product.name %></h5>
+			<h5><%= cart_item.product.name %></h5>
 
-			<%= simple_form_for(order) do |f| %>
-				<%= f.input :quantity, value: order.quantity %>
+			<%= simple_form_for(cart_item) do |f| %>
+				<%= f.input :quantity, value: cart_item.quantity %>
 
 				<%= f.submit %>
 			<% end %>
 
-			<%= link_to order_path(id: order.id), method: :delete, class: "text-danger" do %>
+			<%= link_to cart_item_path(id: cart_item.id), method: :delete, class: "text-danger" do %>
 				<%= fa_icon "times-circle" %>
 			<% end %>
 		</li>

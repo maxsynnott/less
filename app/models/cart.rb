@@ -1,45 +1,45 @@
 class Cart < ApplicationRecord
   belongs_to :user
 
-  has_many :orders
+  has_many :cart_items
 
   def add_product(product, amount = 1)
-  	order = find_order(product)
+  	cart_item = find_cart_item(product)
 
-  	if order
-  		order.add(amount)
+  	if cart_item
+  		cart_item.add(amount)
   	else
-  		Order.create(product_id: product.id, cart_id: id, quantity: amount)
+  		cart_item.create(product_id: product.id, cart_id: id, quantity: amount)
   	end
   end
 
   def remove_product(product, amount = nil)
-  	order = find_order(product)
+  	cart_item = find_cart_item(product)
 
-  	if order
-  		amount ? order.remove(amount) : order.destroy
+  	if cart_item
+  		amount ? cart_item.remove(amount) : cart_item.destroy
   	end
   end
 
   def quantity_of(product)
-  	find_order(product).try(:quantity)
+  	find_cart_item(product).try(:quantity)
   end
 
   def clear
-  	orders.destroy_all
+  	cart_items.destroy_all
   end
 
-  def find_order(product)
-  	orders.find { |order| order.product_id == product.id }
+  def find_cart_item(product)
+  	cart_items.find { |cart_item| cart_item.product_id == product.id }
   end
 
   def line_items
     items = []
 
-    orders.each do |order|
-      product = order.product
+    cart_items.each do |cart_item|
+      product = cart_item.product
 
-      order.containerized.each do |item|
+      cart_item.containerized.each do |item|
         item = {
           name: "#{product.name} | #{item[:quantity]}g",
           description: item[:container].name,
