@@ -1,0 +1,9 @@
+<%= link_to "Add address", new_address_path, class: "btn btn-success" %>
+
+<ul class="list-group">
+	<% @addresses.each do |address| %>
+		<li class="list-group-item">
+			<%= render "address", address: address %>
+		</li>
+	<% end %>
+</ul>

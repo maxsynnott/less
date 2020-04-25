@@ -11,6 +11,7 @@ gem 'stripe'
 gem 'simple_form'
 gem 'font_awesome5_rails'
 gem 'pg_search'
+gem 'country_select'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

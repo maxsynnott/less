@@ -9,13 +9,15 @@
 		  	<%= link_to "Products", products_path, class: "nav-link text-secondary" %>
 		  </li>
 
-		  <li class="nav-item">
-		    <a class="nav-link text-secondary" href="#">About</a>
-		  </li>
+		  <% if current_user %>
+		  	<li class="nav-item">
+		  		<%= link_to "Account", edit_user_registration_path, class: "nav-link text-secondary" %>
+		  	</li>
 
-		  <li class="nav-item">
-		  	<%= link_to "Account", edit_user_registration_path, class: "nav-link text-secondary" %>
-		  </li>
+		  	<li class="nav-item">
+		  		<%= link_to "Addresses", addresses_path, class: "nav-link text-secondary" %>
+		  	</li>
+		  <% end %>
 		</ul>
 	</div>
 
