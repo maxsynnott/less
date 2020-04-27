@@ -3,6 +3,8 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+
+
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
@@ -25,7 +27,17 @@ import "@fortawesome/fontawesome-free/js/all";
 // Bootstrap
 import './bootstrap_custom.js'
 
-// Activates all tooltips
+// Flatpickr
+import flatpickr from "flatpickr"
+require("flatpickr/dist/flatpickr.css")
+
+
 document.addEventListener("turbolinks:load", () => {
+	// Activates all tooltips
   $('[data-toggle="tooltip"]').tooltip()
+
+  // Activates flatpickrs
+  flatpickr("[data-behaviour='flatpickr']", {
+  	enableTime: true
+  });
 })
