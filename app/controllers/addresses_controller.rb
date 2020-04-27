@@ -8,9 +8,7 @@ class AddressesController < ApplicationController
 	end
 
 	def create
-		@address = Address.new(address_params.merge(country: "DE", city: "Berlin", state: "Berlin"))
-
-		@address.user_id = current_user.id
+		@address = Address.new(address_params.merge(country: "DE", city: "Berlin", state: "Berlin", user_id: current_user.id))
 
 		@address.save
 
