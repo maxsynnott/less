@@ -3,6 +3,7 @@
 		Delivery time
 		<%= f.text_field :scheduled_at, data: { behaviour: "flatpickr" } %>
 	</label>
+	
 	<%= f.input :address_id, prompt: "Select an address", collection: @delivery.user.addresses.map { |addr| ["#{addr.street} #{addr.house_number}", addr.id] } %>
 
 	<%= f.submit %>
