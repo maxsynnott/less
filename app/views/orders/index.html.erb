@@ -1,0 +1,22 @@
+<ul class="list-group">
+	<% @orders.each do |order| %>
+		<li class="list-group-item">
+			<p>
+				Product: <%= order.product.name %>
+			</p>
+			
+			<p>
+				Quantity: <%= order.quantity %>
+			</p>
+			
+			<p>
+				Price: <%= number_to_currency(order.price, unit: '€', format: "%n%u") %>
+			</p>
+			
+			<p>
+				Total: <%= number_to_currency(((order.price * order.quantity * 100).ceil / 100), unit: '€', format: "%n%u") %>
+			</p>
+			
+		</li>
+	<% end %>
+</ul>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :cart_items, only: [:create, :update, :destroy]
   resources :carts, only: [:show]
   resources :addresses, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :orders, only: [:index]
 
   get 'cart/:id/checkout', to: 'carts#checkout', as: 'cart_checkout'
 end
