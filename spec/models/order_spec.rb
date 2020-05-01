@@ -1,5 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Order, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Order do
+	context 'validations' do
+		[:product, :user, :quantity, :price]
+		.each { |attr| it { should validate_presence_of(attr) } }
+	end
 end

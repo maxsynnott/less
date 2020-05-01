@@ -2,6 +2,8 @@ class CartItem < ApplicationRecord
   belongs_to :cart
   belongs_to :product
 
+  validates_presence_of :cart, :quantity, :product
+
   def add(amount)
   	update(quantity: quantity + amount)
   end

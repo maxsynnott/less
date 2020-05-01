@@ -3,6 +3,8 @@ class Cart < ApplicationRecord
 
   has_many :cart_items
 
+  validates_presence_of :user
+
   def add_product(product, amount = 1)
   	cart_item = find_cart_item(product)
 
