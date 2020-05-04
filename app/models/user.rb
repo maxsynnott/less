@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
   def address
     unless addresses.empty?
-      addresses.length.one? ? addresses.first : addresses.find { |addr| addr.selected }
+      addresses.length == 1 ? addresses.first : addresses.find { |addr| addr.selected }
     end
   end
 end
