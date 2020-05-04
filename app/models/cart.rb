@@ -64,4 +64,22 @@ class Cart < ApplicationRecord
   def total
     cart_items.sum { |cart_item| cart_item.product.price_for(cart_item.quantity) }
   end
+
+  def create_orders(billing)
+    orders = []
+
+    cart_items.each do |cart_item|
+      cart_item.containerized.each do |item|
+        orders << Order.create(
+          billing_id: billing.id,
+          user_id: user.id,
+          product_id: cart_item.product.id,
+          quantity: item[:quantity],
+          price: cart_item.product.price
+        )
+      end
+    end
+
+    orders
+  end
 end
