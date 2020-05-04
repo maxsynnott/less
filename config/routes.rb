@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   	registrations: 'users/registrations'
   }
 
+  mount StripeEvent::Engine, at: '/stripe/webhook'
+
   resources :products, only: [:index, :show]
   resources :cart_items, only: [:create, :update, :destroy]
   resources :carts, only: [:show]

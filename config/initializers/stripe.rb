@@ -4,3 +4,9 @@ Rails.configuration.stripe = {
 }
 
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
+
+StripeEvent.signing_secret = ENV['STRIPE_NGROK_SIGNING_SECRET']
+
+StripeEvent.configure do |events|
+	events.subscribe 'checkout.', Stripe::CheckoutEventHandler.new
+end
