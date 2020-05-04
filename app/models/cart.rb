@@ -11,7 +11,7 @@ class Cart < ApplicationRecord
   	if cart_item
   		cart_item.add(amount)
   	else
-  		cart_item.create(product_id: product.id, cart_id: id, quantity: amount)
+  		CartItem.create(product_id: product.id, cart_id: id, quantity: amount)
   	end
   end
 
