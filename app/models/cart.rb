@@ -56,4 +56,12 @@ class Cart < ApplicationRecord
 
     items
   end
+
+  def cents_total
+    cart_items.sum { |cart_item| cart_item.product.cents_price_for(cart_item.quantity) }
+  end
+
+  def total
+    cart_items.sum { |cart_item| cart_item.product.price_for(cart_item.quantity) }
+  end
 end
