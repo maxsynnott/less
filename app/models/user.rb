@@ -12,4 +12,10 @@ class User < ApplicationRecord
   has_many :deliveries
 
   validates_presence_of :cart
+
+  def address
+    unless addresses.empty?
+      addresses.length.one? ? addresses.first : addresses.find { |addr| addr.selected }
+    end
+  end
 end
