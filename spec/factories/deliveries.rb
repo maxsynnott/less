@@ -1,10 +1,11 @@
 FactoryBot.define do
   factory :delivery do
-    user { nil }
-    price { "9.99" }
+    price { 4.99 }
     delivered { false }
-    address { nil }
-    scheduled_at { "2020-04-27 14:02:54" }
-    delivered_at { "2020-04-27 14:02:54" }
+    scheduled_at { DateTime.now.next_week.change(hour: 10, min: 30) }
+    delivered_at { nil }
+
+    association :user
+    association :address
   end
 end

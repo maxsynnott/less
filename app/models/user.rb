@@ -4,10 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :cart
+  has_one :cart, dependent: :destroy
   has_one :phone_number
 
-  has_many :addresses
+  has_many :addresses, dependent: :destroy
   has_many :orders
   has_many :deliveries
 
