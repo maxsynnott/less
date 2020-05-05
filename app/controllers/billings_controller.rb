@@ -5,7 +5,7 @@ class BillingsController < ApplicationController
 		@session = Stripe::Checkout::Session.create(
 		  payment_method_types: ['card'],
 		  line_items: @cart.line_items,
-		  success_url: root_url, # NEED TO INCLUDE CHECKOUT SESSION ID STUFF HERE
+		  success_url: deliveries_url, # NEED TO INCLUDE CHECKOUT SESSION ID STUFF HERE
 		  cancel_url: cart_url(@cart),
 		)
 

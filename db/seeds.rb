@@ -21,7 +21,7 @@ puts "Admin account created with:"
 puts "email: #{email}"
 puts "password: #{password}"
 
-addr = Address.create(
+admin.addresses.create(
 	user_id: admin.id,
 	street: "Rudi-Dutschke-Straße",
 	house_number: "26",
