@@ -12,7 +12,7 @@ RSpec.describe Delivery, '#available_times' do
 
 			times = Delivery.available_times(monday)
 
-			expect(times).to eq (480..1080).step(30).to_a
+			expect(times).to eq (480..1020).step(60).to_a
 		end
 
 		it 'should return no times when on a sunday' do
@@ -28,11 +28,21 @@ RSpec.describe Delivery, '#available_times' do
 		it 'should exclude appropriate times' do
 			monday = Date.today.next_week
 
+			# Should exclude 840 as there are 2 deliveries
 			create(:delivery, scheduled_at: monday.to_datetime.change(hour: 14))
+			create(:delivery, scheduled_at: monday.to_datetime.change(hour: 14))
+
+			# Should exclude 900 as there are more than 2 deliveries
+			create(:delivery, scheduled_at: monday.to_datetime.change(hour: 15))
+			create(:delivery, scheduled_at: monday.to_datetime.change(hour: 15))
+			create(:delivery, scheduled_at: monday.to_datetime.change(hour: 15))
+
+			# Shouldn't exclude 960 as there is less than 2 deliveries
+			create(:delivery, scheduled_at: monday.to_datetime.change(hour: 16))
 
 			times = Delivery.available_times(monday)
 
-			expect(times).to eq (480..1080).step(30).to_a - [840]
+			expect(times).to eq (480..1020).step(60).to_a - [840, 900]
 		end
 	end
 end
