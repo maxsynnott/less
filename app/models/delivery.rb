@@ -40,4 +40,8 @@ class Delivery < ApplicationRecord
 
     date.to_datetime.change(hour: time_mins / 60, min: time_mins % 60)
   end
+
+  def scheduled_at_display
+    sprintf("%02d:00 to %02d:00", scheduled_at.hour, scheduled_at.hour + 1)
+  end
 end

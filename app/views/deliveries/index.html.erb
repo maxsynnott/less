@@ -1,49 +1,23 @@
-<%= link_to "New Delivery", new_delivery_path, class: "btn btn-success" %>
-
 <ul class="list-group">
 	<% @deliveries.each do |delivery| %>
 		<li class="list-group-item">
 			<p>
-				Price: <%= number_to_currency(delivery.price, unit: '€', format: "%n%u") %>
+				Delivery Price: <%= number_to_currency(delivery.price, unit: '€', format: "%n%u") %>
 			</p>
 
 			<h5>
-				Orders:
-
-				<ul class="list-group">
-					<% delivery.orders.each do |order| %>
-						<li class="list-group-item">
-							<p>
-								Product: <%= order.product.name %>
-							</p>
-
-							<p>
-								Quantity: <%= order.quantity %>
-							</p>
-
-							<p>
-								Price: <%= number_to_currency(order.price, unit: '€', format: "%n%u") %>
-							</p>
-
-							<p>
-								Total: <%= number_to_currency(((order.price * order.quantity * 100).ceil / 100), unit: '€', format: "%n%u") %>
-							</p>
-						</li>
-					<% end %>
-				</ul>
+				Number of products: <%= delivery.orders.map(&:product).uniq.length %>
 			</h5>
 
 			<p>
-				Scheduled at: <%= delivery.scheduled_at %>
+				Scheduled at: <%= delivery.scheduled_at_display %>
 			</p>
 
 			<p>
 				Delivered at: <%= delivery.delivered_at %>
 			</p>
 
-			<p>
-				Delivered?: <%= delivery.delivered %>
-			</p>
+			<%= link_to "Edit", edit_delivery_path(id: delivery.id), class: "btn btn-primary" %>
 		</li>
 	<% end %>
 </ul>

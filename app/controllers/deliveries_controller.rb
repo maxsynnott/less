@@ -3,14 +3,14 @@ class DeliveriesController < ApplicationController
 		@deliveries = current_user.deliveries
 	end
 
-	def new
-		@delivery = Delivery.new(user_id: current_user.id)
+	def edit
+		@delivery = Delivery.find(params[:id])
 	end
 
-	def create
-		@delivery = Delivery.new(delivery_params.merge(user_id: current_user.id))
+	def update
+		@delivery = Delivery.find(params[:id])
 
-		@delivery.save
+		@delivery.update(delivery_params)
 
 		redirect_to deliveries_path
 	end

@@ -38,6 +38,6 @@ document.addEventListener("turbolinks:load", () => {
 
   // Activates flatpickrs
   flatpickr("[data-behaviour='flatpickr']", {
-  	enableTime: true
+  	altInput: true
   });
 })

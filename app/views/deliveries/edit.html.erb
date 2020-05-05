@@ -1,0 +1,53 @@
+<%= simple_form_for(@delivery) do |f| %>
+	<input id='date_field' data-behaviour='deliveries_edit_flatpickr', placeholder="Change delivery date">
+
+	<div id="scheduled_at_div">
+		<%= f.input :scheduled_at, prompt: "Select a time range", collection: [], label: "Select a date range" %>
+	</div>
+	
+	<%= f.input :address_id, prompt: "Select an address", collection: @delivery.user.addresses.map { |addr| ["#{addr.street} #{addr.house_number}", addr.id] } %>
+
+	<%= f.submit %>
+<% end %>
+
+<!-- Get this out of here -->
+<script>
+	const dateField = document.getElementById("date_field")
+	const select = document.getElementById("delivery_scheduled_at")
+	const scheduled_at_div = document.getElementById("scheduled_at_div")
+
+	scheduled_at_div.style.display = 'none'
+
+	const options = {}
+
+	<% Delivery.available_dates.each do |date| %>
+		times = []
+
+		<% Delivery.available_times(date).each do |time| %>
+			times.push("<%= time %>")
+		<% end %>
+
+		options["<%= date.to_s %>"] = times
+	<% end %>
+
+	flatpickr("[data-behaviour='deliveries_edit_flatpickr']", {
+  	enable: Object.keys(options),
+  	altInput: true
+  });
+
+  dateField.addEventListener('change', (event) => {
+  	scheduled_at_div.style.display = 'block'
+
+  	date = dateField.value
+
+  	times = options[date]
+
+  	select.options.length = 0
+
+  	times.forEach((time) => {
+  		const hour = ('0' + time / 60).slice(-2)
+
+  		select.options[select.options.length] = new Option(`${hour}:00 to ${('0' + (time / 60 + 1)).slice(-2)}:00`, date + ' ' + hour)
+  	})
+  })
+</script>
