@@ -14,6 +14,7 @@ gem 'pg_search'
 gem 'country_select'
 gem 'phonelib'
 gem 'stripe_event'
+gem 'activeadmin'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

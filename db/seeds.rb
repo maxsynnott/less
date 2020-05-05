@@ -12,20 +12,20 @@ end
 
 puts "Created #{num_products} products"
 
-email = "admin@example.com"
+email = "user@example.com"
 password = "123456"
 
-admin = User.create(email: email, password: password, cart: Cart.new)
+user = User.create(email: email, password: password, cart: Cart.new)
 
-puts "Admin account created with:"
+puts "User account created with:"
 puts "email: #{email}"
 puts "password: #{password}"
 
-admin.addresses.create(
-	user_id: admin.id,
+user.addresses.create(
+	user_id: user.id,
 	street: "Rudi-Dutschke-Straße",
 	house_number: "26",
-	recipient: "Mr. Admin",
+	recipient: "Mr. user",
 	postal_code: "10969",
 	city: "Berlin",
 	state: "Berlin",
@@ -33,18 +33,20 @@ admin.addresses.create(
 	notes: "Knock thrice"
 )
 
-puts "Created Admin address"
+puts "Created user address"
 
 num_orders = rand(2..5)
 
 products = Product.all.sample(num_orders)
 
-products.each { |product| admin.cart.add_product(product, rand(1..3000)) }
+products.each { |product| user.cart.add_product(product, rand(1..3000)) }
 
-puts "Admin cart populated with #{num_orders} orders."
+puts "User cart populated with #{num_orders} orders."
 
 container_sizes = [500, 1000, 1500]
 
 container_sizes.each { |size| Container.create(name: "#{size.to_s}g container", size: size) }
 
 puts "Generated #{container_sizes.length} containers"
+
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
