@@ -15,13 +15,14 @@ puts "Created #{num_products} products"
 email = "admin@example.com"
 password = "123456"
 
-admin = User.create(email: email, password: password)
+admin = User.create(email: email, password: password, cart: Cart.new)
 
 puts "Admin account created with:"
 puts "email: #{email}"
 puts "password: #{password}"
 
-admin.addresses.create(
+addr = Address.create(
+	user_id: admin.id,
 	street: "Rudi-Dutschke-Straße",
 	house_number: "26",
 	recipient: "Mr. Admin",
@@ -34,15 +35,13 @@ admin.addresses.create(
 
 puts "Created Admin address"
 
-cart = Cart.create(user: admin)
-
 num_orders = rand(2..5)
 
 products = Product.all.sample(num_orders)
 
-products.each { |product| cart.add_product(product, rand(1..3000)) }
+products.each { |product| admin.cart.add_product(product, rand(1..3000)) }
 
-puts "Admin cart created and populated with #{num_orders} orders."
+puts "Admin cart populated with #{num_orders} orders."
 
 container_sizes = [500, 1000, 1500]
 
