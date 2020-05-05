@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_093523) do
+ActiveRecord::Schema.define(version: 2020_05_05_161815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 2020_05_05_093523) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.string "street"
-    t.string "house_number"
+    t.string "line_1"
+    t.string "line_2"
     t.string "recipient"
     t.string "postal_code"
     t.string "city"
@@ -39,10 +39,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_093523) do
     t.string "country"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "notes"
-    t.bigint "user_id", null: false
-    t.boolean "selected", default: false
-    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -64,6 +60,8 @@ ActiveRecord::Schema.define(version: 2020_05_05_093523) do
     t.integer "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "address_id"
+    t.index ["address_id"], name: "index_billings_on_address_id"
     t.index ["user_id"], name: "index_billings_on_user_id"
   end
 
@@ -148,7 +146,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_093523) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "addresses", "users"
+  add_foreign_key "billings", "addresses"
   add_foreign_key "billings", "users"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"

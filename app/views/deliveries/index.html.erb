@@ -10,11 +10,15 @@
 			</h5>
 
 			<p>
-				Scheduled at: <%= delivery.scheduled_at_display %>
+				Scheduled at: <%= delivery.scheduled_at_time_display %> on <%= delivery.scheduled_at_date_display %>
 			</p>
 
 			<p>
 				Delivered at: <%= delivery.delivered_at %>
+			</p>
+
+			<p>
+				Address: <%= delivery.address.line_1 %> <%= delivery.address.line_2 %>
 			</p>
 
 			<%= link_to "Edit", edit_delivery_path(id: delivery.id), class: "btn btn-primary" %>

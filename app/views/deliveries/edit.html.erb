@@ -4,8 +4,6 @@
 	<div id="scheduled_at_div">
 		<%= f.input :scheduled_at, prompt: "Select a time range", collection: [], label: "Select a date range" %>
 	</div>
-	
-	<%= f.input :address_id, prompt: "Select an address", collection: @delivery.user.addresses.map { |addr| ["#{addr.street} #{addr.house_number}", addr.id] } %>
 
 	<%= f.submit %>
 <% end %>

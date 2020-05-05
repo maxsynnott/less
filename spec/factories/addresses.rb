@@ -7,8 +7,5 @@ FactoryBot.define do
     city { "Berlin" }
     state { "Berlin" }
     country { "DE" }
-    notes { "Knock thrice" }
-
-    association :user
   end
 end

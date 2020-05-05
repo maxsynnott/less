@@ -16,10 +16,4 @@
 	<% end %>
 </ul>
 
-<% if @cart.user.address %>
-	Delivery address: <%= @cart.user.address.street %> <%= @cart.user.address.house_number %>
-
-	<%= link_to "Checkout", billings_path(cart_id: current_user.cart.id), method: :post, remote: true, class: "btn btn-success" %>
-<% else %>
-	You must add a delivery address before checking out
-<% end %>
+<%= link_to "Checkout", billings_path(cart_id: current_user.cart.id), method: :post, remote: true, class: "btn btn-success" %>

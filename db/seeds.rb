@@ -21,20 +21,6 @@ puts "User account created with:"
 puts "email: #{email}"
 puts "password: #{password}"
 
-user.addresses.create(
-	user_id: user.id,
-	street: "Rudi-Dutschke-Straße",
-	house_number: "26",
-	recipient: "Mr. user",
-	postal_code: "10969",
-	city: "Berlin",
-	state: "Berlin",
-	country: "DE",
-	notes: "Knock thrice"
-)
-
-puts "Created user address"
-
 num_orders = rand(2..5)
 
 products = Product.all.sample(num_orders)
