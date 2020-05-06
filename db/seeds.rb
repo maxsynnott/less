@@ -6,13 +6,26 @@ puts "Default Admin account created with: email: admin@example.com, password: 12
 
 num_products = 10
 
+image_urls = [
+	"https://www.fresh-square.com/wp-content/uploads/2016/10/Cherry-Tomato.jpg",
+	"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Patates.jpg/1200px-Patates.jpg",
+	"https://images.squarespace-cdn.com/content/v1/5db8897cf38a0c72ea90a811/1574453264299-26RKZI4JJYNGIZAGENY7/ke17ZwdGBToddI8pDm48kLKHhjvX3gphN5FUFcFAex57gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UdeEXCY_GTEWd6VXxVNpiEK8h3-TrFakxXcdgG89kbU6tbi8Kdc17sDwJvAVtl8wPQ/Iroquois+All+Purpose+Flour+9859+copy.jpg",
+	"https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/health-benefits-of-eggs-1296x728-feature.jpg",
+	"https://live.staticflickr.com/4201/34615573020_9337b7feb3_b.jpg",
+	"https://sc01.alicdn.com/kf/UTB8SUNAl__IXKJkSalUq6yBzVXag.jpg"
+]
+
 num_products.times do
-	Product.create(
+	product = Product.create(
 		name: Faker::Food.unique.ingredient,
 		description: Faker::Food.description,
 		price: rand(0.001..0.1)
 	)
+
+	product.image.attach(io: open(image_urls.sample), filename: product.name.parameterize + '.jpg')
 end
+
+
 
 user = User.create(email: "user@example.com", password: "123456", cart: Cart.new)
 

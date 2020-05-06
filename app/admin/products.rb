@@ -17,8 +17,8 @@ ActiveAdmin.register Product do
   form do |f|
     f.inputs do
       f.input :name
-
       f.input :description
+      f.input :price
 
       f.input :image, as: :file
     end
