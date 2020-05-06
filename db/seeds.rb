@@ -48,7 +48,7 @@ containers.each { |container| Container.create(container) }
 	recipe = Recipe.create(
 		public: true,
 		name: Faker::Food.dish,
-		description: Faker::Food.ingredient
+		description: Faker::Food.description
 	)
 
 	Product.all.sample(3).each do |product|

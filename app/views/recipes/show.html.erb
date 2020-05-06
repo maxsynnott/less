@@ -11,3 +11,5 @@
 		</li>
 	<% end %>
 </ul>
+
+<%= link_to "Add to cart", add_to_cart_path(id: @recipe.id), method: :post, remote: true, class: "btn btn-success" %>
