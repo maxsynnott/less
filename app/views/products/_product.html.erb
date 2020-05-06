@@ -1,11 +1,11 @@
-<div class="card">
+<div class="card" id="product_<%= product.id %>">
   <img src="https://picsum.photos/200" class="card-img-top" alt="image of <%= product.name %>">
 
   <div class="card-body">
     <h5 class="card-title"><%= product.name %></h5>
     <p class="card-text"><%= number_to_currency(product.price * 1000, unit: '€') %> per kg</p>
 
-    <%= simple_form_for(CartItem.new, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
+    <%= simple_form_for(CartItem.new, remote: true, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
       <%= f.hidden_field :product_id, value: product.id %>
 
       <%= f.input :quantity, label: false %>

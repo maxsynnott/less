@@ -41,3 +41,6 @@ document.addEventListener("turbolinks:load", () => {
   	altInput: true
   });
 })
+
+import $ from 'jquery';
+global.$ = jQuery;
