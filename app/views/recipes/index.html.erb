@@ -1,0 +1,5 @@
+<ul class="list-group">
+	<% @recipes.each do |recipe| %>
+		<%= render 'recipe', recipe: recipe %>
+	<% end %>
+</ul>

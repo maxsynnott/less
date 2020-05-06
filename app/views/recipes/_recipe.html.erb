@@ -1,0 +1,6 @@
+<li class="list-group">
+	<h4><%= recipe.name %></h4>
+	<p><%= recipe.description %></p>
+
+	<%= link_to "View recipe", recipe_path(id: recipe.id), class: "btn btn-primary w-25" %>
+</li>

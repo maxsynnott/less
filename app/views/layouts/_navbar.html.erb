@@ -9,6 +9,10 @@
 		  	<%= link_to "Groceries", products_path, class: "nav-link text-secondary" %>
 		  </li>
 
+		  <li class="nav-item">
+		  	<%= link_to "Recipes", recipes_path, class: "nav-link text-secondary" %>
+		  </li>
+
 		  <% if current_user %>
 		  	<li class="nav-item">
 		  		<%= link_to "Account", edit_user_registration_path, class: "nav-link text-secondary" %>

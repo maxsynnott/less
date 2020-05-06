@@ -1,0 +1,13 @@
+<h4><%= @recipe.name %></h4>
+
+<p><%= @recipe.description %></p>
+
+<ul>
+	<% @recipe.recipe_items.each do |recipe_item| %>
+		<li>
+			<p>
+				<%= recipe_item.quantity %>g of <%= recipe_item.product.name %>
+			</p>
+		</li>
+	<% end %>
+</ul>

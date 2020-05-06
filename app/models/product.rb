@@ -6,6 +6,7 @@ class Product < ApplicationRecord
 		description: 'B'
 	}
 
+	has_many :recipe_items
 	has_many :cart_items
 	has_many :orders
 
