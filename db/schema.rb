@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_082943) do
+ActiveRecord::Schema.define(version: 2020_05_06_083146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,7 +99,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_082943) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity"
     t.decimal "price", precision: 10, scale: 6
@@ -110,7 +109,6 @@ ActiveRecord::Schema.define(version: 2020_05_06_082943) do
     t.index ["billing_id"], name: "index_orders_on_billing_id"
     t.index ["delivery_id"], name: "index_orders_on_delivery_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "phone_numbers", force: :cascade do |t|
@@ -150,6 +148,5 @@ ActiveRecord::Schema.define(version: 2020_05_06_082943) do
   add_foreign_key "orders", "billings"
   add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "products"
-  add_foreign_key "orders", "users"
   add_foreign_key "phone_numbers", "users"
 end
