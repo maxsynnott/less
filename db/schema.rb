@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_06_111302) do
+ActiveRecord::Schema.define(version: 2020_05_06_114724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,26 @@ ActiveRecord::Schema.define(version: 2020_05_06_111302) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "recipe_items", force: :cascade do |t|
+    t.integer "quantity"
+    t.bigint "product_id", null: false
+    t.bigint "recipe_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_recipe_items_on_product_id"
+    t.index ["recipe_id"], name: "index_recipe_items_on_recipe_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "user_id", null: false
+    t.boolean "public"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_recipes_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -150,4 +170,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_111302) do
   add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "products"
   add_foreign_key "phone_numbers", "users"
+  add_foreign_key "recipe_items", "products"
+  add_foreign_key "recipe_items", "recipes"
+  add_foreign_key "recipes", "users"
 end
