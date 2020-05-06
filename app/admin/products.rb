@@ -1,18 +1,30 @@
 ActiveAdmin.register Product do
+  show do
+    attributes_table do
+      row :name
+      row :description
+      row :price
+      row :created_at
+      row :updated_at
+      row :image do |product|
+        image_tag url_for(product.image)
+      end
+    end
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :name, :description, :price
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name, :description, :price]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  
+    active_admin_comments
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :name
+
+      f.input :description
+
+      f.input :image, as: :file
+    end
+
+    f.actions
+  end
+
+  permit_params :name, :description, :price, :image
 end
