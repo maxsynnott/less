@@ -12,7 +12,7 @@ class DeliveriesController < ApplicationController
 
 		@delivery.update(delivery_params)
 
-		redirect_to deliveries_path
+		redirect_to orders_path
 	end
 
 	private

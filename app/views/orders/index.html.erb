@@ -1,21 +1,21 @@
 <ul class="list-group">
-	<% @orders.each do |order| %>
+	<% @orders.group_by(&:delivery).sort_by { |delivery, _| delivery.scheduled_at }.each do |delivery, orders| %>
 		<li class="list-group-item">
-			<p>
-				Product: <%= order.product.name %>
-			</p>
+			<h4>
+				<%= delivery.scheduled_at_time_display %> on <%= delivery.scheduled_at_date_display %>
+			</h4>
 
-			<p>
-				Quantity: <%= order.quantity %>
-			</p>
+			<ul>
+				<% orders.each do |order| %>
+					<li>
+						<p>
+							<%= order.quantity %>g of <%= order.product.name %>
+						</p>
+					</li>
+				<% end %>
+			</ul>
 
-			<p>
-				Price: <%= number_to_currency(order.price, unit: '€', format: "%n%u") %>
-			</p>
-
-			<p>
-				Total: <%= number_to_currency(((order.price * order.quantity * 100).ceil / 100), unit: '€', format: "%n%u") %>
-			</p>
+			<%= link_to "Change delivery time", edit_delivery_path(delivery), class: "btn btn-primary" %>
 		</li>
 	<% end %>
 </ul>
