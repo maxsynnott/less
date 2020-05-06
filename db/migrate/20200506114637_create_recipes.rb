@@ -3,7 +3,7 @@ class CreateRecipes < ActiveRecord::Migration[6.0]
     create_table :recipes do |t|
       t.string :name
       t.string :description
-      t.references :user, null: false, foreign_key: true
+      t.references :user, foreign_key: true
       t.boolean :public
 
       t.timestamps

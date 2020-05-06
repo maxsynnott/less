@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 2020_05_06_114724) do
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.boolean "public"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
