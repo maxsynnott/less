@@ -10,42 +10,44 @@
 
 <!-- Get this out of here -->
 <script>
-	const dateField = document.getElementById("date_field")
-	const select = document.getElementById("delivery_scheduled_at")
-	const scheduled_at_div = document.getElementById("scheduled_at_div")
+	document.addEventListener("turbolinks:load", () => {
+		const dateField = document.getElementById("date_field")
+		const select = document.getElementById("delivery_scheduled_at")
+		const scheduled_at_div = document.getElementById("scheduled_at_div")
 
-	scheduled_at_div.style.display = 'none'
+		scheduled_at_div.style.display = 'none'
 
-	const options = {}
+		const options = {}
 
-	<% Delivery.available_dates.each do |date| %>
-		times = []
+		<% Delivery.available_dates.each do |date| %>
+			times = []
 
-		<% Delivery.available_times(date).each do |time| %>
-			times.push("<%= time %>")
+			<% Delivery.available_times(date).each do |time| %>
+				times.push("<%= time %>")
+			<% end %>
+
+			options["<%= date.to_s %>"] = times
 		<% end %>
 
-		options["<%= date.to_s %>"] = times
-	<% end %>
+		flatpickr("[data-behaviour='deliveries_edit_flatpickr']", {
+	  	enable: Object.keys(options),
+	  	altInput: true
+	  });
 
-	flatpickr("[data-behaviour='deliveries_edit_flatpickr']", {
-  	enable: Object.keys(options),
-  	altInput: true
-  });
+	  dateField.addEventListener('change', (event) => {
+	  	scheduled_at_div.style.display = 'block'
 
-  dateField.addEventListener('change', (event) => {
-  	scheduled_at_div.style.display = 'block'
+	  	date = dateField.value
 
-  	date = dateField.value
+	  	times = options[date]
 
-  	times = options[date]
+	  	select.options.length = 0
 
-  	select.options.length = 0
+	  	times.forEach((time) => {
+	  		const hour = ('0' + time / 60).slice(-2)
 
-  	times.forEach((time) => {
-  		const hour = ('0' + time / 60).slice(-2)
-
-  		select.options[select.options.length] = new Option(`${hour}:00 to ${('0' + (time / 60 + 1)).slice(-2)}:00`, date + ' ' + hour)
-  	})
-  })
+	  		select.options[select.options.length] = new Option(`${hour}:00 to ${('0' + (time / 60 + 1)).slice(-2)}:00`, date + ' ' + hour)
+	  	})
+	  })
+	})
 </script>

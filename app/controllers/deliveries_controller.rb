@@ -1,6 +1,6 @@
 class DeliveriesController < ApplicationController
 	def index
-		@deliveries = current_user.deliveries
+		@deliveries = current_user.orders.map(&:delivery).uniq
 	end
 
 	def edit

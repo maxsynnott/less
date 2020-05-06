@@ -1,4 +1,4 @@
-class Cart < ApplicationRecord
+  class Cart < ApplicationRecord
   belongs_to :user
 
   has_many :cart_items
@@ -72,7 +72,6 @@ class Cart < ApplicationRecord
       cart_item.containerized.each do |item|
         orders << Order.create(
           billing_id: billing.id,
-          user_id: user.id,
           product_id: cart_item.product.id,
           quantity: item[:quantity],
           price: cart_item.product.price

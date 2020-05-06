@@ -7,9 +7,9 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_one :phone_number
 
-  has_many :orders
-  has_many :deliveries
-  has_many :addresses, through: :deliveries
+  has_many :billings
+  has_many :orders, through: :billings
+  has_many :cart_items, through: :cart
 
   validates_presence_of :cart
 
