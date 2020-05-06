@@ -1,4 +1,7 @@
 class Recipe < ApplicationRecord
+	# cacheable_strategy: :update_columns prevents votes from changing the recipe's updated_at column
+	acts_as_votable cacheable_strategy: :update_columns
+
 	has_rich_text :information
 
   belongs_to :user, optional: true

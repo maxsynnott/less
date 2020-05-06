@@ -15,6 +15,7 @@ gem 'country_select'
 gem 'phonelib'
 gem 'stripe_event'
 gem 'activeadmin'
+gem 'acts_as_votable'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

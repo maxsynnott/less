@@ -1,6 +1,12 @@
-<li class="list-group-item">
+<li class="list-group-item" id="recipe_<%= recipe.id %>">
 	<h4><%= recipe.name %></h4>
 	<p><%= recipe.description %></p>
+
+	<p>Likes: <%= recipe.get_likes.length %></p>
+
+	<%= link_to vote_for_recipe_path(id: recipe.id), method: :post, remote: true, class: ["btn", current_user.voted_for?(recipe) ? "btn-success" : "btn-primary"] do %>
+		<%= fa_icon "thumbs-up" %>
+	<% end %>
 
 	<%= link_to "View recipe", recipe_path(id: recipe.id), class: "btn btn-primary w-25" %>
 </li>
