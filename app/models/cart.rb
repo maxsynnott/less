@@ -36,13 +36,14 @@ class Cart < ApplicationRecord
   end
 
   def line_items
-    items = []
+    line_items = []
+    containers = []
 
     cart_items.each do |cart_item|
       product = cart_item.product
 
       cart_item.containerized.each do |item|
-        item = {
+        line_item = {
           name: "#{product.name} | #{item[:quantity]}g",
           description: item[:container].name,
           quantity: 1,
@@ -50,11 +51,24 @@ class Cart < ApplicationRecord
           amount: product.cents_price_for(item[:quantity])
         }
 
-        items << item
+        line_items << line_item
+        containers << item[:container]
       end
     end
 
-    items
+    containers.sort.each do |container|
+      container = {
+        name: container.name,
+        description: "Deposit (will be credited to your account upon return)",
+        quantity: 1,
+        currency: 'eur',
+        amount: container.cents_price
+      }
+
+      line_items << container
+    end
+
+    line_items
   end
 
   def cents_total

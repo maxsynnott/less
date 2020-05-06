@@ -29,10 +29,26 @@ products.each { |product| user.cart.add_product(product, rand(1..3000)) }
 
 puts "User cart populated with #{num_orders} orders."
 
-container_sizes = [500, 1000, 1500]
+containers = [
+	{
+		name: 'Small glass jar',
+		size: 500,
+		price: 1.00
+	},
+	{
+		name: 'Medium glass jar',
+		size: 1000,
+		price: 2.00
+	},
+	{
+		name: 'Large glass jar',
+		size: 1500,
+		price: 3.00
+	}
+]
 
-container_sizes.each { |size| Container.create(name: "#{size.to_s}g container", size: size) }
+containers.each { |container| Container.create(container) }
 
-puts "Generated #{container_sizes.length} containers"
+puts "Generated #{containers.length} containers"
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
