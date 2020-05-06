@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:index]
   resources :deliveries, only: [:index, :edit, :update]
   resources :billings, only: [:create]
-  resources :recipes, only: [:index, :show]
+  resources :recipes, only: [:index, :show, :new, :create]
 
   post 'recipes/:id/add_to_cart', to: 'recipes#add_to_cart', as: :add_to_cart
 end
