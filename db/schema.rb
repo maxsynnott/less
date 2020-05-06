@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_161815) do
+ActiveRecord::Schema.define(version: 2020_05_06_082728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,8 +60,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_161815) do
     t.integer "amount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "address_id"
-    t.index ["address_id"], name: "index_billings_on_address_id"
     t.index ["user_id"], name: "index_billings_on_user_id"
   end
 
@@ -146,7 +144,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_161815) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "billings", "addresses"
   add_foreign_key "billings", "users"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
