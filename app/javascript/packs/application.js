@@ -42,3 +42,6 @@ document.addEventListener("turbolinks:load", () => {
 
 import $ from 'jquery';
 global.$ = jQuery;
+
+require("trix")
+require("@rails/actiontext")
