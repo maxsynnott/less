@@ -4,6 +4,8 @@ class Recipe < ApplicationRecord
 
 	has_rich_text :information
 
+	has_one_attached :image
+
   belongs_to :user, optional: true
 
   has_many :recipe_items

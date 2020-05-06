@@ -1,9 +1,13 @@
-<ul class="list-group">
+<div class="container">
 	<li class="list-group-item">
 		<%= link_to "Create a recipe", new_recipe_path, class: "btn btn-success" %>
 	</li>
-
-	<% @recipes.each do |recipe| %>
-		<%= render 'recipe', recipe: recipe %>
-	<% end %>
-</ul>
+	
+	<div class="row">
+		<% @recipes.each do |recipe| %>
+			<div class="col-3">
+				<%= render 'recipe', recipe: recipe %>
+			</div>
+		<% end %>
+	</div>
+</div>

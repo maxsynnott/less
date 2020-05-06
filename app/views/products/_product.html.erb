@@ -1,5 +1,7 @@
 <div class="card" id="product_<%= product.id %>">
-  <%= image_tag product.image, class: "card-img-top", alt: product.name %>
+  <% if product.image.attached? %>
+    <%= image_tag product.image, class: "card-img-top", alt: product.name %>
+  <% end %>
   
   <div class="card-body">
     <h5 class="card-title"><%= product.name %></h5>
