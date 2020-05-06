@@ -19,10 +19,10 @@ class RecipesController < ApplicationController
 		redirect_to recipes_path
 	end
 
-	def vote_for
+	def like
 		@recipe = Recipe.find(params[:id])
 
-		current_user.voted_for?(@recipe) ? current_user.unvote_for(@recipe) : current_user.up_votes(@recipe)
+		current_user.liked?(@recipe) ? current_user.unlike(@recipe) : current_user.likes(@recipe)
 	end
 
 	def add_to_cart

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :billings, only: [:create]
   resources :recipes, only: [:index, :show, :new, :create]
 
-  post "recipes/:id/vote_for", to: "recipes#vote_for", as: :vote_for_recipe
+  post "recipes/:id/like", to: "recipes#like", as: :like_recipe
 
   post 'recipes/:id/add_to_cart', to: 'recipes#add_to_cart', as: :add_to_cart
 end
