@@ -15,7 +15,7 @@ class BillingsController < ApplicationController
 		Billing.create(
 			user_id: @cart.user.id,
 			status: 'pending',
-			amount: @cart.cents_total,
+			amount: @cart.total.to_cents,
 			session_id: @session.id
 		)
 	end

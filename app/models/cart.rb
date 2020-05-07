@@ -37,46 +37,39 @@ class Cart < ApplicationRecord
 
   def line_items
     line_items = []
-    containers = []
+    line_containers = []
 
     cart_items.each do |cart_item|
-      product = cart_item.product
+      containers = cart_item.containers
 
-      cart_item.containerized.each do |item|
-        line_item = {
-          name: "#{product.name} | #{item[:quantity]}g",
-          description: item[:container].name,
+      if containers
+        line_items << {
+          name: cart_item.product.name,
+          description: cart_item.quantity.to_s + 'g',
           quantity: 1,
           currency: 'eur',
-          amount: product.cents_price_for(item[:quantity])
+          amount: cart_item.price.to_cents
         }
 
-        line_items << line_item
-        containers << item[:container]
+        line_containers += containers
       end
     end
 
-    containers.sort.each do |container|
-      container = {
-        name: container.name,
-        description: "Deposit (will be credited to your account upon return)",
+    line_containers.sort_by { |lc| [lc.price, lc.size] }.reverse.each do |line_container|
+      line_items << {
+        name: line_container.name,
+        description: "Pfand",
         quantity: 1,
         currency: 'eur',
-        amount: container.cents_price
+        amount: line_container.price.to_cents
       }
-
-      line_items << container
     end
 
     line_items
   end
 
-  def cents_total
-    cart_items.sum { |cart_item| cart_item.product.cents_price_for(cart_item.quantity) }
-  end
-
   def total
-    cart_items.sum { |cart_item| cart_item.product.price_for(cart_item.quantity) }
+    cart_items.sum { |cart_item| cart_item.price }
   end
 
   def create_orders(billing)
