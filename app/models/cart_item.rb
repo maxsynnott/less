@@ -35,4 +35,10 @@ class CartItem < ApplicationRecord
 
   	containerized_item
   end
+
+  def containers
+    containers = Container.all.sort_by(&:size)
+
+    remaining = quantity
+  end
 end

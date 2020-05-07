@@ -1,10 +1,24 @@
 class Container < ApplicationRecord
 	before_create :generate_unique_key
 
+	has_many :container_orders
+
 	validates_presence_of :size
 
 	def cents_price
 		(price * 100).ceil
+	end
+
+	def checked_out?
+		container_orders.any?(&:checked_out?)
+	end
+
+	def returned
+		!checked_out
+	end
+
+	def return
+		container_orders.where(returned_at: nil).update_all(returned_at: DateTime.now)
 	end
 
 	private
