@@ -26,7 +26,6 @@ num_products.times do
 end
 
 
-
 user = User.create(email: "user@example.com", password: "123456", cart: Cart.new)
 
 puts "Default user account created with: email: user@example.com, password: 123456"
@@ -55,7 +54,7 @@ containers = [
 	}
 ]
 
-containers.each { |container| Container.create(container) }
+containers.each { |container| 5.times { Container.create(container) } }
 
 5.times do
 	recipe = Recipe.create(
