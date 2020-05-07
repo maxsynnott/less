@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :address do
-    street { "Rudi-Dutschke-Straße" }
-    house_number { "26" }
+    line_1 { "Rudi-Dutschke-Straße 26" }
     recipient { "Mr. User" }
     postal_code { "10969" }
     city { "Berlin" }

@@ -5,7 +5,6 @@ FactoryBot.define do
     scheduled_at { DateTime.now.next_week.change(hour: 10, min: 30) }
     delivered_at { nil }
 
-    association :user
     association :address
   end
 end
