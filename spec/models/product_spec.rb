@@ -11,6 +11,6 @@ RSpec.describe Product do
 
   	expect(product.price).to eq 0.01
   	expect(product.price_for(10)).to eq 0.1
-  	expect(product.cents_price_for(25)).to eq 25
+  	expect(product.price_for(25).to_cents).to eq 25
   end
 end
