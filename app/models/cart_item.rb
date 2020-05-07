@@ -21,9 +21,9 @@ class CartItem < ApplicationRecord
 
     remaining_quantity = quantity
 
-    if remaining_containers.sum(&:size) >= remaining_quantity
-      containers = []
+    containers = []
 
+    if remaining_containers.sum(&:size) >= remaining_quantity
       until remaining_quantity.zero?
         # Finds the smallest container that will hold remaining otherwise takes largest
         container = remaining_containers.find { |container| container.size >= remaining_quantity }
@@ -35,10 +35,8 @@ class CartItem < ApplicationRecord
 
         remaining_quantity -= [remaining_quantity, container.size].min
       end
-
-      containers
-    else
-      false
     end
+
+    containers
   end
 end

@@ -2,12 +2,9 @@ class Container < ApplicationRecord
 	before_create :generate_unique_key
 
 	has_many :container_orders
+	has_many :orders, through: :container_orders
 
 	validates_presence_of :size
-
-	def cents_price
-		(price * 100).ceil
-	end
 
 	def checked_out?
 		container_orders.any?(&:checked_out?)

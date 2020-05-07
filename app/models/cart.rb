@@ -75,14 +75,18 @@ class Cart < ApplicationRecord
   def create_orders(billing)
     orders = []
 
-    cart_items.each do |cart_item|
-      cart_item.containerized.each do |item|
-        orders << Order.create(
+    if billing.status == 'success'
+      cart_items.each do |cart_item|
+        order = Order.create(
           billing_id: billing.id,
           product_id: cart_item.product.id,
-          quantity: item[:quantity],
+          quantity: cart_item.quantity,
           price: cart_item.product.price
         )
+
+        cart_item.containers.each { |container| order.check_out(container) }
+
+        orders << order
       end
     end
 
