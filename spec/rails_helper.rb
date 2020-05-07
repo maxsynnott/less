@@ -1,4 +1,6 @@
+# Simplecov config (Must be at the top of this file)
 require 'simplecov'
+
 SimpleCov.start do
   add_filter "/spec/"
   add_filter "/config/"
@@ -9,6 +11,7 @@ SimpleCov.start do
   add_group "Services", "app/services"
   add_group "Controllers", "app/controllers"
 end
+#
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
@@ -45,6 +48,8 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  config.include Warden::Test::Helpers
+  
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
