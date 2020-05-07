@@ -3,6 +3,7 @@ class Order < ApplicationRecord
 	belongs_to :product
 	belongs_to :billing
 
+	has_many :stock_transactions
 	has_many :container_orders
 	has_many :containers, through: :container_orders
 

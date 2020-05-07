@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_174250) do
+ActiveRecord::Schema.define(version: 2020_05_07_174503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,16 @@ ActiveRecord::Schema.define(version: 2020_05_07_174250) do
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
+  create_table "stock_transactions", force: :cascade do |t|
+    t.integer "amount"
+    t.bigint "stock_id"
+    t.bigint "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_stock_transactions_on_order_id"
+    t.index ["stock_id"], name: "index_stock_transactions_on_stock_id"
+  end
+
   create_table "stocks", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.integer "quantity"
@@ -243,5 +253,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_174250) do
   add_foreign_key "recipe_items", "products"
   add_foreign_key "recipe_items", "recipes"
   add_foreign_key "recipes", "users"
+  add_foreign_key "stock_transactions", "orders"
+  add_foreign_key "stock_transactions", "stocks"
   add_foreign_key "stocks", "products"
 end
