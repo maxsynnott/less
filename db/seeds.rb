@@ -27,7 +27,7 @@ end
 
 stock_products = Product.all.sample(num_products - 2)
 
-stock_products.each { |product| Stock.create(product_id: product.id, quantity: rand(500..10000)) }
+stock_products.each { |product| Stock.create(product_id: product.id, balance: rand(500..10000)) }
 
 user = User.create(email: "user@example.com", password: "123456", cart: Cart.new)
 
@@ -74,7 +74,5 @@ containers.each { |container| 5.times { Container.create(container) } }
 		)
 	end
 end
-
-
 
 puts "It has been done"

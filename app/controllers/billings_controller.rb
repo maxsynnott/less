@@ -12,13 +12,15 @@ class BillingsController < ApplicationController
 		  line_items: line_items,
 		  success_url: orders_url,
 		  cancel_url: cart_url(@cart),
+		  metadata: @cart.to_metadata
 		)
 
 		Billing.create(
 			user_id: @cart.user.id,
 			status: 'pending',
 			amount: line_items.sum { |item| item[:amount] }.to_money, # Done this way to ensure identical to charged amount
-			session_id: @session.id
+			session_id: @session.id,
+			metadata: @cart.to_metadata.to_json
 		)
 	end
 end

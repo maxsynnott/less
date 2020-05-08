@@ -72,24 +72,39 @@ class Cart < ApplicationRecord
     cart_items.sum { |cart_item| cart_item.price }
   end
 
-  def create_orders(billing)
-    orders = []
+  # def create_orders(billing)
+  #   orders = []
 
-    if billing.status == 'success'
-      cart_items.each do |cart_item|
-        order = Order.create(
-          billing_id: billing.id,
-          product_id: cart_item.product.id,
-          quantity: cart_item.quantity,
-          price: cart_item.product.price
-        )
+  #   if billing.status == 'success'
+  #     cart_items.each do |cart_item|
+  #       order = Order.create(
+  #         billing_id: billing.id,
+  #         product_id: cart_item.product.id,
+  #         quantity: cart_item.quantity,
+  #         price: cart_item.product.price
+  #       )
 
-        cart_item.containers.each { |container| order.check_out(container) }
+  #       cart_item.containers.each { |container| order.check_out(container) }
 
-        orders << order
-      end
+  #       orders << order
+  #     end
+  #   end
+
+  #   orders
+  # end
+
+  def to_metadata
+    items = cart_items.map do |cart_item|
+      {
+        product_id: cart_item.product.id,
+        quantity: cart_item.quantity,
+        price: cart_item.product.price,
+        containers: cart_item.containers.map { |container| { container_id: container.id, price: container.price } }
+      }
     end
 
-    orders
+    {
+      items: items.to_json
+    }
   end
 end

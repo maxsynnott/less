@@ -24,11 +24,9 @@ module Stripe
 
 			billing = Billing.find_by_session_id(object.id)
 			billing.update(status: 'success')
+      orders = billing.create_orders
 
-      cart = billing.user.cart
-
-      orders = cart.create_orders(billing)
-      cart.clear
+      billing.user.cart.clear
 
       orders.each { |order| order.update(delivery_id: delivery.id) }
 		end
