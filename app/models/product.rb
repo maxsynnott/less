@@ -18,4 +18,12 @@ class Product < ApplicationRecord
 	def price_for(amount)
 		price * amount
 	end
+
+	def stock
+		stocks.sum(&:balance)
+	end
+
+	def positive_stocks
+		stocks.select { |stock| stock.balance.positive? }
+	end
 end

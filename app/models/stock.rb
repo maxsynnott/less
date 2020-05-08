@@ -3,15 +3,6 @@ class Stock < ApplicationRecord
 
   has_many :stock_transactions
 
-  def create_transaction(params)
-  	defaults = {
-  		type: params[:amount].negative? ? "withdrawal" : "deposit",
-  		stock_id: id
-  	}
-
-  	StockTransaction.create(defaults.merge(params))
-  end
-
   def withdraw(amount, withdrawer = nil)
   	create_transaction(
   		amount: -amount,
@@ -30,5 +21,16 @@ class Stock < ApplicationRecord
   		type: "adjustment",
   		amount: amount - quantity
   	)
+  end
+
+  private
+
+  def create_transaction(params)
+  	defaults = {
+  		type: params[:amount].negative? ? "withdrawal" : "deposit",
+  		stock_id: id
+  	}
+
+  	StockTransaction.create(defaults.merge(params))
   end
 end
