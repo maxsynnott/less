@@ -1,28 +1,42 @@
 Rails.application.routes.draw do
+  root to: 'pages#home'
+
+  # ActiveAdmin routes
   devise_for :admin_users, ActiveAdmin::Devise.config
-
   ActiveAdmin.routes(self)
+  #
 
-	root to: 'pages#home'
-
+  # Overriding devise controllers
   devise_for :users, controllers: { 
   	registrations: 'users/registrations'
   }
+  #
 
-  mount StripeEvent::Engine, at: '/stripe/webhook'
-
-  resources :products, only: [:index, :show]
+  # Simple resources
   resources :cart_items, only: [:create, :update, :destroy]
-  resources :carts, only: [:show]
-  resources :orders, only: [:index]
   resources :deliveries, only: [:index, :edit, :update]
-  resources :recipes, only: [:index, :show, :new, :create]
+  resources :products, only: [:index, :show]
+  resources :orders, only: [:index]
+  #
 
-  post "recipes/:id/like", to: "recipes#like", as: :like_recipe
+  # Complex resources
+  resources :recipes, only: [:index, :show, :new, :create] do
+    collection do
+      post ":id/like", to: "recipes#like", as: :like
+      post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
+    end
+  end
+  #
 
-  post 'recipes/:id/add_to_cart', to: 'recipes#add_to_cart', as: :add_to_cart
+  # Other routes
+  get "cart", to: "carts#show", as: :cart
+  #
 
   namespace :stripe do
+    # stripe_event gem Engine
+    mount StripeEvent::Engine, at: '/webhook', as: :event
+    #
+
     resources :checkouts, only: [:new] do
       collection do
         get "success"

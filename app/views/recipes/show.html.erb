@@ -18,4 +18,4 @@
 
 <%= @recipe.information %>
 
-<%= link_to "Add to cart", add_to_cart_path(id: @recipe.id), method: :post, remote: true, class: "btn btn-success" %>
+<%= link_to "Add to cart", add_to_cart_recipes_path(id: @recipe.id), method: :post, remote: true, class: "btn btn-success" %>

@@ -32,7 +32,7 @@
 		<% end %>
 
 		<% if current_user %>
-			<%= link_to cart_path(id: current_user.cart.id), class: "ml-3" do %>
+			<%= link_to cart_path, class: "ml-3" do %>
 				<% current_user.reload # Is neccessary to ensure that the cart_items.length is up to date %>
 				<%= fa_icon "shopping-cart", text: current_user.cart.cart_items.length.to_s %>
 			<% end %>

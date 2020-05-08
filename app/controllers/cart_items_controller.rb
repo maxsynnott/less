@@ -20,7 +20,7 @@ class CartItemsController < ApplicationController
 
     cart_item.update(cart_item_params)
 
-    redirect_to cart_path(id: cart_item.cart.id)
+    redirect_to cart_path
   end
 
   def destroy
@@ -28,7 +28,7 @@ class CartItemsController < ApplicationController
 
     cart_item.destroy
 
-    redirect_to cart_path(id: cart_item.cart.id)
+    redirect_to cart_path
   end
 
   private
