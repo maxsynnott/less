@@ -4,7 +4,7 @@ class CartItem < ApplicationRecord
 
   validates_presence_of :cart, :quantity, :product
 
-  validate :sufficient_stock
+  validate :sufficient_stock, if: -> { product and quantity }
 
   def add(amount)
   	update(quantity: quantity + amount)
@@ -45,7 +45,7 @@ class CartItem < ApplicationRecord
   private
 
   def sufficient_stock
-    if quantity > product.stock
+    if quantity > self.product.stock
       errors.add(:quantity, "Insufficient stock")
     end
   end

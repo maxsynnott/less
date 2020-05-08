@@ -11,7 +11,7 @@ class Product < ApplicationRecord
 	has_many :recipe_items
 	has_many :cart_items
 	has_many :orders
-	has_many :stocks
+	has_many :stocks, dependent: :destroy
 
 	validates_presence_of :name, :price
 
