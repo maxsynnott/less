@@ -1,18 +1,21 @@
 ActiveAdmin.register User do
+  show do |user|
+    attributes_table do
+      User.column_names.each do |attribute|
+        row attribute
+      end
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
-  # permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  
+      row :masquerade do
+        link_to "Masquerade", masquerade_admin_user_path(user), :target => '_blank'
+      end
+
+      active_admin_comments
+    end
+  end
+
+  member_action :masquerade, method: :get do
+    user = User.find(params[:id])
+    bypass_sign_in user
+    redirect_to root_path 
+  end
 end
