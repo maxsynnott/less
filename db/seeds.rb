@@ -30,6 +30,7 @@ stock_products = Product.all.sample(num_products - 2)
 stock_products.each { |product| Stock.create(product_id: product.id, balance: rand(500..10000)) }
 
 user = User.create(email: "user@example.com", password: "123456", cart: Cart.new)
+user_2 = User.create(email: "user_2@example.com", password: "123456", cart: Cart.new)
 
 puts "Default user account created with: email: user@example.com, password: 123456"
 
