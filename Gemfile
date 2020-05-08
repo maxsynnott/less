@@ -48,15 +48,12 @@ group :development, :test do
 
 
   # Self-Added Gems:
-
   gem 'dotenv-rails'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
-
-  gem 'stripe-ruby-mock', '~> 3.0.1', :require => 'stripe_mock'
 end
 
 group :development do

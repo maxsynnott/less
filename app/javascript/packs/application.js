@@ -34,7 +34,7 @@ document.addEventListener("turbolinks:load", () => {
 	// Activates all tooltips
   $('[data-toggle="tooltip"]').tooltip()
 
-  // Activates flatpickrs
+  // Activates default flatpickrs
   flatpickr("[data-behaviour='flatpickr']", {
   	altInput: true
   });

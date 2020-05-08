@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
+
   ActiveAdmin.routes(self)
+
 	root to: 'pages#home'
 
   devise_for :users, controllers: { 
@@ -14,10 +16,17 @@ Rails.application.routes.draw do
   resources :carts, only: [:show]
   resources :orders, only: [:index]
   resources :deliveries, only: [:index, :edit, :update]
-  resources :billings, only: [:create]
   resources :recipes, only: [:index, :show, :new, :create]
 
   post "recipes/:id/like", to: "recipes#like", as: :like_recipe
 
   post 'recipes/:id/add_to_cart', to: 'recipes#add_to_cart', as: :add_to_cart
+
+  namespace :stripe do
+    resources :checkouts, only: [:new] do
+      collection do
+        get "success"
+      end
+    end
+  end
 end
