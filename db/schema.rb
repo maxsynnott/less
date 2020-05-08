@@ -193,8 +193,8 @@ ActiveRecord::Schema.define(version: 2020_05_07_174503) do
 
   create_table "stock_transactions", force: :cascade do |t|
     t.integer "amount"
-    t.bigint "stock_id"
-    t.bigint "order_id", null: false
+    t.bigint "stock_id", null: false
+    t.bigint "order_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["order_id"], name: "index_stock_transactions_on_order_id"
