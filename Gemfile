@@ -55,13 +55,15 @@ group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
-  gem "better_errors"
-  gem "binding_of_caller"
+
+  gem 'stripe-ruby-mock', '~> 3.0.1', :require => 'stripe_mock'
 end
 
 group :development do
   # Self-Added Gems:
   gem 'faker'
+  gem "better_errors"
+  gem "binding_of_caller"
 
 
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.

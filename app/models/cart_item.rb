@@ -9,7 +9,7 @@ class CartItem < ApplicationRecord
   validate :sufficient_stock, if: -> { product and quantity }
 
   def add(amount)
-  	update(quantity: quantity + amount)
+  	amount.positive? ? update(quantity: quantity + amount) : false
   end
 
   def remove(amount)
