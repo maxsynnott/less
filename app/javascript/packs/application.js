@@ -45,3 +45,5 @@ global.$ = jQuery;
 
 require("trix")
 require("@rails/actiontext")
+
+import "./trix_editor_overrides"
