@@ -25,16 +25,19 @@ num_products.times do
 	product.image.attach(io: open(image_urls.sample), filename: product.name.parameterize + '.jpg')
 end
 
+stock_products = Product.all.sample(num_products - 2)
+
+stock_products.each { |product| Stock.create(product_id: product.id, quantity: rand(500..10000)) }
 
 user = User.create(email: "user@example.com", password: "123456", cart: Cart.new)
 
 puts "Default user account created with: email: user@example.com, password: 123456"
 
-num_orders = rand(2..5)
+num_cart_items = rand(2..5)
 
-products = Product.all.sample(num_orders)
+cart_item_products = Product.all.sample(num_cart_items)
 
-products.each { |product| user.cart.add_product(product, rand(1..3000)) }
+cart_item_products.each { |product| user.cart.add_product(product, rand(1..3000)) }
 
 containers = [
 	{
@@ -71,6 +74,7 @@ containers.each { |container| 5.times { Container.create(container) } }
 		)
 	end
 end
+
 
 
 puts "It has been done"
