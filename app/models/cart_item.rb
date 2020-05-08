@@ -4,6 +4,8 @@ class CartItem < ApplicationRecord
 
   validates_presence_of :cart, :quantity, :product
 
+  validates_numericality_of :quantity, only_integer: true, greater_than: 0
+
   validate :sufficient_stock, if: -> { product and quantity }
 
   def add(amount)
@@ -18,6 +20,7 @@ class CartItem < ApplicationRecord
     product.price_for(quantity)
   end
 
+  # Improve this in the future to return the containers resulting in the most efficient use of space
   def containers
     remaining_containers = Container.all.select(&:returned?).sort_by(&:size)
 
