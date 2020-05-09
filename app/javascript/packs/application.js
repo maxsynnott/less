@@ -16,41 +16,33 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+
+
+
 // Self-added below:
+import "./stimulus"
+import '../stylesheets/application'
+import "@fortawesome/fontawesome-free/js/all";
+import './bootstrap_custom.js'
 
+// routes-js
 import routes from '../routes'
-
 global.routes = routes
 
-import "./stimulus"
-
-import '../stylesheets/application'
-
-// Font awesome
-import "@fortawesome/fontawesome-free/js/all";
-
-// Bootstrap
-import './bootstrap_custom.js'
+// jQuery
+import $ from 'jquery';
+global.$ = jQuery;
 
 // Flatpickr
 import flatpickr from "flatpickr"
 require("flatpickr/dist/flatpickr.css")
 
+// Actiontext/trix
+require("trix")
+require("@rails/actiontext")
+import "./trix_editor_overrides"
 
 document.addEventListener("turbolinks:load", () => {
 	// Activates all tooltips
   $('[data-toggle="tooltip"]').tooltip()
-
-  // Activates default flatpickrs
-  flatpickr("[data-behaviour='flatpickr']", {
-  	altInput: true
-  });
 })
-
-import $ from 'jquery';
-global.$ = jQuery;
-
-require("trix")
-require("@rails/actiontext")
-
-import "./trix_editor_overrides"
