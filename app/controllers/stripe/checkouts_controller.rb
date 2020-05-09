@@ -11,7 +11,7 @@ class Stripe::CheckoutsController < ApplicationController
 		  payment_method_types: ['card'],
 		  line_items: line_items,
 		  success_url: success_stripe_checkouts_url,
-		  cancel_url: cart_url(cart),
+		  cancel_url: cart_url,
 		  metadata: cart.to_metadata
 		)
 
