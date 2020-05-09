@@ -15,6 +15,7 @@ gem 'phonelib'
 gem 'stripe_event'
 gem 'activeadmin'
 gem 'acts_as_votable'
+gem 'js-routes'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

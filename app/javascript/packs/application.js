@@ -18,13 +18,16 @@ require("channels")
 
 // Self-added below:
 
+import routes from '../routes'
+
+global.routes = routes
+
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 
 const application = Application.start()
-const context = require.context("./controllers", true, /\.js$/)
+const context = require.context("./controllers", true, /\.js.erb$/)
 application.load(definitionsFromContext(context))
-
 
 import '../stylesheets/application'
 

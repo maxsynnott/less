@@ -1,6 +1,5 @@
 <div 
 	data-controller="carts--show"
-	data-carts--show-endpoint="<%= new_stripe_checkout_path %>"
 >
 	<ul class='list-group'>
 		<% @cart.cart_items.each do |cart_item| %>
@@ -20,7 +19,7 @@
 		<% end %>
 	</ul>
 
-	<button data-action="carts--show#checkout" class="btn btn-success">
+	<button class="btn btn-success" data-action="carts--show#checkout">
 		Checkout
 	</button>	
 </div>

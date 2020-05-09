@@ -1,12 +1,8 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	connect() {
-		this.endpoint = this.data.get("endpoint")
-	}
-
 	checkout(event) {
-		fetch(this.endpoint)
+		fetch(routes.new_stripe_checkout_path())
 		.then(response => response.json())
 		.then((json) => {
 			const stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
