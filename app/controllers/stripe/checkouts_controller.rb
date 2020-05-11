@@ -2,18 +2,24 @@ class Stripe::CheckoutsController < ApplicationController
 	def new
 		cart = current_user.cart
 
-		session = Stripe::Checkout::Session.create(
-			shipping_address_collection: {
-		    allowed_countries: ['DE'],
-		  },
-		  payment_method_types: ['card'],
-		  line_items: cart.line_items,
-		  success_url: success_stripe_checkouts_url,
-		  cancel_url: cart_url,
-		  metadata: cart.to_metadata
-		)
+		if cart.empty?
+			response = { error: "Cannot checkout with an empty cart" }
+		else
+			session = Stripe::Checkout::Session.create(
+				shipping_address_collection: {
+			    allowed_countries: ['DE'],
+			  },
+			  payment_method_types: ['card'],
+			  line_items: cart.line_items,
+			  success_url: success_stripe_checkouts_url,
+			  cancel_url: cart_url,
+			  metadata: cart.to_metadata
+			)
 
-		render json: { session_id: session.id }
+			response = { session_id: session.id }
+		end
+
+		render json: response
 	end
 
 	def success

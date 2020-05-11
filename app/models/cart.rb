@@ -89,4 +89,8 @@ class Cart < ApplicationRecord
       total: total
     }
   end
+
+  def empty?
+    cart_items.empty?
+  end
 end

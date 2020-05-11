@@ -3,21 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.0'
 
-# Self-Added Gems:
-
-gem 'devise'
-gem 'stripe'
-gem 'simple_form'
-gem 'font_awesome5_rails'
-gem 'pg_search'
-gem 'country_select'
-gem 'phonelib'
-gem 'stripe_event'
-gem 'activeadmin'
-gem 'acts_as_votable'
-gem 'js-routes'
-
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 # Use postgresql as the database for Active Record
@@ -43,10 +28,22 @@ gem 'image_processing', '~> 1.2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+# Self-Added Gems:
+gem 'devise'
+gem 'stripe'
+gem 'simple_form'
+gem 'font_awesome5_rails'
+gem 'pg_search'
+gem 'country_select'
+gem 'phonelib'
+gem 'stripe_event'
+gem 'activeadmin'
+gem 'acts_as_votable'
+gem 'js-routes'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-
 
   # Self-Added Gems:
   gem 'dotenv-rails'
@@ -58,18 +55,17 @@ group :development, :test do
 end
 
 group :development do
-  # Self-Added Gems:
-  gem 'faker'
-  gem "better_errors"
-  gem "binding_of_caller"
-
-
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # Self-Added Gems:
+  gem 'faker'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :test do
@@ -79,6 +75,9 @@ group :test do
 
   gem 'simplecov', require: false
   gem 'launchy'
+
+  # Self-Added Gems:
+  gem 'stripe-ruby-mock', '~> 3.0.1', :require => 'stripe_mock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

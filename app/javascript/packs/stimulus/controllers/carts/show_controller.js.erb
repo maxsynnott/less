@@ -9,7 +9,7 @@ export default class extends Controller {
 
 			stripe.redirectToCheckout({
 			  sessionId: json.session_id
-			}).then(function (result) {
+			}).then((result) => {
 			  // Improve error logging
 			  console.log(result.error.message)
 			});
