@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # Overriding devise controllers
   devise_for :users, controllers: { 
-  	registrations: 'users/registrations'
+  	# registrations: 'users/registrations'
   }
   #
 

@@ -1,0 +1,16 @@
+ignore_unreachable_actions:
+- ^devise
+- ^inherited_resources
+- ^active_admin/base
+- ^active_admin/resource
+- ^active_admin/devise
+- ^active_admin/page
+- ^admin/comments
+- ^admin/dashboard
+- ^rails/conductor
+ignore_unused_routes:
+- ^active_admin/devise/
+- ^admin/dashboard
+- ^admin/comments
+- ^devise
+- ^rails/conductor
