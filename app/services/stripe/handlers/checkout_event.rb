@@ -25,13 +25,20 @@ module Stripe
           scheduled_at: Delivery.next_available_datetime
         )
 
-  			billing = Billing.find_by_session_id(object.id)
-  			billing.update(status: 'success')
+        metadata = object.metadata
+
+        billing = Billing.create(
+          user_id: metadata.user_id,
+          status: "success",
+          amount: metadata.total,
+          session_id: object.id,
+          metadata: metadata
+        )
+
         orders = billing.create_orders
+        orders.each { |order| order.update(delivery_id: delivery.id) }
 
         billing.user.cart.clear
-
-        orders.each { |order| order.update(delivery_id: delivery.id) }
   		end
   	end
   end

@@ -69,7 +69,8 @@ class Cart < ApplicationRecord
   end
 
   def total
-    cart_items.sum { |cart_item| cart_item.price }
+    # Converted to cents and back to money to ensure no rounding disrepencies
+    cart_items.sum { |cart_item| cart_item.price.to_cents }.to_money
   end
 
   def to_metadata
@@ -83,7 +84,9 @@ class Cart < ApplicationRecord
     end
 
     {
-      items: items.to_json
+      user_id: user.id,
+      items: items.to_json,
+      total: total
     }
   end
 end
