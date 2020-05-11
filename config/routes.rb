@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'pages#home'
+  root to: 'products#index'
 
   # ActiveAdmin routes
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # Simple resources
   resources :cart_items, only: [:create, :update, :destroy]
   resources :deliveries, only: [:index, :edit, :update]
-  resources :products, only: [:index, :show]
+  resources :products, only: [:index]
   resources :orders, only: [:index]
   #
 

@@ -1,4 +1,8 @@
 ActiveAdmin.register User do
+  controller do
+    skip_before_action :authenticate_user!
+  end
+  
   show do |user|
     attributes_table do
       User.column_names.each do |attribute|

@@ -33,6 +33,8 @@ RSpec.describe Stripe::CheckoutsController, "#new" do
 end
 
 RSpec.describe Stripe::CheckoutsController, "#success" do
+	before { sign_in(@user = create(:user)) }
+	
 	it "redirects to orders_path" do
 		get :success
 

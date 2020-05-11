@@ -1,4 +1,8 @@
 ActiveAdmin.register Product do
+  controller do
+    skip_before_action :authenticate_user!
+  end
+  
   show do
     attributes_table do
       row :name

@@ -1,4 +1,8 @@
 ActiveAdmin.register AdminUser do
+  controller do
+    skip_before_action :authenticate_user!
+  end
+  
   permit_params :email, :password, :password_confirmation
 
   index do
