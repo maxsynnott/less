@@ -79,6 +79,7 @@ group :test do
 
   # Self-Added Gems:
   gem 'stripe-ruby-mock', '~> 3.0.1', :require => 'stripe_mock'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

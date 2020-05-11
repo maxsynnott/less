@@ -5,5 +5,13 @@ FactoryBot.define do
     amount { 10000 }
 
     association :user
+
+    transient do
+  		orders_count { 0 }
+  	end
+
+    after(:create) do |billing, evaluator|
+  		create_list(:order, evaluator.orders_count, billing: billing)
+  	end
   end
 end
