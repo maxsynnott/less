@@ -5,7 +5,7 @@ SimpleCov.start do
   add_filter "/spec/"
   add_filter "/config/"
 
-  add_group "lib/", "lib"
+  add_group "Admin", "app/admin"
   add_group "Models", "app/models"
   add_group "Helpers", "app/helpers"
   add_group "Services", "app/services"

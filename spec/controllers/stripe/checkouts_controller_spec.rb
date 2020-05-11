@@ -31,3 +31,11 @@ RSpec.describe Stripe::CheckoutsController, "#new" do
 		end
 	end
 end
+
+RSpec.describe Stripe::CheckoutsController, "#success" do
+	it "redirects to orders_path" do
+		get :success
+
+		expect(subject).to redirect_to orders_path
+	end
+end
