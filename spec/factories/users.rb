@@ -5,9 +5,5 @@ FactoryBot.define do
     sequence :email do |n|
       "user#{n}@example.com"
     end
-
-    after(:build) do |user, _|
-    	user.cart = FactoryBot.build(:cart, user: user)
-    end
   end
 end

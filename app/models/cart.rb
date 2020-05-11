@@ -85,7 +85,7 @@ class Cart < ApplicationRecord
 
     {
       user_id: user.id,
-      items: items.to_json,
+      items: items.to_json, # Neccesary to convert items to string as stripe API won't accept nested
       total: total
     }
   end

@@ -1,0 +1,84 @@
+// This is copied from an actual example and should be kept updated
+// This file should be removed once stripe-ruby-mock provides support for 'checkout.session.completed' events
+// Supported events can be viewed here: https://github.com/stripe-ruby-mock/stripe-ruby-mock/tree/master/lib/stripe_mock/webhook_fixtures
+{
+  "id":"evt_1GhcTZClmKB9EVj166fY5zCY",
+  "object":"event",
+  "api_version":"2020-03-02",
+  "created":1589206765,
+  "data":{
+    "object":{
+      "id":"cs_test_t7TKDNeE8zJeae0x5KcZRls9D0oR5TXiZj2SycfykcRJvDVNU3QF5bIS",
+      "object":"checkout.session",
+      "billing_address_collection":null,
+      "cancel_url":"http://localhost:3000/cart",
+      "client_reference_id":null,
+      "customer":"cus_HG8lJGOSWFZron",
+      "customer_email":null,
+      "display_items":[
+        {
+          "amount":8801,
+          "currency":"eur",
+          "custom":{
+            "description":"1000g",
+            "images":null,
+            "name":"Margarine"
+          },
+          "quantity":1,
+          "type":"custom"
+        },
+        {
+          "amount":200,
+          "currency":"eur",
+          "custom":{
+            "description":"Pfand",
+            "images":null,
+            "name":"Medium glass jar"
+          },
+          "quantity":1,
+          "type":"custom"
+        }
+      ],
+      "livemode":false,
+      "locale":null,
+      // metadata should be overridden by cart.to_metadata for testing purposes
+      "metadata":{
+        "user_id":"1",
+        "items":"[{\"product_id\":9,\"quantity\":1000,\"price\":\"0.088006\",\"containers\":[{\"container_id\":7,\"price\":\"2.0\"}]}]",
+        "total":"88.01"
+      },
+      "mode":"payment",
+      "payment_intent":"pi_1GhcTKClmKB9EVj1zfYdHvh1",
+      "payment_method_types":[
+        "card"
+      ],
+      "setup_intent":null,
+      "shipping":{
+        "address":{
+          "city":"Berlin",
+          "country":"DE",
+          "line1":"Rudi Dutschke str. 26",
+          "line2":"",
+          "postal_code":"10969",
+          "state":"Berlin"
+        },
+        "name":"Le Wagon"
+      },
+      "shipping_address_collection":{
+        "allowed_countries":[
+          "DE"
+        ]
+      },
+      "submit_type":null,
+      "subscription":null,
+      "success_url":"http://localhost:3000/stripe/checkouts/success"
+    }
+  },
+  "livemode":false,
+  "pending_webhooks":1,
+  "request":{
+    "id":null,
+    "idempotency_key":null
+  },
+  "type":"checkout.session.completed"
+}
