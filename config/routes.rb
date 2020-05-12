@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   #
 
   # Simple resources
-  resources :cart_items, only: [:create, :update, :destroy]
-  resources :deliveries, only: [:index, :edit, :update]
+  resources :cart_items, only: [:create]
+  resources :deliveries, only: [:edit, :update]
   resources :carts, only: [:edit, :update]
   resources :products, only: [:index]
   resources :orders, only: [:index]
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   # Complex resources
   resources :recipes, only: [:index, :show, :new, :create] do
     collection do
-      post ":id/like", to: "recipes#like", as: :like
+      post ":id/toggle_like", to: "recipes#toggle_like", as: :toggle_like
       post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
     end
   end

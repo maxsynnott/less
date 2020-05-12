@@ -21,10 +21,10 @@ class RecipesController < ApplicationController
 		redirect_to recipes_path
 	end
 
-	def like
+	def toggle_like
 		@recipe = Recipe.find(params[:id])
 
-		current_user.liked?(@recipe) ? current_user.unlike(@recipe) : current_user.likes(@recipe)
+		current_user.toggle_like(@recipe)
 	end
 
 	def add_to_cart

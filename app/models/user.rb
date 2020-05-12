@@ -23,6 +23,10 @@ class User < ApplicationRecord
     end
   end
 
+  def toggle_like(object)
+    liked?(object) ? unlike(object) : likes(object)
+  end
+
   private
 
   def generate_cart
