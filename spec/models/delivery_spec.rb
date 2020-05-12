@@ -46,3 +46,25 @@ RSpec.describe Delivery, '#available_times' do
 		end
 	end
 end
+
+# Gonna have to deal with time_zone stuff at some point
+RSpec.describe Delivery, "#scheduled_at_time_display" do
+	let(:delivery) { create(:delivery, scheduled_at: DateTime.now.in_time_zone("UTC").change(hour: 10, min: 00)) }
+
+	it "returns time in correct human-friendly format" do
+		time_display = delivery.scheduled_at_time_display
+
+		expect(time_display).to eq "10:00 to 11:00"
+	end
+end
+
+# Gonna have to deal with time_zone stuff at some point
+RSpec.describe Delivery, "#scheduled_at_date_display" do
+	let(:delivery) { create(:delivery, scheduled_at: DateTime.now.in_time_zone("UTC").change(year: 2029, month: 3, day: 10)) }
+
+	it "returns date in correct human-friendly format" do
+		date_display = delivery.scheduled_at_date_display
+
+		expect(date_display).to eq "March 10, 2029"
+	end
+end
