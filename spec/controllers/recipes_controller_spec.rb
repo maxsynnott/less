@@ -39,3 +39,63 @@ RSpec.describe RecipesController, "#new" do
 		expect(response).to render_template(:new)
 	end
 end
+
+RSpec.describe RecipesController, "#toggle_like" do
+	before { sign_in create(:user) }
+	let(:recipe) { create(:recipe) }
+	let(:user) { controller.current_user }
+
+	context "JS" do
+		context "when the user has already liked the recipe" do
+			before { user.likes(recipe) }
+
+			it "assigns :recipe, decreases likes and renders :toggle_like" do
+				expect(recipe.get_likes.length).to eq 1
+
+				post :toggle_like, xhr: true, params: { id: recipe.id }
+
+				recipe.reload
+
+				expect(assigns(:recipe)).to eq recipe
+				expect(recipe.get_likes.length).to eq 0
+
+				expect(response).to render_template(:toggle_like)
+			end
+		end
+
+		context "when the user has not already liked the recipe" do
+			it "assigns :recipe, increases likes and renders :toggle_like" do
+				expect(recipe.get_likes.length).to eq 0
+
+				post :toggle_like, xhr: true, params: { id: recipe.id }
+
+				recipe.reload
+
+				expect(assigns(:recipe)).to eq recipe
+				expect(recipe.get_likes.length).to eq 1
+
+				expect(response).to render_template(:toggle_like)
+			end
+		end
+	end
+end
+
+RSpec.describe RecipesController, "#add_to_cart" do
+	before { sign_in create(:user) }
+	let(:user) { controller.current_user }
+	let(:recipe) { create(:recipe, :with_recipe_items) }
+
+	context "JS" do
+		it "assigns :recipe and adds all items to cart" do
+			post :add_to_cart, xhr: true, params: { id: recipe.id }
+
+			user.reload
+			recipe.reload
+
+			expect(assigns(:recipe)).to eq recipe
+			expect(user.cart.cart_items.map { |ci| [ci.product, ci.quantity] }).to eq recipe.recipe_items.map { |ri| [ri.product, ri.quantity] }
+
+			expect(response).to render_template(:add_to_cart)
+		end
+	end
+end
