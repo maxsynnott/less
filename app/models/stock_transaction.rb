@@ -4,10 +4,7 @@ class StockTransaction < ApplicationRecord
 
   after_create :adjust_stock_quantity
 
-  def type
-  	transaction_type
-  end
-
+  # Getter would currently be unused, add if neccessary
   def type=(value)
   	self.transaction_type = value
   end

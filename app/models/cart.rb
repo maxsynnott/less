@@ -17,17 +17,10 @@ class Cart < ApplicationRecord
   	end
   end
 
-  def remove_product(product, amount = nil)
-  	cart_item = find_cart_item(product)
-
-  	if cart_item
-  		amount ? cart_item.remove(amount) : cart_item.destroy
-  	end
-  end
-
-  def quantity_of(product)
-  	find_cart_item(product).try(:quantity)
-  end
+  # Currently unused
+  # def quantity_of(product)
+  # 	find_cart_item(product).try(:quantity)
+  # end
 
   def clear
   	cart_items.destroy_all

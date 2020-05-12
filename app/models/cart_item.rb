@@ -12,9 +12,10 @@ class CartItem < ApplicationRecord
   	amount.positive? ? update(quantity: quantity + amount) : false
   end
 
-  def remove(amount)
-  	amount >= quantity ? destroy : update(quantity: quantity - amount)
-  end
+  # Currently unused
+  # def remove(amount)
+  # 	amount >= quantity ? destroy : update(quantity: quantity - amount)
+  # end
 
   def price
     product.price_for(quantity)

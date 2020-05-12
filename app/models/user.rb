@@ -17,12 +17,6 @@ class User < ApplicationRecord
 
   before_create :generate_cart
 
-  def address
-    unless addresses.empty?
-      addresses.length == 1 ? addresses.first : addresses.find { |addr| addr.selected }
-    end
-  end
-
   def toggle_like(object)
     liked?(object) ? unlike(object) : likes(object)
   end
