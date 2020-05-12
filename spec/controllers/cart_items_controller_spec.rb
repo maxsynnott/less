@@ -5,10 +5,11 @@ RSpec.describe CartItemsController, "#destroy" do
 	let(:cart_item) { controller.current_user.cart_items.first }
 
 	it "destroys the cart_item and redirects to cart_path" do
+		expect(CartItem.count).to eq 1
+
 		delete :destroy, params: { id: cart_item.id }
 
-		expect(assigns(:cart_item)).to eq cart_item
-		expect(assigns(:cart_item)).to be_destroyed
+		expect(CartItem.count).to eq 0
 
 		expect(response).to redirect_to cart_path
 	end
