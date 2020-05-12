@@ -11,7 +11,7 @@ class Container < ApplicationRecord
 	end
 
 	def returned?
-		container_orders.all?(&:returned?)
+		!checked_out?
 	end
 
 	def return

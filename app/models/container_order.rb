@@ -5,8 +5,4 @@ class ContainerOrder < ApplicationRecord
 	def checked_out?
 		!returned_at
 	end
-
-	def returned?
-		returned_at
-	end
 end
