@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   # Simple resources
   resources :cart_items, only: [:create, :update, :destroy]
   resources :deliveries, only: [:index, :edit, :update]
+  resources :carts, only: [:edit, :update]
   resources :products, only: [:index]
   resources :orders, only: [:index]
   #
@@ -26,10 +27,6 @@ Rails.application.routes.draw do
       post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
     end
   end
-  #
-
-  # Other routes
-  get "cart", to: "carts#show", as: :cart
   #
 
   namespace :stripe do

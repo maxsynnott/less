@@ -1,0 +1,9 @@
+<%= simple_form_for @cart do |f| %>
+  <div id='cart_items'>
+    <%= f.simple_fields_for :cart_items do |cart_item| %>
+      <%= render 'cart_item_fields', f: cart_item %>
+    <% end %>
+  </div>
+
+  <%= f.submit %>
+<% end %>

@@ -1,9 +1,11 @@
 class Cart < ApplicationRecord
   belongs_to :user
 
-  has_many :cart_items
+  has_many :cart_items, inverse_of: :cart
 
   validates_presence_of :user
+
+  accepts_nested_attributes_for :cart_items, reject_if: :all_blank, allow_destroy: true
 
   def add_product(product, amount = 1)
   	cart_item = find_cart_item(product)

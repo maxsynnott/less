@@ -24,6 +24,7 @@ import "./stimulus"
 import '../stylesheets/application'
 import "@fortawesome/fontawesome-free/js/all";
 import './bootstrap_custom.js'
+import 'cocoon-js';
 
 // routes-js
 import routes from '../routes'
