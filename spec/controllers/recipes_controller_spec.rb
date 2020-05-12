@@ -40,6 +40,38 @@ RSpec.describe RecipesController, "#new" do
 	end
 end
 
+RSpec.describe RecipesController, "#create" do
+	before { sign_in create(:user) }
+
+	context "when provided with valid params" do
+		let(:valid_params) { { recipe: { name: "Roast Chicken", description: "yum" } } }
+
+		it "creates the recipe and redirects to recipes_path" do
+			post :create, params: valid_params
+
+			expect(assigns(:recipe)).to be_an_instance_of Recipe
+			expect(assigns(:recipe)).to have_attributes(
+				name: "Roast Chicken",
+				description: "yum"
+			)
+
+			expect(response).to redirect_to recipes_path
+		end
+	end
+
+	context "when provided with invalid params" do
+		let(:invalid_params) { { recipe: { name: nil, description: "yum" } } }
+
+		it "doesn't create the recipe and renders :new" do
+			post :create, params: invalid_params
+
+			expect(assigns(:recipe)).to be_a_new Recipe
+
+			expect(response).to render_template :new
+		end
+	end
+end
+
 RSpec.describe RecipesController, "#toggle_like" do
 	before { sign_in create(:user) }
 	let(:recipe) { create(:recipe) }

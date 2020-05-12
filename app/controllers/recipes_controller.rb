@@ -16,9 +16,11 @@ class RecipesController < ApplicationController
 	def create
 		@recipe = Recipe.new(recipe_params)
 
-		@recipe.save
-
-		redirect_to recipes_path
+		if @recipe.save
+			redirect_to recipes_path
+		else
+			render :new
+		end
 	end
 
 	def toggle_like
