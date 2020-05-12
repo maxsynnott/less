@@ -15,5 +15,9 @@ FactoryBot.define do
     		create(:billing, orders_count: evaluator.orders_count, user: user)
     	end
   	end
+
+    trait :with_delivery do
+      billings { [create(:billing, orders: [create(:order, delivery: create(:delivery))])] }
+    end
   end
 end

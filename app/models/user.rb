@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :recipes
   has_many :billings
   has_many :orders, through: :billings
+  has_many :deliveries, through: :orders
   has_many :cart_items, through: :cart
 
   before_create :generate_cart
