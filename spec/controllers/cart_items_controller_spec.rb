@@ -1,16 +1,40 @@
 require "rails_helper"
 
-RSpec.describe CartItemsController, "#destroy" do
-	before { sign_in create(:user, :with_cart_item) }
-	let(:cart_item) { controller.current_user.cart_items.first }
+RSpec.describe CartItemsController, "#create" do
+	before { sign_in create(:user) }
+	let(:product) { create(:product) }
 
-	it "destroys the cart_item and redirects to cart_path" do
-		expect(CartItem.count).to eq 1
+	context "JS" do
+		context "when provided with valid params" do
+			let(:valid_params) { { cart_item: { product_id: product.id, quantity: 500 } } }
 
-		delete :destroy, params: { id: cart_item.id }
+			it "creates the cart_item and renders :create" do
+				expect(CartItem.count).to eq 0
 
-		expect(CartItem.count).to eq 0
+				post :create, xhr: true, params: valid_params
 
-		expect(response).to redirect_to cart_path
+				expect(CartItem.count).to eq 1
+				expect(CartItem.first).to have_attributes(
+					product_id: product.id,
+					quantity: 500
+				)
+
+				expect(response).to render_template(:create)
+			end
+		end
+
+		context "when provided with invalid params" do
+			let(:valid_params) { { cart_item: { product_id: product.id, quantity: -500 } } }
+
+			it "does not create the cart_item" do
+				expect(CartItem.count).to eq 0
+
+				post :create, xhr: true, params: valid_params
+
+				expect(CartItem.count).to eq 0
+
+				expect(response).to render_template(:create)
+			end
+		end
 	end
 end

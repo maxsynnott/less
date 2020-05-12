@@ -1,4 +1,5 @@
 class CartItemsController < ApplicationController
+  # Error handling is difficult for this guy, needs a rework
   def create
     cart = current_user.cart
 
@@ -7,26 +8,6 @@ class CartItemsController < ApplicationController
     @product = @cart_item.product
 
     cart.add_product(@product, @cart_item.quantity)
-  end
-
-  def update
-    @cart_item = CartItem.find(params[:id])
-
-    if @cart_item.update(cart_item_params)
-      redirect_to cart_path
-    else
-      @errors = @cart_item.errors
-      p @errors
-      render "carts/show"
-    end
-  end
-
-  def destroy
-    @cart_item = CartItem.find(params[:id])
-
-    @cart_item.destroy
-
-    redirect_to cart_path
   end
 
   private

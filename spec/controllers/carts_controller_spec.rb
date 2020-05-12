@@ -18,9 +18,9 @@ RSpec.describe CartsController, "#update" do
 	let(:cart) { controller.current_user.cart }
 	let(:cart_item) { cart.cart_items.first }
 
-	context "when provided with nested attributes" do
+	context "when provided with nested params" do
 		context "when they are valid" do
-			context "when updating quantity attribute" do
+			context "when updating quantity" do
 				let(:valid_params) { { id: cart.id, cart: { cart_items_attributes: [{ id: cart_item.id, quantity: 500 }] } } }
 
 				it "assigns cart, updates relations and redirects to edit_cart_path" do
