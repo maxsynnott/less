@@ -9,7 +9,7 @@ RSpec.describe CartsController, "#edit" do
 
 		expect(assigns(:cart)).to eq cart
 
-		expect(response).to render_template(:edit)
+		expect(response).to render_template :edit
 	end
 end
 
@@ -72,7 +72,7 @@ RSpec.describe CartsController, "#update" do
 
 				expect(assigns(:cart).cart_items.first.errors).to_not be_empty
 
-				expect(response).to render_template(:edit)
+				expect(response).to render_template :edit
 			end
 		end
 	end

@@ -9,7 +9,7 @@ RSpec.describe DeliveriesController, "#edit" do
 
 		expect(assigns(:delivery)).to eq delivery
 
-		expect(response).to render_template(:edit)
+		expect(response).to render_template :edit
 	end
 end
 

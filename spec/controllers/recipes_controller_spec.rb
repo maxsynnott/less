@@ -11,7 +11,7 @@ RSpec.describe RecipesController, "#index" do
 
 		expect(assigns(:recipes)).to all be_an_instance_of Recipe
 
-		expect(response).to render_template(:index)
+		expect(response).to render_template :index
 	end
 end
 
@@ -24,7 +24,7 @@ RSpec.describe RecipesController, "#show" do
 
 		expect(assigns(:recipe)).to eq recipe
 
-		expect(response).to render_template(:show)
+		expect(response).to render_template :show
 	end
 end
 
@@ -36,7 +36,7 @@ RSpec.describe RecipesController, "#new" do
 
 		expect(assigns(:recipe)).to be_a_new Recipe
 
-		expect(response).to render_template(:new)
+		expect(response).to render_template :new
 	end
 end
 
@@ -91,7 +91,7 @@ RSpec.describe RecipesController, "#toggle_like" do
 				expect(assigns(:recipe)).to eq recipe
 				expect(recipe.get_likes.length).to eq 0
 
-				expect(response).to render_template(:toggle_like)
+				expect(response).to render_template :toggle_like
 			end
 		end
 
@@ -106,7 +106,7 @@ RSpec.describe RecipesController, "#toggle_like" do
 				expect(assigns(:recipe)).to eq recipe
 				expect(recipe.get_likes.length).to eq 1
 
-				expect(response).to render_template(:toggle_like)
+				expect(response).to render_template :toggle_like
 			end
 		end
 	end
@@ -127,7 +127,7 @@ RSpec.describe RecipesController, "#add_to_cart" do
 			expect(assigns(:recipe)).to eq recipe
 			expect(user.cart.cart_items.map { |ci| [ci.product, ci.quantity] }).to eq recipe.recipe_items.map { |ri| [ri.product, ri.quantity] }
 
-			expect(response).to render_template(:add_to_cart)
+			expect(response).to render_template :add_to_cart
 		end
 	end
 end

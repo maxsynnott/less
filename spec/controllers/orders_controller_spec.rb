@@ -10,6 +10,6 @@ RSpec.describe OrdersController, "#index" do
 		expect(orders.length).to eq 2
 		orders.each { |order| expect(order).to be_instance_of Order }
 
-		expect(response).to render_template(:index)
+		expect(response).to render_template :index
 	end
 end

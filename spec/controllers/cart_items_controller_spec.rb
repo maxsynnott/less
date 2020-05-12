@@ -19,7 +19,7 @@ RSpec.describe CartItemsController, "#create" do
 					quantity: 500
 				)
 
-				expect(response).to render_template(:create)
+				expect(response).to render_template :create
 			end
 		end
 
@@ -33,7 +33,7 @@ RSpec.describe CartItemsController, "#create" do
 
 				expect(CartItem.count).to eq 0
 
-				expect(response).to render_template(:create)
+				expect(response).to render_template :create
 			end
 		end
 	end
