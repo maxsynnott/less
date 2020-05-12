@@ -16,6 +16,10 @@ FactoryBot.define do
     	end
   	end
 
+    trait :with_cart_item do
+      cart { create(:cart, cart_items_count: 1) }
+    end
+
     trait :with_delivery do
       billings { [create(:billing, orders: [create(:order, delivery: create(:delivery))])] }
     end

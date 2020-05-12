@@ -1,32 +1,30 @@
 class CartItemsController < ApplicationController
   def create
-  	cart_item = CartItem.new(cart_item_params)
-
-    @product = cart_item.product
     cart = current_user.cart
-  	
-  	cart_item.cart_id = cart.id
 
-    # Rework this
-    if cart.find_cart_item(@product)
-      cart.add_product(@product, cart_item.quantity)
-    else
-      cart_item.save
-    end
+  	@cart_item = CartItem.new(cart_item_params)
+
+    @product = @cart_item.product
+
+    cart.add_product(@product, @cart_item.quantity)
   end
 
   def update
-    cart_item = CartItem.find(params[:id])
+    @cart_item = CartItem.find(params[:id])
 
-    cart_item.update(cart_item_params)
-
-    redirect_to cart_path
+    if @cart_item.update(cart_item_params)
+      redirect_to cart_path
+    else
+      @errors = @cart_item.errors
+      p @errors
+      render "carts/show"
+    end
   end
 
   def destroy
-    cart_item = CartItem.find(params[:id])
+    @cart_item = CartItem.find(params[:id])
 
-    cart_item.destroy
+    @cart_item.destroy
 
     redirect_to cart_path
   end
@@ -34,6 +32,6 @@ class CartItemsController < ApplicationController
   private
 
   def cart_item_params
-  	params.require(:cart_item).permit(:product_id, :quantity)
+    params.require(:cart_item).permit(:product_id, :quantity)
   end
 end
