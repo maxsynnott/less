@@ -2,8 +2,9 @@
 require 'simplecov'
 
 SimpleCov.start do
-  add_filter "/spec/"
-  add_filter "/config/"
+  add_filter "spec/"
+  add_filter "config/"
+  add_filter "app/services/stripe/handlers/event.rb" # Can't trigger error handlers
 
   add_group "Admin", "app/admin"
   add_group "Models", "app/models"

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Stripe::Handlers::CheckoutEvent, "#call" do
+RSpec.describe Stripe::Handlers::CheckoutEvent, "#handle_checkout_session_completed" do
 	before { StripeMock.start }
 	after { StripeMock.stop }
 
@@ -9,7 +9,7 @@ RSpec.describe Stripe::Handlers::CheckoutEvent, "#call" do
 		let(:cart) { create(:user, cart: create(:cart, cart_items_count: 2)).cart } # Work around odd bug of multiple cart creation (need to fix root cause)
 		let(:address) { {"city":"Berlin","country":"DE","line1":"Rudi Dutschke str. 26","line2":"","postal_code":"10969","state":"Berlin"} }
 
-		it "should create the appropriate model instances" do
+		it "creates the appropriate model instances" do
 			# View spec/fixtures/stripe_webhooks/checkout.session.completed.json
 			event = StripeMock.mock_webhook_event('checkout.session.completed')
 			event.data.object.metadata = cart.to_metadata

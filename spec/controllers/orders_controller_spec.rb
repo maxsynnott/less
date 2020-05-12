@@ -3,10 +3,12 @@ require "rails_helper"
 RSpec.describe OrdersController, "#index" do
 	before { sign_in create(:user, orders_count: 2) }
 
-	it "should assign products and render index" do
+	it "assigns products and renders index" do
 		get :index
 
-		expect(assigns(:orders).map(&:class)).to eq [Order, Order]
+		orders = assigns(:orders)
+		expect(orders.length).to eq 2
+		orders.each { |order| expect(order).to be_instance_of Order }
 
 		expect(response).to render_template(:index)
 	end
