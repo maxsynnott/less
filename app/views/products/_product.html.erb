@@ -7,21 +7,27 @@
 
   <div class="card-body">
     <h4 class="card-title">
-      <a href="#"><%= product.name %></a>
+      <a href="#" class="text-dark font-weight-bold">
+        <%= product.name %>
+      </a>
     </h4>
 
-    <h5><%= number_to_currency(product.price * 1000, unit: '€') %> per kg</h5>
-
-    <%= simple_form_for(CartItem.new, remote: true, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
-      <%= f.hidden_field :product_id, value: product.id %>
-
-      <%= f.input :quantity, label: false %>
-
-      <%= f.submit "Add to cart" %>
-    <% end %>
+    <p class="card-text text-secondary">
+      <%= product.description %>
+    </p>
   </div>
 
   <div class="card-footer">
-    <small class="text-muted">In stock: <%= product.stock %>g</small>
+    <%= simple_form_for(CartItem.new, remote: true, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
+      <%= f.hidden_field :product_id, value: product.id %>
+
+      <%= f.input :quantity, placeholder: number_to_currency(product.price * 1000, unit: '€') + " / kg", input_html: { class: "w-100" } %>
+
+      <%= button_tag type: "submit", class: "btn btn-success ml-auto" do %>
+        <%= fa_icon "plus" %>
+      <% end %>
+    <% end %>
+
+    <small class="text-muted"></small>
   </div>
 </div>
