@@ -1,11 +1,16 @@
-<div class="card" id="product_<%= product.id %>">
-  <% if product.image.attached? %>
-    <%= image_tag product.image, class: "card-img-top", alt: product.name %>
-  <% end %>
-  
+<div class="card h-100">
+  <a href="#">
+    <% if product.image.attached? %>
+      <%= image_tag product.image, class: "card-img-top", alt: product.name %>
+    <% end %>
+  </a>
+
   <div class="card-body">
-    <h5 class="card-title"><%= product.name %></h5>
-    <p class="card-text"><%= number_to_currency(product.price * 1000, unit: '€') %> per kg</p>
+    <h4 class="card-title">
+      <a href="#"><%= product.name %></a>
+    </h4>
+
+    <h5><%= number_to_currency(product.price * 1000, unit: '€') %> per kg</h5>
 
     <%= simple_form_for(CartItem.new, remote: true, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
       <%= f.hidden_field :product_id, value: product.id %>
@@ -14,7 +19,9 @@
 
       <%= f.submit "Add to cart" %>
     <% end %>
+  </div>
 
-    <p class="card-text">In stock: <%= product.stock %>g</p>
+  <div class="card-footer">
+    <small class="text-muted">In stock: <%= product.stock %>g</small>
   </div>
 </div>
