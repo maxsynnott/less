@@ -12,7 +12,7 @@ RSpec.feature "User updates their account details" do
 
 		click_on "Update"
 
-		click_on "Account"
+		find('.fa-user').find(:xpath, "..").click
 
 		expect(find_field("user[email]").value).to eq "user_128@example.com"
 		expect(find_field("user[phone]").value).to eq "+4912345678900"

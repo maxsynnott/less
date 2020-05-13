@@ -11,7 +11,7 @@ RSpec.feature "Admin masquerades as a user" do
 
 		expect(current_url).to eq root_url
 
-		click_on "Account"
+		find('.fa-user').find(:xpath, "..").click
 
 		expect(find_field("user[email]").value).to eq "user_64@example.com"
 

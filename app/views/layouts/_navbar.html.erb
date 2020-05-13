@@ -1,38 +1,47 @@
-<nav class="navbar navbar-light bg-light sticky-top" id="navbar">
-	<div class="d-flex">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+	<div class="container">
 		<%= link_to root_path, class: "navbar-brand" do %>
 			<%= image_tag "temp_logo", id: "logo", alt: "less logo" %>
 		<% end %>
 
-		<ul class="nav">
-		  <li class="nav-item">
-		  	<%= link_to "Groceries", products_path, class: "nav-link text-secondary" %>
-		  </li>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
 
-		  <li class="nav-item">
-		  	<%= link_to "Recipes", recipes_path, class: "nav-link text-secondary" %>
-		  </li>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<%= link_to "Groceries", products_path, class: "nav-link" %>
+				</li>
 
-		  <% if current_user %>
-		  	<li class="nav-item">
-		  		<%= link_to "Account", edit_user_registration_path, class: "nav-link text-secondary" %>
-		  	</li>
+				<li class="nav-item">
+					<%= link_to "Recipes", recipes_path, class: "nav-link" %>
+				</li>
+			</ul>
 
-		  	<li class="nav-item">
-		  		<%= link_to "Orders", orders_path, class: "nav-link text-secondary" %>
-		  	</li>
-		  <% end %>
-		</ul>
-	</div>
+			<div class="ml-auto">
+				<% if current_user %>
+					<%= link_to edit_cart_path(id: current_user.cart.id), class: "icon rounded-circle border text-secondary position-relative mr-2" do %>
+						<% current_user.reload # Is neccessary to ensure that the cart_items.length is up to date %>
+						<%= fa_icon "shopping-cart" %>
+						<span class="badge badge-pill badge-danger notify"><%= current_user.cart_items.length %></span>
+					<% end %>
 
-	<div class="d-flex">
-		<% if current_user %>
-			<%= link_to edit_cart_path(id: current_user.cart.id), class: "ml-3" do %>
-				<% current_user.reload # Is neccessary to ensure that the cart_items.length is up to date %>
-				<%= fa_icon "shopping-cart", text: current_user.cart.cart_items.length.to_s %>
-			<% end %>
-		<% else %>
-			<%= link_to "Sign in", new_user_session_path, class: "btn btn-primary", title: "Click here to sign in", data: { toggle: "tooltip", placement: "right" } %>
-		<% end %>
+					<%= link_to edit_user_registration_path, class: "icon rounded-circle border text-secondary" do %>
+						<%= fa_icon "user" %>
+					<% end %>
+				<% else %>
+					<div class="text">
+						<span class="text-muted">Welcome!</span>
+
+						<div>
+							<%= link_to "Sign in", new_user_session_path, class: "text-dark" %>
+							 | 
+							<%= link_to "Register", new_user_registration_path, class: "text-dark" %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
 	</div>
 </nav>
