@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   before_create :generate_cart
 
+  validates :phone, phone: { possible: true, allow_blank: true }
+
   def toggle_like(object)
     liked?(object) ? unlike(object) : likes(object)
   end

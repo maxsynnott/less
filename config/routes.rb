@@ -6,11 +6,9 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   #
 
-  # Overriding devise controllers
-  devise_for :users, controllers: { 
-  	# registrations: 'users/registrations'
+  devise_for :users, controllers: {
+    registrations: "users/registrations"
   }
-  #
 
   # Simple resources
   resources :cart_items, only: [:create]
