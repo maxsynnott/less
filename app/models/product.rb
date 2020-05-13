@@ -1,10 +1,4 @@
 class Product < ApplicationRecord
-	include PgSearch::Model
-	
-	pg_search_scope :search, against: {
-		name: 'A',
-		description: 'B'
-	}
 
 	has_one_attached :image
 

@@ -26,11 +26,6 @@
 	</div>
 
 	<div class="d-flex">
-		<%= form_with url: products_path, method: :get, local: true, class: "form-inline" do %>
-		  <%= search_field_tag :q, nil, placeholder: "What are you craving?", class: "form-control mr-sm-2" %>
-		  <%= submit_tag "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
-		<% end %>
-
 		<% if current_user %>
 			<%= link_to edit_cart_path(id: current_user.cart.id), class: "ml-3" do %>
 				<% current_user.reload # Is neccessary to ensure that the cart_items.length is up to date %>
