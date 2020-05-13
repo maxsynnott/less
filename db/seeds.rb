@@ -18,7 +18,7 @@ image_urls = [
 num_products.times do
 	product = Product.create(
 		name: Faker::Food.unique.ingredient,
-		description: Faker::Food.description,
+		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis.",
 		price: rand(0.001..0.1)
 	)
 
