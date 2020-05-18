@@ -4,7 +4,7 @@ AdminUser.create!(email: 'admin@example.com', password: '123456', password_confi
 
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
 
-num_products = 10
+num_products = 60
 
 image_urls = [
 	"https://www.fresh-square.com/wp-content/uploads/2016/10/Cherry-Tomato.jpg",

@@ -1,35 +1,3 @@
-<!--
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
--->
-
 <div class="container-fluid">
   <div class="row no-gutter">
     <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
@@ -41,7 +9,7 @@
             <div class="col-md-9 col-lg-8 mx-auto">
               <small><%= link_to "Back to less", root_path %></small>
               <h3 class="login-heading mb-4">
-                Register for less
+                Welcome back
               </h3>
 
               <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -51,9 +19,7 @@
 
                 <%= f.input :password, placeholder: "Password", autocomplete: "new-password", wrapper_html: { class: "form-label-group" } %>
 
-                <%= f.input :password_confirmation, placeholder: "Confirm password", autocomplete: "new-password", wrapper_html: { class: "form-label-group" } %>
-
-                <%= f.submit "Sign up", id: "registration-button", class: "btn btn-lg btn-block btn-login text-uppercase font-weight-bold mb-2" %>
+                <%= f.submit "Sign in", id: "sign-in-button", class: "btn btn-lg btn-block btn-login text-uppercase font-weight-bold mb-2" %>
               <% end %>
 
               <div class="text-center">
