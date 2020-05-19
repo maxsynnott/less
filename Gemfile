@@ -43,6 +43,7 @@ gem 'cocoon'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap4'
 gem 'pg_search'
+gem 'acts-as-taggable-on'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
