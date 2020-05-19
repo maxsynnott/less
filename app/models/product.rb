@@ -1,9 +1,19 @@
 class Product < ApplicationRecord
 	include PgSearch::Model
 
-	pg_search_scope :search, against: {
+	pg_search_scope :search,
+	against: {
 		name: 'A',
 		description: 'B'
+	},
+	using: {
+		tsearch: { 
+			prefix: true,
+			dictionary: "english"
+		},
+		trigram: {
+			only: [:name]
+		}
 	}
 
 	has_one_attached :image
