@@ -1,0 +1,5 @@
+<% @products.each do |product| %>
+	<li class="list-group-item">
+		<%= link_to product.name, product_path(id: product.id) %>
+	</li>
+<% end %>

@@ -6,4 +6,14 @@ class ProductsController < ApplicationController
 
   	@products = @products.paginate(page: params[:page], per_page: 12)
   end
+
+  def show
+  	@product = Product.find(params[:id])
+  end
+
+  def autocomplete
+  	@products = Product.search(params[:q]).limit(5)
+
+  	render layout: false
+  end
 end

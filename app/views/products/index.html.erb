@@ -7,9 +7,13 @@
 </div>
 
 <div class="container">
-	<%= form_with url: products_path, method: :get, local: true, class: "form-inline mt-4" do %>
-	  <%= search_field_tag :q, nil, placeholder: "What are you craving?", class: "form-control w-100" %>
-	<% end %>
+	<div class="mt-4" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_products_url %>">
+		<%= form_with url: products_path, method: :get, local: true, class: "form-inline", html: { autocomplete: "off" } do %>
+		  <%= search_field_tag :q, nil, placeholder: "What are you craving?",class: "form-control w-100", data: { target: "autocomplete.input", action: "input->autocomplete#fetchResults" } %>
+		<% end %>
+
+		<ul class="list-group" data-target="autocomplete.results"></ul>
+	</div>
 
 	<div class="row">
 		<div class="col-lg-3">
