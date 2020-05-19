@@ -15,6 +15,16 @@
     <p class="card-text text-secondary">
       <%= product.description %>
     </p>
+
+    <div class="tags">
+      <% if product.tag_list.include?("organic") %>
+        <%= fa_icon "leaf", class: "text-success", title: "Organic", data: { toggle: "tooltip", placement: "top" } %>
+      <% end %>
+
+      <% if product.tag_list.include?("vegan") %>
+        <%= fa_icon "carrot", class: "text-warning", title: "Vegan", data: { toggle: "tooltip", placement: "top" } %>
+      <% end %>
+    </div>
   </div>
 
   <div class="card-footer">

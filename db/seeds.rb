@@ -19,7 +19,8 @@ num_products.times do
 	product = Product.create(
 		name: Faker::Food.unique.ingredient,
 		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis.",
-		price: rand(0.001..0.1)
+		price: rand(0.001..0.1),
+		tag_list: ["vegan", "organic"].sample([0, 1, 2].sample)
 	)
 
 	product.image.attach(io: open(image_urls.sample), filename: product.name.parameterize + '.jpg')
