@@ -1,9 +1,17 @@
-<%= simple_form_for @cart do |f| %>
-  <div id='cart_items'>
-    <%= f.simple_fields_for :cart_items do |cart_item| %>
-      <%= render 'cart_item_fields', f: cart_item %>
-    <% end %>
-  </div>
+<div 
+	data-controller="carts--show"
+>
+	<%= simple_form_for @cart do |f| %>
+	  <div id='cart_items'>
+	    <%= f.simple_fields_for :cart_items do |cart_item| %>
+	      <%= render 'cart_item_fields', f: cart_item %>
+	    <% end %>
+	  </div>
 
-  <%= f.submit %>
-<% end %>
+	  <%= f.submit %>
+	<% end %>
+
+	<button class="btn btn-success" data-action="carts--show#checkout">
+		Checkout
+	</button>	
+</div>
