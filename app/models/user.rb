@@ -18,9 +18,9 @@ class User < ApplicationRecord
 
   validates :phone, phone: { possible: true, allow_blank: true }
 
-  def toggle_like(object)
-    liked?(object) ? unlike(object) : likes(object)
-  end
+  # def toggle_like(object)
+  #   liked?(object) ? unlike(object) : likes(object)
+  # end
 
   private
 
