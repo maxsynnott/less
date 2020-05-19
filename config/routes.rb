@@ -19,12 +19,12 @@ Rails.application.routes.draw do
   #
 
   # Complex resources
-  resources :recipes, only: [:index, :show, :new, :create] do
-    collection do
-      post ":id/toggle_like", to: "recipes#toggle_like", as: :toggle_like
-      post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
-    end
-  end
+  # resources :recipes, only: [:index, :show, :new, :create] do
+  #   collection do
+  #     post ":id/toggle_like", to: "recipes#toggle_like", as: :toggle_like
+  #     post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
+  #   end
+  # end
   #
 
   namespace :stripe do
