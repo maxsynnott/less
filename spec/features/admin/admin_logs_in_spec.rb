@@ -13,7 +13,5 @@ RSpec.describe "Admin logs in" do
 
 		expect(page).to have_selector ".flash", text: "Signed in successfully"
 		expect(page).to have_content "Dashboard"
-
-		click_on "Products"
 	end
 end

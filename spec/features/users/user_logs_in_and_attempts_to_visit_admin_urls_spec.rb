@@ -9,7 +9,7 @@ RSpec.feature "User logs in and attempts to visit admin urls" do
 		fill_in "Email", with: "user@example.com"
 		fill_in "Password", with: "123456"
 
-		click_on "Log in"
+		click_on "sign-in-button"
 
 		visit admin_root_path
 
