@@ -1,5 +1,5 @@
 <div data-controller="products--product" data-products--product-price="<%= product.price %>" class="card h-100" id="product_<%= product.id %>">
-  <a href="#">
+  <%= link_to product_path(id: product.id) do %>
     <% if product.image.attached? %>
       <%= image_tag product.image, class: "card-img-top", alt: product.name %>
     <% end %>
@@ -11,13 +11,11 @@
     <span data-target="products--product.display" class="badge badge-success top-right">
       0.00 €
     </span>
-  </a>
+  <% end %>
 
   <div class="card-body">
     <h4 class="card-title">
-      <a href="#" class="text-dark font-weight-bold">
-        <%= product.name %>
-      </a>
+      <%= link_to product.name, product_path(id: product.id), class: "text-dark font-weight-bold" %>
     </h4>
 
     <div class="tags">
