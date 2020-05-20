@@ -1,5 +1,5 @@
 <div 
-	data-controller="carts--show"
+	data-controller="carts--edit"
 >
 	<%= simple_form_for @cart do |f| %>
 	  <div id='cart_items'>
@@ -11,7 +11,7 @@
 	  <%= f.submit %>
 	<% end %>
 
-	<button class="btn btn-success" data-action="carts--show#checkout">
+	<button class="btn btn-success" data-action="carts--edit#checkout">
 		Checkout
 	</button>	
 </div>

@@ -9,7 +9,7 @@
 <div class="container">
 	<div class="mt-4" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_products_url %>">
 		<%= form_with url: products_path, method: :get, local: true, class: "form-inline", html: { autocomplete: "off" } do %>
-		  <%= search_field_tag :q, nil, placeholder: "What are you craving?",class: "form-control w-100", data: { target: "autocomplete.input", action: "input->autocomplete#fetchResults" } %>
+		  <%= search_field_tag :q, nil, placeholder: "What are you craving?", class: "form-control w-100", data: { target: "autocomplete.input", action: "input->autocomplete#fetchResults" } %>
 		<% end %>
 
 		<ul class="list-group" data-target="autocomplete.results"></ul>
@@ -39,5 +39,19 @@
 <style>
 	.banner {
 		background: #9DDB6C;
+	}
+
+	.badge {
+		position: absolute;
+	}
+
+	.top-left {
+		top: 10px;
+		left: 10px;
+	}
+
+	.top-right {
+		top: 10px;
+		right: 10px;
 	}
 </style>

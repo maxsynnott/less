@@ -1,8 +1,16 @@
-<div class="card h-100" id="product_<%= product.id %>">
+<div data-controller="products--product" data-products--product-price="<%= product.price %>" class="card h-100" id="product_<%= product.id %>">
   <a href="#">
     <% if product.image.attached? %>
       <%= image_tag product.image, class: "card-img-top", alt: product.name %>
     <% end %>
+
+    <span class="badge badge-light top-left">
+      <%= number_to_currency(product.price * product.display_unit_quantity, unit: '€', format: "%n %u") + " / " + product.display_unit %>
+    </span>
+
+    <span data-target="products--product.display" class="badge badge-success top-right">
+      0.00 €
+    </span>
   </a>
 
   <div class="card-body">
@@ -11,10 +19,6 @@
         <%= product.name %>
       </a>
     </h4>
-
-    <p class="card-text text-secondary">
-      <%= product.description %>
-    </p>
 
     <div class="tags">
       <% if product.tag_list.include?("organic") %>
@@ -31,7 +35,7 @@
     <%= simple_form_for(CartItem.new, remote: true, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
       <%= f.hidden_field :product_id, value: product.id %>
 
-      <%= f.input :quantity, placeholder: number_to_currency(product.price * 1000, unit: '€') + " / kg", input_html: { class: "w-100" } %>
+      <%= f.input :quantity, placeholder: "Want some?", input_html: { data: { action: "input->products--product#updateDisplay", target: "products--product.input" }, class: "w-100" } %>
 
       <%= button_tag type: "submit", class: "btn btn-success ml-auto" do %>
         <%= fa_icon "plus" %>

@@ -17,8 +17,6 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 
-
-
 // Self-added below:
 import "./stimulus"
 import '../stylesheets/application'

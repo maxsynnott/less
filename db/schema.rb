@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_122253) do
+ActiveRecord::Schema.define(version: 2020_05_20_095354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -162,6 +162,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_122253) do
     t.decimal "price", precision: 10, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "display_unit", default: "kg"
+    t.integer "display_unit_quantity", default: 1000
   end
 
   create_table "recipe_items", force: :cascade do |t|
