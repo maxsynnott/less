@@ -1,17 +1,20 @@
 <div 
 	data-controller="carts--edit"
+	class="container my-5"
 >
 	<%= simple_form_for @cart do |f| %>
-	  <div id='cart_items'>
+	  <ul class="list-group" id='cart_items'>
 	    <%= f.simple_fields_for :cart_items do |cart_item| %>
 	      <%= render 'cart_item_fields', f: cart_item %>
 	    <% end %>
-	  </div>
 
-	  <%= f.submit %>
+	    <li class="list-group-item">
+	    	<%= f.submit class: "btn btn-primary" %>
+
+	    	<button class="btn btn-success" data-action="carts--edit#checkout">
+	    		Checkout
+	    	</button>	
+	    </li>
+	  </ul>
 	<% end %>
-
-	<button class="btn btn-success" data-action="carts--edit#checkout">
-		Checkout
-	</button>	
 </div>
