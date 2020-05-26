@@ -9,6 +9,7 @@ class Stripe::CheckoutsController < ApplicationController
 				shipping_address_collection: {
 			    allowed_countries: ['DE'],
 			  },
+			  customer: current_user.stripe_customer_id,
 			  payment_method_types: ['card'],
 			  line_items: cart.line_items,
 			  success_url: success_stripe_checkouts_url,

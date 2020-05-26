@@ -6,15 +6,19 @@ export default class extends Controller {
 
 		fetch(routes.new_stripe_checkout_path())
 		.then(response => response.json())
-		.then((json) => {
+		.then((data) => {
 			const stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
 
-			stripe.redirectToCheckout({
-			  sessionId: json.session_id
-			}).then((result) => {
-			  // Improve error logging
-			  console.log(result.error.message)
-			});
+			if (data.error) {
+				console.log("Error! ", data.error)
+			} else {
+				stripe.redirectToCheckout({
+				  sessionId: data.session_id
+				}).then((result) => {
+				  // Improve error logging
+				  console.log(result.error.message)
+				});
+			}
 		})
 	}
 }

@@ -35,10 +35,14 @@ module Stripe
           metadata: metadata
         )
 
+        user = billing.user
+
+        user.update(stripe_customer_id: object.customer) if object.customer
+
         orders = billing.create_orders
         orders.each { |order| order.update(delivery_id: delivery.id) }
 
-        billing.user.cart.clear
+        user.cart.clear
   		end
   	end
   end
