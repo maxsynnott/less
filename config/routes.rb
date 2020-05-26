@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   #     post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
   #   end
   # end
+  
   resources :products, only: [:index, :show] do
     collection do
       get "autocomplete"
@@ -41,5 +42,7 @@ Rails.application.routes.draw do
         get "success"
       end
     end
+
+    resources :payments, only: [:new]
   end
 end
