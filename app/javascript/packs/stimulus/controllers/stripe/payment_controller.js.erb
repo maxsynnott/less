@@ -7,12 +7,25 @@ export default class extends Controller {
 
 		const style = {
 		  base: {
-		    color: "#32325d",
+		    color: '#32325d',
+		    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+		    fontSmoothing: 'antialiased',
+		    fontSize: '16px',
+		    '::placeholder': {
+		      color: '#aab7c4'
+		    },
+		    minWidth: '300px'
+		  },
+		  invalid: {
+		    color: '#fa755a',
+		    iconColor: '#fa755a'
 		  }
 		};
 
 		this.card = elements.create("card", { style: style });
 		this.card.mount("#card-element");
+
+		this.card.on('change', this.displayErrors)
 	}
 
 	submitPayment(event) {
@@ -43,5 +56,15 @@ export default class extends Controller {
 	      }
 	    }
 	  });
+	}
+
+	displayErrors(event) {
+		const displayError = document.getElementById('card-errors');
+
+	  if (event.error) {
+	    displayError.textContent = event.error.message;
+	  } else {
+	    displayError.textContent = '';
+	  }
 	}
 }
