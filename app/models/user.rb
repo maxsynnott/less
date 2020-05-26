@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   before_create :generate_cart
 
+  after_create :generate_stripe_customer
+
   validates :phone, phone: { possible: true, allow_blank: true }
 
   # def toggle_like(object)
@@ -26,5 +28,17 @@ class User < ApplicationRecord
 
   def generate_cart
     self.cart = Cart.new unless cart.present?
+  end
+
+  def generate_stripe_customer
+    customer = Stripe::Customer.create(
+      email: email,
+      phone: phone,
+      metadata: {
+        id: id
+      }
+    )
+
+    update(stripe_customer_id: customer.id)
   end
 end
