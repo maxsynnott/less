@@ -26,6 +26,10 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import './bootstrap_custom.js'
 import 'cocoon-js';
 
+// Algolia places
+import places from "places.js"
+global.places = places
+
 // routes-js
 import routes from '../routes'
 global.routes = routes

@@ -1,0 +1,14 @@
+import { Controller } from "stimulus"
+
+export default class extends Controller {
+	static targets = ["input"]
+
+	connect() {
+		// This is not secure!
+		places({
+		  appId: "<%= ENV['AP_APP_ID'] %>",
+		  apiKey: "<%= ENV['AP_API_KEY'] %>",
+		  container: this.inputTarget
+		});
+	}
+}
