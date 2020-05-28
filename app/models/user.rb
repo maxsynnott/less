@@ -33,7 +33,6 @@ class User < ApplicationRecord
   def generate_stripe_customer
     customer = Stripe::Customer.create(
       email: email,
-      phone: phone,
       metadata: {
         id: id
       }
