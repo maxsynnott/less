@@ -1,10 +1,6 @@
-puts "Let the seeding begin"
-
 AdminUser.create!(email: 'admin@example.com', password: '123456', password_confirmation: '123456') if Rails.env.development?
 
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
-
-num_products = 60
 
 image_urls = [
 	"https://www.fresh-square.com/wp-content/uploads/2016/10/Cherry-Tomato.jpg",
@@ -15,20 +11,27 @@ image_urls = [
 	"https://sc01.alicdn.com/kf/UTB8SUNAl__IXKJkSalUq6yBzVXag.jpg"
 ]
 
-num_products.times do
-	product = Product.create(
-		name: Faker::Food.unique.ingredient,
-		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis.",
-		price: rand(0.001..0.1),
-		tag_list: ["vegan", "organic"].sample([0, 1, 2].sample)
+num_shops = 4
+num_products = 8
+
+num_shops.times do
+	shop = Shop.create(
+		name: Faker::Company.name,
+		address: Address.create(line_1: "Rudi-Dutschke-Straße 26", postal_code: "10969", country: "DE")
 	)
 
-	product.image.attach(io: open(image_urls.sample), filename: product.name.parameterize + '.jpg')
+	num_products.times do
+		product = Product.create(
+			name: Faker::Food.unique.ingredient,
+			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis.",
+			price: rand(0.001..0.1),
+			tag_list: ["vegan", "organic"].sample([0, 1, 2].sample),
+			shop_id: shop.id
+		)
+
+		product.image.attach(io: open(image_urls.sample), filename: product.name.parameterize + '.jpg')
+	end
 end
-
-stock_products = Product.all.sample(num_products - 2)
-
-stock_products.each { |product| Stock.create(product_id: product.id, balance: rand(500..10000)) }
 
 user = User.create(email: "user@example.com", password: "123456", cart: Cart.new)
 user_2 = User.create(email: "user_2@example.com", password: "123456", cart: Cart.new)
@@ -60,21 +63,5 @@ containers = [
 ]
 
 containers.each { |container| 5.times { Container.create(container) } }
-
-5.times do
-	recipe = Recipe.create(
-		public: true,
-		name: Faker::Food.dish,
-		description: Faker::Food.description
-	)
-
-	Product.all.sample(3).each do |product|
-		RecipeItem.create(
-			product_id: product.id,
-			recipe_id: recipe.id,
-			quantity: rand(100..500)
-		)
-	end
-end
 
 puts "It has been done"
