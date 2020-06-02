@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :deliveries, only: [:edit, :update]
   resources :carts, only: [:edit, :update]
   resources :orders, only: [:index]
+  resources :shops, only: [:show]
   #
 
   # Complex resources
