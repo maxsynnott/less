@@ -1,0 +1,13 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="row">
+				<% @shops.each do |shop| %>
+					<div class="col-lg-3 col-md-4 mb-4">
+						<%= render 'shop', shop: shop %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -11,14 +11,22 @@ image_urls = [
 	"https://sc01.alicdn.com/kf/UTB8SUNAl__IXKJkSalUq6yBzVXag.jpg"
 ]
 
-num_shops = 4
+shop_logo_urls = [
+	"https://cdn.shopify.com/s/files/1/1008/4236/files/01Original_Unverpackt_Logo_nichtoffen_160712_Kopie.jpg",
+	"https://www.designenlassen.de/blog/wp-content/uploads/2018/09/%C3%B6ko-logo-bio-h%C3%BCllenlos-unverpackt-nachhaltig.png",
+	"https://cdn.shopify.com/s/files/1/0279/6440/7901/files/unverpackt_trier_logo_komplett_1000x1000.png",
+	"https://www.supertipp-online.de/wp-content/uploads/2019/05/Unverpackt-RA.jpg"
+]
+
 num_products = 8
 
-num_shops.times do
+shop_logo_urls.each do |url|
 	shop = Shop.create(
 		name: Faker::Company.name,
 		address: Address.create(line_1: "Rudi-Dutschke-Straße 26", postal_code: "10969", country: "DE")
 	)
+
+	shop.image.attach(io: open(url), filename: shop.name.parameterize + '.jpg')
 
 	num_products.times do
 		product = Product.create(
