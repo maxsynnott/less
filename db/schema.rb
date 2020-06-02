@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_02_193024) do
+ActiveRecord::Schema.define(version: 2020_06_02_195610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -166,26 +166,6 @@ ActiveRecord::Schema.define(version: 2020_06_02_193024) do
     t.integer "display_unit_quantity", default: 1000
   end
 
-  create_table "recipe_items", force: :cascade do |t|
-    t.integer "quantity"
-    t.bigint "product_id", null: false
-    t.bigint "recipe_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_id"], name: "index_recipe_items_on_product_id"
-    t.index ["recipe_id"], name: "index_recipe_items_on_recipe_id"
-  end
-
-  create_table "recipes", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.bigint "user_id"
-    t.boolean "public"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_recipes_on_user_id"
-  end
-
   create_table "shops", force: :cascade do |t|
     t.string "name"
     t.bigint "address_id", null: false
@@ -281,9 +261,6 @@ ActiveRecord::Schema.define(version: 2020_06_02_193024) do
   add_foreign_key "orders", "billings"
   add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "products"
-  add_foreign_key "recipe_items", "products"
-  add_foreign_key "recipe_items", "recipes"
-  add_foreign_key "recipes", "users"
   add_foreign_key "shops", "addresses"
   add_foreign_key "stock_transactions", "orders"
   add_foreign_key "stock_transactions", "stocks"
