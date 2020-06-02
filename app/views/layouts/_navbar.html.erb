@@ -26,7 +26,7 @@
 					<%= link_to edit_cart_path(id: current_user.cart.id), class: "icon rounded-circle border text-secondary position-relative mr-2" do %>
 						<% current_user.reload # Is neccessary to ensure that the cart_items.length is up to date %>
 						<%= fa_icon "shopping-cart" %>
-						<span class="badge badge-pill badge-danger notify"><%= current_user.cart_items.length %></span>
+						<span class="badge badge-pill badge-danger notify"><%= current_user.cart.cart_items.length %></span>
 					<% end %>
 
 					<%= link_to edit_user_registration_path, class: "icon rounded-circle border text-secondary" do %>

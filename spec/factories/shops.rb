@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :shop do
-    name { "MyString" }
+    sequence :name do |n|
+      "Shop ##{n}"
+    end
     
     association :address
   end
