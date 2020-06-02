@@ -6,22 +6,8 @@ FactoryBot.define do
       "user#{n}@example.com"
     end
 
-    transient do
-  		orders_count { 0 }
-  	end
-
-  	after(:create) do |user, evaluator|
-  		if evaluator.orders_count.positive?
-    		create(:billing, orders_count: evaluator.orders_count, user: user)
-    	end
-  	end
-
     trait :with_cart_item do
       cart { create(:cart, cart_items_count: 1) }
-    end
-
-    trait :with_delivery do
-      billings { [create(:billing, orders: [create(:order, delivery: create(:delivery))])] }
     end
   end
 end

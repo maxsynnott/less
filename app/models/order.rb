@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
 	belongs_to :delivery
 
-	validates_presence_of :product, :quantity, :price, :billing
+	validates_presence_of :quantity, :price
 
 	after_create :withdraw_stock
 
