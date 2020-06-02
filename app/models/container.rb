@@ -1,9 +1,6 @@
 class Container < ApplicationRecord
 	before_create :generate_unique_key
 
-	has_many :container_orders
-	has_many :orders, through: :container_orders
-
 	validates_presence_of :size
 
 	def checked_out?

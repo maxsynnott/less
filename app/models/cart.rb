@@ -1,7 +1,7 @@
 class Cart < ApplicationRecord
   belongs_to :user
 
-  has_many :cart_items, inverse_of: :cart
+  has_many :cart_items, inverse_of: :cart # For cocoon gem
 
   validates_presence_of :user
 

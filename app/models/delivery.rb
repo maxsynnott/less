@@ -1,7 +1,7 @@
 class Delivery < ApplicationRecord
   belongs_to :address
 
-  has_many :orders
+  has_one :order
 
   # Returns all non-sundays in next two weeks
   def self.available_dates
