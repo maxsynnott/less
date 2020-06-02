@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_02_205136) do
+ActiveRecord::Schema.define(version: 2020_06_02_221840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -141,16 +141,16 @@ ActiveRecord::Schema.define(version: 2020_06_02_205136) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "display_unit", default: "kg"
     t.integer "display_unit_quantity", default: 1000
-    t.bigint "shop_id"
-    t.index ["shop_id"], name: "index_products_on_shop_id"
+    t.bigint "store_id"
+    t.index ["store_id"], name: "index_products_on_store_id"
   end
 
-  create_table "shops", force: :cascade do |t|
+  create_table "stores", force: :cascade do |t|
     t.string "name"
     t.bigint "address_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["address_id"], name: "index_shops_on_address_id"
+    t.index ["address_id"], name: "index_stores_on_address_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -190,10 +190,10 @@ ActiveRecord::Schema.define(version: 2020_06_02_205136) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "phone"
     t.string "stripe_customer_id"
-    t.bigint "shop_id"
+    t.bigint "store_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["shop_id"], name: "index_users_on_shop_id"
+    t.index ["store_id"], name: "index_users_on_store_id"
   end
 
   create_table "votes", force: :cascade do |t|
@@ -219,6 +219,6 @@ ActiveRecord::Schema.define(version: 2020_06_02_205136) do
   add_foreign_key "deliveries", "addresses"
   add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "users"
-  add_foreign_key "shops", "addresses"
+  add_foreign_key "stores", "addresses"
   add_foreign_key "taggings", "tags"
 end

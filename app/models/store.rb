@@ -1,4 +1,4 @@
-class Shop < ApplicationRecord
+class Store < ApplicationRecord
 	has_one_attached :image
 	
   belongs_to :address

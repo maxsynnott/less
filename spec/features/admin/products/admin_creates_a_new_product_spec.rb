@@ -4,7 +4,7 @@ RSpec.feature "Admin creates a product" do
 	before { login_as create(:admin_user) }
 
 	scenario "they see the created product" do
-		shop = create(:shop)
+		store = create(:store)
 
 		visit admin_products_path
 
@@ -13,7 +13,7 @@ RSpec.feature "Admin creates a product" do
 		fill_in "Name", with: "Flour"
 		fill_in "Description", with: "Snow white flour"
 		fill_in "Price", with: "0.005"
-		select shop.name, from: "product_shop_id"
+		select store.name, from: "product_store_id"
 
 		click_on "Create Product"
 

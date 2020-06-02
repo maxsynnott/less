@@ -3,6 +3,6 @@ FactoryBot.define do
     name { "Flour" }
     price { 0.0025 }
 
-    association :shop
+    association :store
   end
 end

@@ -1,0 +1,13 @@
+<div class="card h-100">
+  <%= link_to store_path(id: store.id) do %>
+    <% if store.image.attached? %>
+      <%= image_tag store.image, class: "card-img-top", alt: store.name %>
+    <% end %>
+  <% end %>
+
+  <div class="card-body">
+    <h4 class="card-title">
+      <%= link_to store.name, store_path(id: store.id), class: "text-dark font-weight-bold" %>
+    </h4>
+  </div>
+</div>

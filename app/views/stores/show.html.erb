@@ -1,7 +1,7 @@
 <div class="banner">
 	<div class="container">
 		<h1 class="text-white py-5 mb-0" style="font-size: 50px;">
-			<%= @shop.name %>
+			<%= @store.name %>
 		</h1>
 	</div>
 </div>
@@ -18,7 +18,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="row">
-				<% @shop.products.each do |product| %>
+				<% @store.products.each do |product| %>
 					<div class="col-lg-3 col-md-4 mb-4">
 						<%= render 'product', product: product %>
 					</div>

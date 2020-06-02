@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  belongs_to :shop, optional: true
+  belongs_to :store, optional: true
 
   has_one :cart, dependent: :destroy
 
