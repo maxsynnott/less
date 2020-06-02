@@ -3,18 +3,6 @@ class Container < ApplicationRecord
 
 	validates_presence_of :size
 
-	def checked_out?
-		container_orders.any?(&:checked_out?)
-	end
-
-	def returned?
-		!checked_out?
-	end
-
-	def return
-		container_orders.where(returned_at: nil).update_all(returned_at: DateTime.now)
-	end
-
 	private
 
 	def generate_unique_key
