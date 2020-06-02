@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_02_202038) do
+ActiveRecord::Schema.define(version: 2020_06_02_205136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -128,7 +128,9 @@ ActiveRecord::Schema.define(version: 2020_06_02_202038) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "delivery_id"
+    t.bigint "user_id", null: false
     t.index ["delivery_id"], name: "index_orders_on_delivery_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -216,6 +218,7 @@ ActiveRecord::Schema.define(version: 2020_06_02_202038) do
   add_foreign_key "carts", "users"
   add_foreign_key "deliveries", "addresses"
   add_foreign_key "orders", "deliveries"
+  add_foreign_key "orders", "users"
   add_foreign_key "shops", "addresses"
   add_foreign_key "taggings", "tags"
 end
