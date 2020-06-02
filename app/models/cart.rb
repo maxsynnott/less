@@ -31,36 +31,15 @@ class Cart < ApplicationRecord
   end
 
   def line_items
-    line_items = []
-    line_containers = []
-
-    cart_items.each do |cart_item|
-      containers = cart_item.containers
-
-      if containers
-        line_items << {
-          name: cart_item.product.name,
-          description: cart_item.quantity.to_s + 'g',
-          quantity: 1,
-          currency: 'eur',
-          amount: cart_item.price.to_cents
-        }
-
-        line_containers += containers
-      end
-    end
-
-    line_containers.sort_by { |lc| [lc.price, lc.size] }.reverse.each do |line_container|
-      line_items << {
-        name: line_container.name,
-        description: "Pfand",
+    cart_items.map do |cart_item|
+      {
+        name: cart_item.product.name,
+        description: cart_item.quantity.to_s + 'g',
         quantity: 1,
         currency: 'eur',
-        amount: line_container.price.to_cents
+        amount: cart_item.price.to_cents
       }
     end
-
-    line_items
   end
 
   def total
