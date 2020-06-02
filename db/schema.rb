@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_02_200225) do
+ActiveRecord::Schema.define(version: 2020_06_02_200812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -100,16 +100,6 @@ ActiveRecord::Schema.define(version: 2020_06_02_200225) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_carts_on_user_id"
-  end
-
-  create_table "container_orders", force: :cascade do |t|
-    t.datetime "returned_at"
-    t.bigint "container_id", null: false
-    t.bigint "order_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["container_id"], name: "index_container_orders_on_container_id"
-    t.index ["order_id"], name: "index_container_orders_on_order_id"
   end
 
   create_table "containers", force: :cascade do |t|
@@ -222,8 +212,6 @@ ActiveRecord::Schema.define(version: 2020_06_02_200225) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
-  add_foreign_key "container_orders", "containers"
-  add_foreign_key "container_orders", "orders"
   add_foreign_key "deliveries", "addresses"
   add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "products"
