@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_02_195610) do
+ActiveRecord::Schema.define(version: 2020_06_02_200225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -85,17 +85,6 @@ ActiveRecord::Schema.define(version: 2020_06_02_195610) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "billings", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "status"
-    t.string "session_id"
-    t.decimal "amount", precision: 16, scale: 6
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "metadata"
-    t.index ["user_id"], name: "index_billings_on_user_id"
-  end
-
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "product_id", null: false
@@ -150,8 +139,6 @@ ActiveRecord::Schema.define(version: 2020_06_02_195610) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "delivery_id"
-    t.bigint "billing_id", null: false
-    t.index ["billing_id"], name: "index_orders_on_billing_id"
     t.index ["delivery_id"], name: "index_orders_on_delivery_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
   end
@@ -172,25 +159,6 @@ ActiveRecord::Schema.define(version: 2020_06_02_195610) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["address_id"], name: "index_shops_on_address_id"
-  end
-
-  create_table "stock_transactions", force: :cascade do |t|
-    t.integer "amount"
-    t.bigint "stock_id", null: false
-    t.bigint "order_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "transaction_type"
-    t.index ["order_id"], name: "index_stock_transactions_on_order_id"
-    t.index ["stock_id"], name: "index_stock_transactions_on_stock_id"
-  end
-
-  create_table "stocks", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.integer "balance"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_id"], name: "index_stocks_on_product_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -251,19 +219,14 @@ ActiveRecord::Schema.define(version: 2020_06_02_195610) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "billings", "users"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
   add_foreign_key "container_orders", "containers"
   add_foreign_key "container_orders", "orders"
   add_foreign_key "deliveries", "addresses"
-  add_foreign_key "orders", "billings"
   add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "products"
   add_foreign_key "shops", "addresses"
-  add_foreign_key "stock_transactions", "orders"
-  add_foreign_key "stock_transactions", "stocks"
-  add_foreign_key "stocks", "products"
   add_foreign_key "taggings", "tags"
 end
