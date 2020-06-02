@@ -47,23 +47,6 @@ class Cart < ApplicationRecord
     cart_items.sum { |cart_item| cart_item.price.to_cents }.to_money
   end
 
-  def to_metadata
-    items = cart_items.map do |cart_item|
-      {
-        product_id: cart_item.product.id,
-        quantity: cart_item.quantity,
-        price: cart_item.product.price,
-        containers: cart_item.containers.map { |container| { container_id: container.id, price: container.price } }
-      }
-    end
-
-    {
-      user_id: user.id,
-      items: items.to_json, # Neccesary to convert items to string as stripe API won't accept nested
-      total: total
-    }
-  end
-
   def empty?
     cart_items.empty?
   end

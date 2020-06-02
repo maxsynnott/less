@@ -13,8 +13,7 @@ class Stripe::CheckoutsController < ApplicationController
 			  payment_method_types: ['card'],
 			  line_items: cart.line_items,
 			  success_url: success_stripe_checkouts_url,
-			  cancel_url: edit_cart_url(id: cart.id),
-			  metadata: cart.to_metadata
+			  cancel_url: edit_cart_url(id: cart.id)
 			)
 
 			response = { session_id: session.id }
