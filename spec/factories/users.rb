@@ -23,7 +23,7 @@ FactoryBot.define do
     end
 
     after(:create) do |user, evaluator|
-    	create_list(:order, evaluator.orders_count, user: user)
+      create_list(:order, evaluator.orders_count, :with_delivery, user: user)
     end
   end
 end

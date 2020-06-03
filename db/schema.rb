@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_02_221840) do
+ActiveRecord::Schema.define(version: 2020_06_03_215924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -114,22 +114,21 @@ ActiveRecord::Schema.define(version: 2020_06_02_221840) do
   create_table "deliveries", force: :cascade do |t|
     t.decimal "price", precision: 10, scale: 6
     t.boolean "delivered"
-    t.bigint "address_id", null: false
     t.datetime "scheduled_at"
     t.datetime "delivered_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["address_id"], name: "index_deliveries_on_address_id"
+    t.bigint "order_id"
+    t.string "address"
+    t.text "instructions"
+    t.string "phone"
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "quantity"
-    t.decimal "price", precision: 10, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "delivery_id"
     t.bigint "user_id", null: false
-    t.index ["delivery_id"], name: "index_orders_on_delivery_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -216,8 +215,6 @@ ActiveRecord::Schema.define(version: 2020_06_02_221840) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
-  add_foreign_key "deliveries", "addresses"
-  add_foreign_key "orders", "deliveries"
   add_foreign_key "orders", "users"
   add_foreign_key "stores", "addresses"
   add_foreign_key "taggings", "tags"

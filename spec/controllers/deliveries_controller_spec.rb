@@ -29,19 +29,4 @@ RSpec.describe DeliveriesController, "#update" do
 			expect(response).to redirect_to orders_path
 		end
 	end
-
-	context "when provided with a valid address_id" do
-		let(:address) { create(:address) }
-
-		it "correctly updates the delivery and redirects_to orders_path" do
-			patch :update, params: { id: delivery.id, delivery: { address_id: address.id } }
-
-			delivery.reload
-
-			expect(assigns(:delivery)).to eq delivery
-			expect(delivery.address).to eq address
-
-			expect(response).to redirect_to orders_path
-		end
-	end
 end

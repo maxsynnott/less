@@ -1,0 +1,50 @@
+<%= simple_form_for @order do |f| %>
+	<div class="container">
+		<div class="row">
+			<div class="col-8">
+				<div class="accordion" id="accordionExample">
+					<div id='deliveries'>
+					  <%= f.simple_fields_for :deliveries do |delivery| %>
+					    <%= render 'delivery_fields', f: delivery %>
+					  <% end %>
+					</div>
+
+					<div class="card">
+					  <div class="card-body" id="headingOne">
+					    <h2 class="mb-0">
+					      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#payment" aria-expanded="false">
+					        Payment Method
+					      </button>
+					    </h2>
+					  </div>
+
+					  <div id="payment" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+					    <div class="card-body">
+					    	<!-- Have this just be a stripe api form thing completely seperate from the order form -->
+					      Select or add payment method here
+					    </div>
+					  </div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-4">
+				<%= f.submit 'Proceed to payment', class: "btn btn-success" %>
+				<br>
+				Keep this disabled until all fields including payment method are filled
+
+				<br>
+				<br>
+				Order Breakdown
+				<br>
+				Subtotal
+				<br>
+				Tax
+				<br>
+				Delivery
+				<br>
+				Total
+			</div>
+		</div>
+	</div>
+<% end %>

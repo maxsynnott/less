@@ -1,7 +1,9 @@
 class Delivery < ApplicationRecord
-  belongs_to :address
+  belongs_to :order
 
-  has_one :order
+  validates_presence_of :address
+
+  validates :phone, phone: { possible: true }
 
   # Returns all non-sundays in next two weeks
   def self.available_dates
