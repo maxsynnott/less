@@ -45,3 +45,10 @@ form input[type='number']::-webkit-inner-spin-button {
 	text-align: center;
 	border-radius: 3rem;
 }
+
+.bottom-right {
+	position: fixed !important;
+	bottom: 25px;
+	right: 25px;
+	z-index: 9999;
+}
