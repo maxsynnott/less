@@ -50,4 +50,8 @@ class Cart < ApplicationRecord
   def empty?
     cart_items.empty?
   end
+
+  def to_order_items
+    cart_items.map(&:to_order_item)
+  end
 end

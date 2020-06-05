@@ -18,4 +18,12 @@ class CartItem < ApplicationRecord
   def price
     product.price_for(quantity)
   end
+
+  def to_order_item
+    OrderItem.new(
+      product_id: product.id,
+      quantity: quantity,
+      price: product.price
+    )
+  end
 end

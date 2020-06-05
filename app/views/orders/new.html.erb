@@ -1,4 +1,4 @@
-<%= simple_form_for @order do |f| %>
+<%= simple_form_for @order, html: { data: { controller: "checkouts" } } do |f| %>
 	<div class="container">
 		<div class="row">
 			<div class="col-8">
@@ -6,6 +6,12 @@
 					<div id='deliveries'>
 					  <%= f.simple_fields_for :deliveries do |delivery| %>
 					    <%= render 'delivery_fields', f: delivery %>
+					  <% end %>
+					</div>
+
+					<div class="" id='order_items'>
+					  <%= f.simple_fields_for :order_items do |order_item| %>
+					    <%= render 'order_item_fields', f: order_item %>
 					  <% end %>
 					</div>
 
@@ -29,7 +35,7 @@
 			</div>
 
 			<div class="col-4">
-				<%= f.submit 'Proceed to payment', class: "btn btn-success" %>
+				<%= f.submit 'Review & Pay', class: "btn btn-success" %>
 				<br>
 				Keep this disabled until all fields including payment method are filled
 

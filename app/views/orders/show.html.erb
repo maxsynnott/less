@@ -1,0 +1,44 @@
+<% if @order.paid %>
+	<h2>You're Order is on the way!</h2>
+
+	<h3>
+		To be delivered on: 
+		<%= @order.deliveries.first.scheduled_at %>
+	</h3>
+
+
+	<h4>Items:</h4>
+
+	<ul class="list-group">
+		<% @order.order_items.each do |order_item| %>
+			<li class="list-group-item">
+				<p>
+					<b>Item Name: </b>
+					<%= order_item.product.name %>
+				</p>
+
+				<p>
+					<b>Quantity: </b>
+					<%= order_item.quantity %>
+				</p>
+			</li>
+		<% end %>
+	</ul>
+<% else %>
+	<div
+		data-controller="stripe--payment"
+		data-stripe--payment-client-secret="<%= @intent.client_secret %>"
+		class="container"
+	>
+		<form id="payment-form" data-action="stripe--payment#submitPayment">
+			<div id="card-element" data-action="change->stripe--payment#displayErrors">
+			  <!-- Stripe Element will be inserted here -->
+			</div>
+
+			<!-- Used to display form errors -->
+			<div id="card-errors" role="alert"></div>
+
+		  <button class="btn btn-primary" id="submit">Pay <%= number_to_currency(@intent.amount.to_money) %></button>	
+		</form>
+	</div>
+<% end %>
