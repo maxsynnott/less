@@ -1,0 +1,76 @@
+<div class="container-fluid">
+	<div class="modal-body pt-5">
+		<div class="row">
+			<div class="col-6 text-center">
+				<% if @product.image.attached? %>
+				  <%= image_tag @product.image, alt: @product.name, style: "max-height: 50vh" %>
+				<% end %>
+			</div>
+
+			<div class="col-6">
+				<h2>
+					<%= @product.name %>
+				</h2>
+
+				<ul class="list-group mt-5">
+					<li class="list-group-item">
+						<p>
+							<b>
+								Price
+							</b>
+
+							<br>
+
+							<%= number_to_currency(@product.price * @product.display_unit_quantity, unit: '€', format: "%n %u") %>
+							<span class="text-muted">
+							  <%= " per " + @product.display_unit %>
+							</span>
+						</p>
+					</li>
+
+					<li class="list-group-item">
+						<p>
+							<b>
+								Details
+							</b>
+
+							<br>
+
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col col-6">
+					<p class="text-muted">
+						400 grams | 7.13 €
+					</p>
+				</div>
+
+				<div class="col col-6">
+					<%= simple_form_for(CartItem.new, remote: true, wrapper: :inline_form, html: { class: 'form-inline w-100' }) do |f| %>
+			      <%= f.hidden_field :product_id, value: @product.id %>
+
+			      <%= f.input :quantity, placeholder: "Want some?", input_html: { data: { action: "input->products--product#updateDisplay", target: "products--product.input" }, class: "w-100" } %>
+
+			      <%= button_tag type: "submit", class: "btn btn-success ml-auto" do %>
+			      	Add to cart
+			        <%= fa_icon "plus" %>
+			      <% end %>
+			    <% end %>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
