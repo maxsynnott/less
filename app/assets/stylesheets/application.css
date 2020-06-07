@@ -52,3 +52,7 @@ form input[type='number']::-webkit-inner-spin-button {
 	right: 25px;
 	z-index: 9999;
 }
+
+body {
+	background-color: #F7F7F7 !important;
+}

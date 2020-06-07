@@ -1,7 +1,20 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["form"]
+	static targets = ["form", "scheduledAt"]
+
+	connect() {
+		const dates = []
+
+		<% Delivery.available_dates.map(&:to_s).each do |date| %>
+			dates.push("<%= date %>")
+		<% end %>
+
+		flatpickr(this.scheduledAtTarget, {
+			altInput: true,
+			enable: dates
+		})
+	}
 
 	submitForm(event) {
 		event.preventDefault()

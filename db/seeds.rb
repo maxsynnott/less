@@ -3,12 +3,11 @@ AdminUser.create!(email: 'admin@example.com', password: '123456', password_confi
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
 
 image_urls = [
-	"https://www.fresh-square.com/wp-content/uploads/2016/10/Cherry-Tomato.jpg",
-	"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Patates.jpg/1200px-Patates.jpg",
-	"https://images.squarespace-cdn.com/content/v1/5db8897cf38a0c72ea90a811/1574453264299-26RKZI4JJYNGIZAGENY7/ke17ZwdGBToddI8pDm48kLKHhjvX3gphN5FUFcFAex57gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UdeEXCY_GTEWd6VXxVNpiEK8h3-TrFakxXcdgG89kbU6tbi8Kdc17sDwJvAVtl8wPQ/Iroquois+All+Purpose+Flour+9859+copy.jpg",
-	"https://i0.wp.com/images-prod.healthline.com/hlcmsresource/images/AN_images/health-benefits-of-eggs-1296x728-feature.jpg",
-	"https://live.staticflickr.com/4201/34615573020_9337b7feb3_b.jpg",
-	"https://sc01.alicdn.com/kf/UTB8SUNAl__IXKJkSalUq6yBzVXag.jpg"
+	"https://www.benjerry.com/files/live/sites/systemsite/files/flavors/products/us/pint/phish-food-detail-open-2019.png",
+	"https://png2.cleanpng.com/sh/18fe59802636e449d2fda21502acce22/L0KzQYm3WMI1N5l8epH0aYP2gLBuTgRiap1qj9N7ZT3wccT2jr1raaMyf95qc4Owc7L3gfNqfJJze9c2cHB1c7bzgflvNWIyTZ8AYkizQIHrhMRmQGFmSJC9OEW2Roe7WcE2O2Y2Sac9OEW2QoK9TwBvbz==/kisspng-tableware-mason-jar-glass-capacitance-porcelain-1-5-5b8000dd4e80a0.4853664915351154853216.png",
+	"https://i.pinimg.com/originals/0f/90/c1/0f90c1a847cb971519b96c6a1098f375.png",
+	"https://s3.amazonaws.com/greengiant-us/wp-content/uploads/2019/02/11224329/800x800_Green-Giant-Whole-Mushrooms-6-oz.-Jar.png",
+	"https://www.puremarket.com/wp-content/uploads/2019/10/earths-best-stage-3-organic-vegetable-chicken-soup-na-jars-meals.png?w=350"
 ]
 
 store_logo_urls = [

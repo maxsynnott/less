@@ -27,7 +27,7 @@
 
   <div id="time" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
     <div class="card-body">
-      <%= f.input :scheduled_at, label: false %>
+      <%= f.text_field :scheduled_at, data: { target: "checkouts.scheduledAt" }, label: false %>
     </div>
   </div>
 </div>

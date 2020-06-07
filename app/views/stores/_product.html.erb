@@ -1,45 +1,20 @@
-<div data-controller="products--product" data-products--product-price="<%= product.price %>" class="card h-100" id="product_<%= product.id %>">
-  <%= link_to product_path(id: product.id) do %>
-    <% if product.image.attached? %>
-      <%= image_tag product.image, class: "card-img-top", alt: product.name %>
-    <% end %>
-
-    <span class="badge badge-light top-left">
-      <%= number_to_currency(product.price * product.display_unit_quantity, unit: '€', format: "%n %u") + " / " + product.display_unit %>
-    </span>
-
-    <span data-target="products--product.display" class="badge badge-success top-right">
-      0.00 €
-    </span>
-  <% end %>
-
+<div data-controller="products--product" data-products--product-price="<%= product.price %>" class="card product-card border-0 h-100" id="product_<%= product.id %>">
   <div class="card-body">
-    <h4 class="card-title">
-      <%= link_to product.name, product_path(id: product.id), class: "text-dark font-weight-bold" %>
-    </h4>
-
-    <div class="tags">
-      <% if product.tag_list.include?("organic") %>
-        <%= fa_icon "leaf", class: "text-success", title: "Organic", data: { toggle: "tooltip", placement: "top" } %>
-      <% end %>
-
-      <% if product.tag_list.include?("vegan") %>
-        <%= fa_icon "carrot", class: "text-warning", title: "Vegan", data: { toggle: "tooltip", placement: "top" } %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="card-footer">
-    <%= simple_form_for(CartItem.new, remote: true, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
-      <%= f.hidden_field :product_id, value: product.id %>
-
-      <%= f.input :quantity, placeholder: "Want some?", input_html: { data: { action: "input->products--product#updateDisplay", target: "products--product.input" }, class: "w-100" } %>
-
-      <%= button_tag type: "submit", class: "btn btn-success ml-auto" do %>
-        <%= fa_icon "plus" %>
+    <%= link_to product_path(id: product.id) do %>
+      <% if product.image.attached? %>
+        <%= image_tag product.image, class: "card-img-top mb-2", alt: product.name %>
       <% end %>
     <% end %>
 
-    <small class="text-muted"></small>
+    <p class="text-dark font-weight-bold mb-0">
+      <%= number_to_currency(product.price * product.display_unit_quantity, unit: '€', format: "%n %u") %>
+      <span class="text-muted">
+        <%=  " / " + product.display_unit %>
+      </span>
+    </p>
+
+    <p class="text-muted mb-0">
+      <%= product.name %>
+    </p>
   </div>
 </div>
