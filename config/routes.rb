@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   resources :deliveries, only: [:edit, :update]
   resources :carts, only: [:edit, :update]
   resources :orders, only: [:index, :new, :create, :show]
-  resources :stores, only: [:show, :index]
   #
 
   # Complex resources
@@ -25,10 +24,12 @@ Rails.application.routes.draw do
   #     post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
   #   end
   # end
-  
-  resources :products, only: [:index, :show] do
-    collection do
-      get "autocomplete"
+
+  resources :stores, only: [:show, :index] do
+    resources :products, only: [:index, :show] do
+      collection do
+        get "autocomplete"
+      end
     end
   end
   #

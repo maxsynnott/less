@@ -1,19 +1,29 @@
 class ProductsController < ApplicationController
+  before_action :assign_store
+
 	skip_before_action :authenticate_user!, only: [:index]
 
   def index
-  	@products = params[:q] ? Product.search(params[:q]) : Product.all
+    @products = @store.products
+
+  	@products = @products.search(params[:q]) if params[:q].present?
 
   	@products = @products.paginate(page: params[:page], per_page: 12)
   end
 
   def show
-  	@product = Product.find(params[:id])
+  	@product = @store.products.find(params[:id])
   end
 
   def autocomplete
-  	@products = Product.search(params[:q]).limit(5)
+  	@products = @store.products.search(params[:q]).limit(5)
 
   	render layout: false
+  end
+
+  private
+
+  def assign_store
+    @store = Store.find(params[:store_id])
   end
 end
