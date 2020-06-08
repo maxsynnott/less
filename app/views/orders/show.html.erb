@@ -26,19 +26,41 @@
 	</ul>
 <% else %>
 	<div
-		data-controller="stripe--payment"
-		data-stripe--payment-client-secret="<%= @intent.client_secret %>"
+		data-controller="stripe"
+		data-stripe-client-secret="<%= @payment_intent.client_secret %>"
 		class="container"
 	>
-		<form id="payment-form" data-action="stripe--payment#submitPayment">
-			<div id="card-element" data-action="change->stripe--payment#displayErrors">
-			  <!-- Stripe Element will be inserted here -->
-			</div>
+		<form id="payment-form" data-action="stripe#confirmCardPayment">
+			<% @payment_methods.each do |payment_method| %>
+				<label class="d-flex">
+					<input type="radio" name="payment-method" value="<%= payment_method.id %>">
+					
+					<div>
+						<%= "**** " * 3 + payment_method.card.last4 %>
+					</div>
+				</label>
+			<% end %>
 
-			<!-- Used to display form errors -->
-			<div id="card-errors" role="alert"></div>
+			<label class="w-100">
+				<div class="d-flex">
+					<input type="radio" name="payment-method" value="new-card" data-target="stripe.newCardRadio" checked>
 
-		  <button class="btn btn-primary" id="submit">Pay <%= number_to_currency(@intent.amount.to_money) %></button>	
+					<div id="card-element" class="flex-grow-1" data-action="change->stripe#displayErrors">
+					  <!-- Stripe Element will be inserted here -->
+					</div>
+				</div>
+
+				<!-- Used to display form errors -->
+				<div id="card-errors" role="alert"></div>
+			</label>
+
+			<input type="checkbox" id="save_card" data-target="stripe.saveCheckbox">
+
+			<label for="save_card">
+				Save for future payments
+			</label>
+
+		  <button class="btn btn-primary" id="submit">Pay <%= number_to_currency(@payment_intent.amount.to_money) %></button>	
 		</form>
 	</div>
 <% end %>

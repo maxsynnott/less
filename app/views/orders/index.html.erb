@@ -1,21 +1,54 @@
-<ul class="list-group">
-	<% @orders.group_by(&:delivery).sort_by { |delivery, _| delivery.scheduled_at }.each do |delivery, orders| %>
-		<li class="list-group-item">
-			<h4>
-				<%= delivery.scheduled_at_time_display %> on <%= delivery.scheduled_at_date_display %>
-			</h4>
+<h2>Current Orders:</h2>
 
-			<ul>
-				<% orders.each do |order| %>
-					<li>
+<ul class="list-group">
+	<% @current_orders.each do |order| %>
+		<li class="list-group-item">
+			<p>
+				<b>Delivery Scheduled: </b>
+				<%= order.delivery.scheduled_at.strftime("%B %d | %H:%M") %> to <%= (order.delivery.scheduled_at + 2.hours).strftime("%H:%M") %>
+			</p>
+		</li>
+		<li class="list-group-item">
+			<h3>Items:</h3>
+
+			<ul class="list-group">
+				<% order.order_items.each do |oi| %>
+					<li class="list-group-item">
 						<p>
-							<%= order.quantity %>g of <%= order.product.name %>
+							<b><%= oi.product.name %>: </b>
+							<%= oi.quantity %>g
 						</p>
 					</li>
 				<% end %>
 			</ul>
+		</li>
+	<% end %>
+</ul>
 
-			<%= link_to "Change delivery time", edit_delivery_path(delivery), class: "btn btn-primary" %>
+<h2>Past Orders:</h2>
+
+<ul class="list-group">
+	<% @past_orders.each do |order| %>
+		<li class="list-group-item">
+			<p>
+				<b>Delivered on: </b>
+				<%= order.delivery.delivered_at.strftime("%B %d | %H:%M") %>
+			</p>
+		</li>
+		
+		<li class="list-group-item">
+			<h3>Items:</h3>
+
+			<ul class="list-group">
+				<% order.order_items.each do |oi| %>
+					<li class="list-group-item">
+						<p>
+							<b><%= oi.product.name %>: </b>
+							<%= oi.quantity %>g
+						</p>
+					</li>
+				<% end %>
+			</ul>
 		</li>
 	<% end %>
 </ul>

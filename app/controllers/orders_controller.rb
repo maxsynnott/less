@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
 	def index
-		@orders = current_user.orders
+    @orders = current_user.orders
+
+    @past_orders = @orders.select(&:delivered?)
+    @current_orders = @orders - @past_orders
 	end
 
 	def new
@@ -25,12 +28,19 @@ class OrdersController < ApplicationController
   	@order = Order.find(params[:id])
 
   	unless @order.paid
-  		@intent = Stripe::PaymentIntent.create({
+      @user = current_user
+
+  		@payment_intent = Stripe::PaymentIntent.create(
   		  amount: @order.total.to_cents,
   		  currency: 'eur',
-  		  customer: current_user.stripe_customer_id,
+  		  customer: @user.stripe_customer_id,
   		  metadata: { order_id: @order.id }
-  		})
+  		)
+
+      @payment_methods = Stripe::PaymentMethod.list(
+        customer: @user.stripe_customer_id,
+        type: 'card'
+      ).data
   	end
   end
 

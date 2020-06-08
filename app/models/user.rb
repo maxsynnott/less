@@ -19,9 +19,9 @@ class User < ApplicationRecord
 
   validates :phone, phone: { possible: true, allow_blank: true }
 
-  # def toggle_like(object)
-  #   liked?(object) ? unlike(object) : likes(object)
-  # end
+  def stripe_customer
+    Stripe::Customer.retrieve(stripe_customer_id)
+  end
 
   private
 

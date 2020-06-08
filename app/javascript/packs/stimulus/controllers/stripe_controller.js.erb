@@ -1,6 +1,8 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
+	static targets = ["saveCheckbox", "newCardRadio"]
+
 	connect() {
 		this.stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
 		const elements = this.stripe.elements();
@@ -26,21 +28,53 @@ export default class extends Controller {
 		this.card.mount("#card-element");
 
 		this.card.on('change', this.displayErrors)
+
+		this.card.on('focus', (event) => {
+			this.newCardRadioTarget.checked = true
+		})
 	}
 
-	submitPayment(event) {
+	displayErrors(event) {
+		const displayError = document.getElementById('card-errors');
+
+	  if (event.error) {
+	    displayError.textContent = event.error.message;
+	  } else {
+	    displayError.textContent = '';
+	  }
+	}
+
+	confirmCardPayment(event) {
 		event.preventDefault()
 
 		const clientSecret = this.data.get('clientSecret')
 
-		this.stripe.confirmCardPayment(clientSecret, {
-	    payment_method: {
-	      card: this.card,
-	      billing_details: {
-	        name: 'Example name'
-	      }
-	    }
-	  }).then(function(result) {
+		let options;
+
+		const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value
+
+		if (paymentMethod == "new-card") {
+			options = {
+				payment_method: {
+					card: this.card,
+					billing_details: {
+					  name: 'Example name'
+					}
+				}
+			}
+
+			if (this.saveCheckboxTarget.checked) {
+				options.setup_future_usage = "on_session"
+			}
+		} else {
+			options = {
+				payment_method: paymentMethod
+			}
+		}
+
+		this.stripe.confirmCardPayment(clientSecret,
+			options
+		).then(function(result) {
 	    if (result.error) {
 	      // Show error to your customer (e.g., insufficient funds)
 	      console.log(result.error.message);
@@ -56,15 +90,5 @@ export default class extends Controller {
 	      }
 	    }
 	  });
-	}
-
-	displayErrors(event) {
-		const displayError = document.getElementById('card-errors');
-
-	  if (event.error) {
-	    displayError.textContent = event.error.message;
-	  } else {
-	    displayError.textContent = '';
-	  }
 	}
 }
