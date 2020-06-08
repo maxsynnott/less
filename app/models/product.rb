@@ -1,4 +1,12 @@
 class Product < ApplicationRecord
+	$tags = [
+		"gluten-free",
+		"vegetarian",
+		"vegan",
+		"dairy-free",
+		"organic"
+	]
+
 	include PgSearch::Model
 
 	pg_search_scope :search,

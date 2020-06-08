@@ -5,39 +5,29 @@ class Delivery < ApplicationRecord
 
   validates :phone, phone: { possible: true }
 
-  # Returns all non-sundays in next two weeks
-  def self.available_dates
-  	day_after_tomorrow = Date.today + 2.days
+  # Returns all available datetimes (60 min increments)
+  def self.available_dts
+    slots = []
 
-  	dates = (day_after_tomorrow..day_after_tomorrow + 12.days).to_a
+    hours_in_advance = 36 # Users must book at least n hours in advance
+    days_ahead = 14 # Users can book up to n days ahead
+    opening_hours = (10..17).to_a
 
-  	dates.reject { |date| date.wday.zero? or Delivery.available_times(date).empty? } # Rejects all sundays and full days
-  end
+    current_dt = DateTime.now.beginning_of_hour + 1.hour + hours_in_advance.hours
+    end_dt = (current_dt + days_ahead.days).end_of_day
 
-  # Returns all available times (60 min increments) for a particular day
-  def self.available_times(date)
-  	slots = []
+    until current_dt > end_dt
+      unless current_dt.wday.zero? # Ignore sundays
+        if opening_hours.include?(current_dt.hour)
+          # TODO: Add logic to check for slots too busy to be booked
+          slots << current_dt
+        end
+      end
 
-  	if date >= Date.today && date <= Date.today + 12.days and !date.wday.zero?
-	  	slots = (480..1020).step(60).to_a # Times are represented by minutes since midnight (480..1020) => (09:00..17:00)
-
-	  	deliveries = Delivery.all.select { |delivery| delivery.scheduled_at.to_date == date }
-
-	  	taken_times = deliveries.map { |delivery| delivery.scheduled_at.hour * 60 + delivery.scheduled_at.min }
-
-      taken_times.reject! { |time| taken_times.count(time) < 2 } # Slot is only full if it has 2 or more deliveries
-
-	  	slots -= taken_times
-	  end
+      current_dt += 1.hour
+    end
 
 	  slots
-  end
-
-  def self.next_available_datetime
-    date = Delivery.available_dates.first
-    time_mins = Delivery.available_times(date).first
-
-    date.to_datetime.change(hour: time_mins / 60, min: time_mins % 60)
   end
 
   def scheduled_at_time_display

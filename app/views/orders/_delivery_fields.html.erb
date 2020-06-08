@@ -27,7 +27,7 @@
 
   <div id="time" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
     <div class="card-body">
-      <%= f.text_field :scheduled_at, data: { target: "checkouts.scheduledAt" }, label: false %>
+      <%= f.input :scheduled_at, label: false, collection: Delivery.available_dts.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] } %>
     </div>
   </div>
 </div>

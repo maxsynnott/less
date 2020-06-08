@@ -4,7 +4,8 @@ export default class extends Controller {
 	static targets = ["input", "results"]
 
 	fetchResults() {
-		const target = `${this.data.get('url')}?q=${this.inputTarget.value}`
+		// Rework this to include existing filters
+		const target = `${this.data.get('url')}?search%5Bquery%5D=${this.inputTarget.value}`
 
 		fetch(target)
 		.then(response => response.text())

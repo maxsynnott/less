@@ -22,7 +22,7 @@ module Stripe
           price: 0.00, # Currently free
           delivered: false,
           address_id: address.id,
-          scheduled_at: Delivery.next_available_datetime
+          scheduled_at: Delivery.available_dts.sample
         )
 
         metadata = object.metadata

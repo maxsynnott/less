@@ -1,7 +1,8 @@
 <div class="container">
 	<div class="my-4" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_store_products_url %>">
-		<%= form_with url: store_products_path, method: :get, local: true, class: "form-inline", html: { autocomplete: "off" } do %>
-		  <%= search_field_tag :q, nil, placeholder: "What are you craving?", class: "form-control w-100", data: { target: "autocomplete.input", action: "input->autocomplete#fetchResults" } %>
+		<%= simple_form_for :search, url: store_products_path(@store), method: :get, class: "form-inline", html: { autocomplete: "off" } do |f| %>
+			<%= f.input :query, placeholder: "What are you craving", class: "form-control w-100", label: false, input_html: { data: { target: "autocomplete.input", action: "input->autocomplete#fetchResults" } } %>
+			<%= f.input :tags, collection: $tags, as: :check_boxes %>
 		<% end %>
 
 		<ul class="list-group" data-target="autocomplete.results"></ul>

@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   def index
     @products = @store.products
 
-  	@products = @products.search(params[:q]) if params[:q].present?
+    filter_products if params[:search].present?
 
   	@products = @products.paginate(page: params[:page], per_page: 12)
   end
@@ -16,12 +16,28 @@ class ProductsController < ApplicationController
   end
 
   def autocomplete
-  	@products = @store.products.search(params[:q]).limit(5)
+    @products = @store.products
+
+  	filter_products if params[:search].present?
+
+    @products = @products.limit(5)
 
   	render layout: false
   end
 
   private
+
+  def filter_products
+    search = params[:search]
+
+    @products = @products.search(search[:query]) if search[:query].present?
+
+    if search[:tags].count > 1
+      search[:tags][1..-1].each do |tag|
+        @products = @products.tagged_with(tag)
+      end
+    end
+  end
 
   def assign_store
     @store = Store.find(params[:store_id])
