@@ -23,6 +23,25 @@ class User < ApplicationRecord
     Stripe::Customer.retrieve(stripe_customer_id)
   end
 
+  def create_payment_intent(args)
+    defaults = {
+      currency: 'eur',
+      customer: stripe_customer_id
+    }
+
+    # Will currently fail when (args[:amount] - balance) < 1
+    # TODO: Add the credit adjustment on the webhook side
+    if balance.positive?
+      adjustment = [args[:amount], balance.to_cents].min
+
+      args[:amount] -= adjustment
+
+      args[:metadata] = (args[:metadata] || {}).merge(adjustment: -adjustment)
+    end
+
+    Stripe::PaymentIntent.create(defaults.merge(args))
+  end
+
   private
 
   def generate_cart
@@ -33,7 +52,7 @@ class User < ApplicationRecord
     customer = Stripe::Customer.create(
       email: email,
       metadata: {
-        id: id
+        user_id: id
       }
     )
 

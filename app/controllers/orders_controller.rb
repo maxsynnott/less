@@ -30,12 +30,12 @@ class OrdersController < ApplicationController
   	unless @order.paid
       @user = current_user
 
-  		@payment_intent = Stripe::PaymentIntent.create(
-  		  amount: @order.total.to_cents,
-  		  currency: 'eur',
-  		  customer: @user.stripe_customer_id,
-  		  metadata: { order_id: @order.id }
-  		)
+  		@payment_intent = @user.create_payment_intent(
+        amount: @order.total.to_cents,
+        metadata: {
+          order_id: @order.id
+        }
+      )
 
       @payment_methods = Stripe::PaymentMethod.list(
         customer: @user.stripe_customer_id,

@@ -8,6 +8,11 @@ module Stripe
 
         order = ::Order.find(order_id)
 
+        # Untested
+        if object.metadata[:adjustment]
+          order.user.update(balance: order.user.balance + object.metadata[:adjustment].to_i)
+        end
+
         order.update(paid: true)
   		end
   	end
