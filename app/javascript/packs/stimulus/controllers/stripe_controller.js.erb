@@ -86,7 +86,7 @@ export default class extends Controller {
 	        // execution. Set up a webhook or plugin to listen for the
 	        // payment_intent.succeeded event that handles any business critical
 	        // post-payment actions.
-	        window.location.replace(routes.root_path());
+	        window.location.replace(routes.orders_path({ status: 'success' }));
 	      }
 	    }
 	  });
