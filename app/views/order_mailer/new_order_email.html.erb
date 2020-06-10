@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <h1>You got a new order from <%= @order.user.email %>!</h1>
+
+    <p>
+    Order details<br>
+    --------------------------
+    </p>
+    <p>Email: <%= @order.user.email %></p>
+    <p>Address: <%= @order.delivery.address %></p>
+    <p>Phone: <%= @order.delivery.phone %></p>
+  </body>
+</html>

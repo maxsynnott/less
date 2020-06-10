@@ -6,6 +6,14 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   #
 
+  # Sidekiq
+  require "sidekiq/web"
+
+  authenticate :admin_user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+  #
+
   devise_for :users, controllers: {
     registrations: "users/registrations"
   }

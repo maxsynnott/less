@@ -32,7 +32,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -60,7 +60,23 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-
   # Allow ngrok hosting
   config.hosts << /[a-z0-9]+\.ngrok\.io/
+
+
+
+  # Remove this to stop real emails from being sent
+  config.action_mailer.delivery_method = :smtp
+  host = "lessberlin.de"
+  config.action_mailer.default_url_options = { host: host }
+
+  # SMTP settings for GMAIL
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => "max@lessberlin.de",
+    :password             => ENV["GMAIL_PASSWORD"],
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
 end
