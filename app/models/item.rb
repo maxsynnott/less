@@ -1,4 +1,4 @@
-class Product < ApplicationRecord
+class Item < ApplicationRecord
 	$tags = [
 		"gluten-free",
 		"vegetarian",

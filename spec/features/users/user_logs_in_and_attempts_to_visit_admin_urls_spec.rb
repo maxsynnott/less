@@ -15,7 +15,7 @@ RSpec.feature "User logs in and attempts to visit admin urls" do
 
 		expect(page).to have_selector ".flash", text: "You need to sign in or sign up before continuing."
 
-		visit admin_products_path
+		visit admin_items_path
 
 		expect(page).to have_selector ".flash", text: "You need to sign in or sign up before continuing."
 	end

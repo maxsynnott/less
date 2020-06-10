@@ -1,6 +1,6 @@
 <div class="container">
-	<div class="my-4" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_store_products_url %>">
-		<%= simple_form_for :search, url: store_products_path(@store), method: :get, class: "form-inline", html: { autocomplete: "off" } do |f| %>
+	<div class="my-4" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_store_items_url %>">
+		<%= simple_form_for :search, url: store_items_path(@store), method: :get, class: "form-inline", html: { autocomplete: "off" } do |f| %>
 			<%= f.input :query, placeholder: "What are you craving", class: "form-control w-100", label: false, input_html: { data: { target: "autocomplete.input", action: "input->autocomplete#fetchResults" } } %>
 			<%= f.input :tags, collection: $tags, as: :check_boxes %>
 		<% end %>
@@ -12,9 +12,9 @@
 		<div class="col-lg-12">
 			<div class="card border-0">
 				<div class="row">
-					<% @products.each do |product| %>
+					<% @items.each do |item| %>
 						<div class="col-lg-3 col-md-4">
-							<%= render 'product', product: product %>
+							<%= render 'item', item: item %>
 						</div>
 					<% end %>
 				</div>

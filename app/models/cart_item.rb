@@ -1,8 +1,8 @@
 class CartItem < ApplicationRecord
   belongs_to :cart
-  belongs_to :product
+  belongs_to :item
 
-  validates_presence_of :cart, :quantity, :product
+  validates_presence_of :cart, :quantity, :item
 
   validates_numericality_of :quantity, only_integer: true, greater_than: 0
 
@@ -16,14 +16,14 @@ class CartItem < ApplicationRecord
   # end
 
   def price
-    product.price_for(quantity)
+    item.price_for(quantity)
   end
 
   def to_order_item
     OrderItem.new(
-      product_id: product.id,
+      item_id: item.id,
       quantity: quantity,
-      price: product.price
+      price: item.price
     )
   end
 end

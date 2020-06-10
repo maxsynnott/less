@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :order_item do
     order { nil }
-    product { nil }
+    item { nil }
     quantity { 1 }
     price { "" }
     price { "" }

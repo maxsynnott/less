@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.feature "Admin edits and updates a product" do
+RSpec.feature "Admin edits and updates a item" do
 	before do 
 		login_as create(:admin_user) 
-		create(:product, name: "Oregano")
+		create(:item, name: "Oregano")
 	end
 
 	scenario "they see the updated attributes" do
-		visit admin_products_path
+		visit admin_items_path
 
 		expect(page).to have_text "Oregano"
 
@@ -17,9 +17,9 @@ RSpec.feature "Admin edits and updates a product" do
 		fill_in "Description", with: "Cuban Sugar"
 		fill_in "Price", with: "0.01"
 
-		click_on "Update Product"
+		click_on "Update Item"
 
-		expect(page).to have_selector ".flash", text: "Product was successfully updated."
+		expect(page).to have_selector ".flash", text: "Item was successfully updated."
 
 		expect(page).to have_text "Sugar"
 		expect(page).to have_text "Cuban Sugar"

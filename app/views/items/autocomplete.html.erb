@@ -1,0 +1,5 @@
+<% @items.each do |item| %>
+	<li class="list-group-item">
+		<%= link_to item.name, store_item_path(@store, item) %>
+	</li>
+<% end %>

@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   # end
 
   resources :stores, only: [:show, :index] do
-    resources :products, only: [:index, :show] do
+    resources :items, only: [:index, :show] do
       collection do
         get "autocomplete"
       end

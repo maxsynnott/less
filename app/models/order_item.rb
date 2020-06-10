@@ -1,6 +1,6 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
-  belongs_to :product
+  belongs_to :item
 
   has_many :containers
 
@@ -15,7 +15,7 @@ class OrderItem < ApplicationRecord
   private
 
   def assign_price
-  	self.price = product.price
+  	self.price = item.price
   end
 
   def assign_containers

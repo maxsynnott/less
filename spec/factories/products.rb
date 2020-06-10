@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :product do
+  factory :item do
     name { "Flour" }
     price { 0.0025 }
 

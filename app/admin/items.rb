@@ -1,4 +1,4 @@
-ActiveAdmin.register Product do
+ActiveAdmin.register Item do
   controller do
     skip_before_action :authenticate_user!
   end
@@ -10,8 +10,8 @@ ActiveAdmin.register Product do
       row :price
       row :created_at
       row :updated_at
-      row :image do |product|
-        image_tag url_for(product.image) if product.image.attached?
+      row :image do |item|
+        image_tag url_for(item.image) if item.image.attached?
       end
     end
 

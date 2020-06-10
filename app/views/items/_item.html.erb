@@ -1,0 +1,20 @@
+<div class="card item-card border-0 h-100" id="item_<%= item.id %>">
+  <div class="card-body">
+    <%= link_to store_item_path(@store, item), remote: true, data: { toggle: "modal", target: "#modal-window" } do %>
+      <% if item.image.attached? %>
+        <%= image_tag item.image, class: "card-img-top mb-2", alt: item.name %>
+      <% end %>
+    <% end %>
+
+    <p class="text-dark font-weight-bold mb-0">
+      <%= number_to_currency(item.price * item.display_unit_quantity, unit: '€', format: "%n %u") %>
+      <span class="text-muted">
+        <%= " / " + item.display_unit %>
+      </span>
+    </p>
+
+    <p class="text-muted mb-0">
+      <%= item.name %>
+    </p>
+  </div>
+</div>

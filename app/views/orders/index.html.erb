@@ -15,7 +15,7 @@
 				<% order.order_items.each do |oi| %>
 					<li class="list-group-item">
 						<p>
-							<b><%= oi.product.name %>: </b>
+							<b><%= oi.item.name %>: </b>
 							<%= oi.quantity %>g
 						</p>
 					</li>
@@ -43,7 +43,7 @@
 				<% order.order_items.each do |oi| %>
 					<li class="list-group-item">
 						<p>
-							<b><%= oi.product.name %>: </b>
+							<b><%= oi.item.name %>: </b>
 							<%= oi.quantity %>g
 						</p>
 					</li>

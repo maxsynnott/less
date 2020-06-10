@@ -3,7 +3,7 @@ AdminUser.create!(email: 'admin@example.com', password: '123456', password_confi
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
 
 image_urls = [
-	"https://www.benjerry.com/files/live/sites/systemsite/files/flavors/products/us/pint/phish-food-detail-open-2019.png",
+	"https://www.benjerry.com/files/live/sites/systemsite/files/flavors/items/us/pint/phish-food-detail-open-2019.png",
 	"https://i.pinimg.com/originals/0f/90/c1/0f90c1a847cb971519b96c6a1098f375.png",
 	"https://www.puremarket.com/wp-content/uploads/2019/10/earths-best-stage-3-organic-vegetable-chicken-soup-na-jars-meals.png?w=350",
 	"https://www.whi.de/fileadmin/user_upload/Wuensche_Food/ProduktbereicheKacheln/tomate.png",
@@ -17,7 +17,7 @@ store_logo_urls = [
 	"https://www.supertipp-online.de/wp-content/uploads/2019/05/Unverpackt-RA.jpg"
 ]
 
-num_products = 8
+num_items = 8
 
 store_logo_urls.each do |url|
 	store = Store.create(
@@ -27,8 +27,8 @@ store_logo_urls.each do |url|
 
 	store.image.attach(io: open(url), filename: store.name.parameterize + '.jpg')
 
-	num_products.times do
-		product = Product.create(
+	num_items.times do
+		item = Item.create(
 			name: Faker::Food.unique.ingredient,
 			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis.",
 			price: rand(0.001..0.1),
@@ -36,7 +36,7 @@ store_logo_urls.each do |url|
 			store_id: store.id
 		)
 
-		product.image.attach(io: open(image_urls.sample), filename: product.name.parameterize + '.jpg')
+		item.image.attach(io: open(image_urls.sample), filename: item.name.parameterize + '.jpg')
 	end
 end
 
@@ -47,9 +47,9 @@ puts "Default user account created with: email: user@example.com, password: 1234
 
 num_cart_items = rand(2..5)
 
-cart_item_products = Product.all.sample(num_cart_items)
+cart_item_items = Item.all.sample(num_cart_items)
 
-cart_item_products.each { |product| user.cart.add_product(product, rand(1..3000)) }
+cart_item_items.each { |item| user.cart.add_item(item, rand(1..3000)) }
 
 containers = [
 	{

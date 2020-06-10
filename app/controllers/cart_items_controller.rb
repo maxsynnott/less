@@ -5,14 +5,14 @@ class CartItemsController < ApplicationController
 
   	@cart_item = CartItem.new(cart_item_params)
 
-    @product = @cart_item.product
+    @item = @cart_item.item
 
-    cart.add_product(@product, @cart_item.quantity)
+    cart.add_item(@item, @cart_item.quantity)
   end
 
   private
 
   def cart_item_params
-    params.require(:cart_item).permit(:product_id, :quantity)
+    params.require(:cart_item).permit(:item_id, :quantity)
   end
 end

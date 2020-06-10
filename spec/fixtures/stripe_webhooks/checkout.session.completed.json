@@ -44,7 +44,7 @@
       // metadata should be overridden by cart.to_metadata for testing purposes
       "metadata":{
         "user_id":"1",
-        "items":"[{\"product_id\":9,\"quantity\":1000,\"price\":\"0.088006\",\"containers\":[{\"container_id\":7,\"price\":\"2.0\"}]}]",
+        "items":"[{\"item_id\":9,\"quantity\":1000,\"price\":\"0.088006\",\"containers\":[{\"container_id\":7,\"price\":\"2.0\"}]}]",
         "total":"88.01"
       },
       "mode":"payment",
