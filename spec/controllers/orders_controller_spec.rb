@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe OrdersController, "#index" do
 	before { sign_in create(:user, orders_count: 2) }
 
-	it "assigns items and renders index" do
+	it "assigns orders and renders index" do
 		get :index
 
 		orders = assigns(:orders)

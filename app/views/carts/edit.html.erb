@@ -1,5 +1,4 @@
 <div
-	data-controller="carts--edit"
 	class="container my-5"
 >
 	<%= simple_form_for @cart do |f| %>
@@ -12,12 +11,6 @@
 	    	<%= f.submit class: "btn btn-primary" %>
 
 	    	<%= link_to "Checkout", new_order_path, class: "btn btn-success" %>
-
-	    	<!--
-	    	<button class="btn btn-success" data-action="carts--edit#checkout">
-	    		Checkout
-	    	</button>	
-		    -->
 	    </li>
 	  </ul>
 	<% end %>

@@ -1,13 +1,5 @@
 class OrdersController < ApplicationController
 	def index
-    if params[:status]
-      if params[:status] == "success"
-        flash.now[:notice] = "Order successful"
-      else
-        flash.now[:alert] = "Order failed"
-      end
-    end
-
     @orders = current_user.orders
 
     @past_orders = @orders.select(&:delivered?)

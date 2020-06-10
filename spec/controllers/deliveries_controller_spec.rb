@@ -1,18 +1,5 @@
 require "rails_helper"
 
-RSpec.describe DeliveriesController, "#edit" do
-	before { sign_in create(:user, :with_order) }
-	let(:delivery) { controller.current_user.deliveries.first }
-
-	it "correctly assigns delivery and renders :edit" do
-		get :edit, params: { id: delivery.id }
-
-		expect(assigns(:delivery)).to eq delivery
-
-		expect(response).to render_template :edit
-	end
-end
-
 RSpec.describe DeliveriesController, "#update" do
 	before { sign_in create(:user, :with_order) }
 	let(:delivery) { controller.current_user.deliveries.first }

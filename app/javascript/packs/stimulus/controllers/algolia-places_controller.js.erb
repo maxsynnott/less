@@ -5,6 +5,7 @@ export default class extends Controller {
 
 	connect() {
 		// This is not secure!
+		// https://community.algolia.com/places/documentation.html#restricted-api-keys
 		places({
 		  appId: "<%= ENV['AP_APP_ID'] %>",
 		  apiKey: "<%= ENV['AP_API_KEY'] %>",
