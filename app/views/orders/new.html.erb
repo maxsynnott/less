@@ -1,39 +1,38 @@
-<%= simple_form_for @order, html: { data: { controller: "checkouts" } } do |f| %>
-	<div class="container">
-		<div class="row">
-			<div class="col-8">
-				<div class="accordion" id="checkoutAccordian">
-					<div id='deliveries'>
-					  <%= f.simple_fields_for :deliveries do |delivery| %>
-					    <%= render 'delivery_fields', f: delivery %>
-					  <% end %>
-					</div>
-
-					<div class="" id='order_items'>
-					  <%= f.simple_fields_for :order_items do |order_item| %>
-					    <%= render 'order_item_fields', f: order_item %>
-					  <% end %>
-					</div>
+<div class="container" data-controller="checkouts">
+	<div class="row">
+		<div class="col-8">
+			<%= simple_form_for @order, disabled: true, data: { target: "checkouts.form", action: "checkouts#submitForm" } do |f| %>
+				<div id='deliveries'>
+				  <%= f.simple_fields_for :deliveries do |delivery| %>
+				    <%= render 'delivery_fields', f: delivery %>
+				  <% end %>
 				</div>
-			</div>
 
-			<div class="col-4">
-				<%= f.submit 'Review Order', class: "btn btn-success" %>
-				<br>
-				Keep this disabled until all fields including payment method are filled
+				<div class="" id='order_items'>
+				  <%= f.simple_fields_for :order_items do |order_item| %>
+				    <%= render 'order_item_fields', f: order_item %>
+				  <% end %>
+				</div>
 
-				<br>
-				<br>
-				Order Breakdown
-				<br>
-				Subtotal
-				<br>
-				Tax
-				<br>
-				Delivery
-				<br>
-				Total
-			</div>
+				<%= f.input :payment_method_id, collection: @payment_method_collection, as: :radio_buttons %>
+
+				<div id="card-element" class="flex-grow-1">
+				  <!-- Stripe Element will be inserted here -->
+				</div>
+
+				<!-- Used to display form errors -->
+				<div id="card-errors" role="alert"></div>
+
+				<button type="button" class="btn btn-primary" data-action="checkouts#confirmCardSetup">
+					Save card
+				</button>
+
+				<%= f.submit 'submit' %>
+			<% end %>
+		</div>
+
+		<div class="col-4">
+			<%= render 'overview' %>
 		</div>
 	</div>
-<% end %>
+</div>

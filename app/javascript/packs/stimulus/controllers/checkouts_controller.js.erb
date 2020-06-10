@@ -3,6 +3,55 @@ import { Controller } from "stimulus"
 export default class extends Controller {
 	static targets = ["form"]
 
+	connect() {
+		this.stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
+		const elements = this.stripe.elements();
+
+		this.card = elements.create("card");
+		this.card.mount("#card-element");
+
+		this.card.on('change', this.displayErrors)
+	}
+
+	confirmCardSetup(event) {
+		event.preventDefault()
+
+		fetch(routes.api_v1_stripe_setup_intents_path(), {
+			method: "POST"
+		})
+		.then(response => response.json())
+		.then((data) => {
+			const clientSecret = data.client_secret
+
+			this.stripe.confirmCardSetup(clientSecret, {
+				payment_method: {
+	        card: this.card,
+	        billing_details: {
+	          name: "Placeholder name",
+	        }
+	      }
+			})
+			.then(function(result) {
+				if (result.error) {
+					console.log(result.error)
+				} else {
+					// Add logic here
+					console.log("Successfully added card")
+				}
+			})
+		})
+	}
+
+	displayErrors(event) {
+		const displayError = document.getElementById('card-errors');
+
+	  if (event.error) {
+	    displayError.textContent = event.error.message;
+	  } else {
+	    displayError.textContent = '';
+	  }
+	}
+
 	submitForm(event) {
 		event.preventDefault()
 		
@@ -14,5 +63,7 @@ export default class extends Controller {
 		.then((data) => {
 			console.log(data)
 		})
+
+		console.log("Testing")
 	}
 }

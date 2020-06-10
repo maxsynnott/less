@@ -10,6 +10,17 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
   end
 
+  def validity_check
+    @order = Order.new(order_params)
+    @order.user = current_user
+
+    if @order.valid?
+      render json: { valid: true }
+    else
+      render_error
+    end
+  end
+
   private
 
   def order_params
@@ -17,6 +28,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
   end
 
   def render_error
-    render json: { errors: @order.errors.full_messages }, status: :unprocessable_entity
+    render json: { errors: @order.errors.messages }, status: :unprocessable_entity
   end
 end

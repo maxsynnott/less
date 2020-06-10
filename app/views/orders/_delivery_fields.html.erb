@@ -1,65 +1,25 @@
-<div class="card">
-  <div class="card-body" id="headingOne">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#address" aria-expanded="false">
-        Delivery Address
-      </button>
-    </h2>
-  </div>
+<h2>
+  Delivery Address
+</h2>
 
-  <div id="address" class="collapse" aria-labelledby="headingOne" data-parent="#checkoutAccordian">
-    <div class="card-body">
-      <div data-controller="algolia-places">
-      	<%= f.input :address, input_html: { data: { target: "algolia-places.input" } }, label: false %>
-      </div>
-    </div>
-  </div>
+<div data-controller="algolia-places">
+	<%= f.input :address, autocomplete: "off", input_html: { data: { target: "algolia-places.input" } }, label: false %>
 </div>
 
-<div class="card">
-  <div class="card-body" id="headingOne">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#time" aria-expanded="false">
-        Delivery Time
-      </button>
-    </h2>
-  </div>
+<h2>
+  Delivery Time
+</h2>
 
-  <div id="time" class="collapse" aria-labelledby="headingOne" data-parent="#checkoutAccordian">
-    <div class="card-body">
-      <%= f.input :scheduled_at, label: false, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] } %>
-    </div>
-  </div>
-</div>
+<%= f.input :scheduled_at, label: false, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] } %>
 
-<div class="card">
-  <div class="card-body" id="headingOne">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#instructions" aria-expanded="false">
-        Delivery Instructions
-      </button>
-    </h2>
-  </div>
+<h2>
+  Delivery Instructions
+</h2>
 
-  <div id="instructions" class="collapse" aria-labelledby="headingOne" data-parent="#checkoutAccordian">
-    <div class="card-body">
-      <%= f.input :instructions, label: false %>
-    </div>
-  </div>
-</div>
+<%= f.input :instructions, label: false %>
 
-<div class="card">
-  <div class="card-body" id="headingOne">
-    <h2 class="mb-0">
-      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#phone" aria-expanded="false">
-        Mobile Number
-      </button>
-    </h2>
-  </div>
+<h2>
+  Mobile Number
+</h2>
 
-  <div id="phone" class="collapse" aria-labelledby="headingOne" data-parent="#checkoutAccordian">
-    <div class="card-body">
-      <%= f.input :phone, label: false %>
-    </div>
-  </div>
-</div>
+<%= f.input :phone, label: false %>

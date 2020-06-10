@@ -8,9 +8,17 @@ class OrdersController < ApplicationController
 
 	def new
 		@order = Order.new
+    @user = current_user
 
 		@order.deliveries << Delivery.new
-		@order.order_items = current_user.cart.to_order_items
+		@order.order_items = @user.cart.to_order_items
+
+    @payment_method_collection = Stripe::PaymentMethod.list(
+      customer: @user.stripe_customer_id,
+      type: 'card'
+    ).data.map { |pm| ["**** " * 3 + pm.card.last4, pm.id] }
+
+    @payment_method_collection << ["Add a new card", "new-card"]
 	end
 
 	def create
