@@ -6,7 +6,7 @@ class Delivery < ApplicationRecord
   validates :phone, phone: { possible: true }
 
   # Returns all available datetimes (60 min increments)
-  def self.available_dts
+  def self.available_datetimes
     slots = []
 
     min_in_advance = 36.hours # Users must book at least x in advance

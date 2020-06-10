@@ -12,7 +12,7 @@ module Stripe
 
         # Untested
         if object.metadata[:adjustment]
-          order.user.update(balance: order.user.balance + object.metadata[:adjustment].to_i)
+          order.user.adjust_balance(object.metadata[:adjustment].to_i)
         end
 
         order.update(paid: true)

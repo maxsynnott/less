@@ -1,6 +1,9 @@
 class Container < ApplicationRecord
 	belongs_to :order_item, optional: true
 
+	delegate :order, to: :order_item, allow_nil: true
+	delegate :user, to: :order, allow_nil: true
+
 	before_create :generate_unique_key
 
 	validates_presence_of :size
@@ -13,10 +16,6 @@ class Container < ApplicationRecord
 
 	def available?
 		!order_item_id
-	end
-
-	def user
-		order_item.order.user
 	end
 
 	private

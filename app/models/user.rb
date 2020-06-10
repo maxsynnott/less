@@ -42,6 +42,10 @@ class User < ApplicationRecord
     Stripe::PaymentIntent.create(defaults.merge(args))
   end
 
+  def adjust_balance(amount)
+    update(balance: balance + amount)
+  end
+
   private
 
   def generate_cart

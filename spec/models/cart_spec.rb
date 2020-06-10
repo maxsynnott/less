@@ -83,16 +83,3 @@ RSpec.describe Cart, "#add_item" do
 		end
 	end
 end
-
-# Just temp touching
-RSpec.describe Cart, "#line_items" do
-	context "when there are cart_items in the cart" do
-		let(:cart) { create(:cart, :with_cart_items) }
-
-		it "returns array containing line_items" do
-			line_items = cart.line_items
-
-			expect(line_items.count).to eq 3
-		end
-	end
-end

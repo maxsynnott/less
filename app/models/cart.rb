@@ -30,18 +30,6 @@ class Cart < ApplicationRecord
   	cart_items.find { |cart_item| cart_item.item_id == item.id }
   end
 
-  def line_items
-    cart_items.map do |cart_item|
-      {
-        name: cart_item.item.name,
-        description: cart_item.quantity.to_s + 'g',
-        quantity: 1,
-        currency: 'eur',
-        amount: cart_item.price.to_cents
-      }
-    end
-  end
-
   def total
     # Converted to cents and back to money to ensure no rounding disrepencies
     cart_items.sum { |cart_item| cart_item.price.to_cents }.to_money
