@@ -2,7 +2,7 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
 
-  has_many :containers
+  has_many :containers, dependent: :nullify
 
   before_create :assign_price
 

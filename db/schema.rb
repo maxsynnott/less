@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_124739) do
+ActiveRecord::Schema.define(version: 2020_06_10_142007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -59,18 +59,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_124739) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "addresses", force: :cascade do |t|
-    t.string "line_1"
-    t.string "line_2"
-    t.string "recipient"
-    t.string "postal_code"
-    t.string "city"
-    t.string "state"
-    t.string "country"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -135,8 +123,6 @@ ActiveRecord::Schema.define(version: 2020_06_10_124739) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "display_unit", default: "kg"
     t.integer "display_unit_quantity", default: 1000
-    t.bigint "store_id"
-    t.index ["store_id"], name: "index_items_on_store_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -158,12 +144,20 @@ ActiveRecord::Schema.define(version: 2020_06_10_124739) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "stores", force: :cascade do |t|
-    t.string "name"
-    t.bigint "address_id", null: false
+  create_table "store_items", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["address_id"], name: "index_stores_on_address_id"
+    t.index ["item_id"], name: "index_store_items_on_item_id"
+    t.index ["store_id"], name: "index_store_items_on_store_id"
+  end
+
+  create_table "stores", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "address"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -203,11 +197,9 @@ ActiveRecord::Schema.define(version: 2020_06_10_124739) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "phone"
     t.string "stripe_customer_id"
-    t.bigint "store_id"
     t.decimal "balance", precision: 10, scale: 6, default: "0.0"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["store_id"], name: "index_users_on_store_id"
   end
 
   create_table "votes", force: :cascade do |t|
@@ -234,6 +226,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_124739) do
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
-  add_foreign_key "stores", "addresses"
+  add_foreign_key "store_items", "items"
+  add_foreign_key "store_items", "stores"
   add_foreign_key "taggings", "tags"
 end
