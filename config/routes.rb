@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'stores#index'
+  root to: 'items#index'
 
   # ActiveAdmin routes
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   resources :deliveries, only: [:edit, :update]
   resources :carts, only: [:edit, :update]
   resources :orders, only: [:index, :new, :create, :show]
+  resources :items, only: [:index, :show] do
+    collection do
+      get "autocomplete"
+    end
+  end
   #
 
   # Complex resources
@@ -32,14 +37,6 @@ Rails.application.routes.draw do
   #     post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
   #   end
   # end
-
-  resources :stores, only: [:show, :index] do
-    resources :items, only: [:index, :show] do
-      collection do
-        get "autocomplete"
-      end
-    end
-  end
   #
 
   namespace :stripe do

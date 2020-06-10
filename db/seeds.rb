@@ -17,27 +17,27 @@ store_logo_urls = [
 	"https://www.supertipp-online.de/wp-content/uploads/2019/05/Unverpackt-RA.jpg"
 ]
 
-num_items = 8
-
 store_logo_urls.each do |url|
 	store = Store.create(
 		name: Faker::Company.name,
-		address: Address.create(line_1: "Rudi-Dutschke-Straße 26", postal_code: "10969", country: "DE")
+		address: "Rudi-Dutschke-Straße 26 10969"
 	)
 
 	store.image.attach(io: open(url), filename: store.name.parameterize + '.jpg')
+end
 
-	num_items.times do
-		item = Item.create(
-			name: Faker::Food.unique.ingredient,
-			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis.",
-			price: rand(0.001..0.1),
-			tag_list: ["vegan", "organic"].sample([0, 1, 2].sample),
-			store_id: store.id
-		)
+num_items = 36
 
-		item.image.attach(io: open(image_urls.sample), filename: item.name.parameterize + '.jpg')
-	end
+num_items.times do
+	item = Item.create(
+		name: Faker::Food.unique.ingredient,
+		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis.",
+		price: rand(0.001..0.1),
+		tag_list: ["vegan", "organic"].sample([0, 1, 2].sample),
+		store_ids: Store.all.sample(rand(0..Store.count)).map(&:id)
+	)
+
+	item.image.attach(io: open(image_urls.sample), filename: item.name.parameterize + '.jpg')
 end
 
 user = User.create(email: "user@example.com", password: "123456", cart: Cart.new)

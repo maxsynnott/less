@@ -1,10 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :assign_store
-
 	skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    @items = @store.items
+    @items = Item.all
 
     filter_items if params[:search].present?
 
@@ -12,11 +10,11 @@ class ItemsController < ApplicationController
   end
 
   def show
-  	@item = @store.items.find(params[:id])
+  	@item = Item.find(params[:id])
   end
 
   def autocomplete
-    @items = @store.items
+    @items = Item.all
 
   	filter_items if params[:search].present?
 
@@ -37,9 +35,5 @@ class ItemsController < ApplicationController
         @items = @items.tagged_with(tag)
       end
     end
-  end
-
-  def assign_store
-    @store = Store.find(params[:store_id])
   end
 end
