@@ -28,8 +28,6 @@ class Item < ApplicationRecord
 
 	has_one_attached :image
 
-	belongs_to :store
-
 	has_many :cart_items
 
 	validates_presence_of :name, :price

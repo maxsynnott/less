@@ -14,6 +14,6 @@ class DeliveriesController < ApplicationController
 	private
 
 	def delivery_params
-		params.require(:delivery).permit(:scheduled_at, :address_id)
+		params.require(:delivery).permit(:scheduled_at)
 	end
 end

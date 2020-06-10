@@ -8,20 +8,9 @@ module Stripe
 
         shipping = object.shipping
 
-        address = Address.create(
-          recipient: shipping.name,
-          line_1: shipping.address.line1,
-          line_2: shipping.address.line2,
-          postal_code: shipping.address.postal_code,
-          city: shipping.address.city,
-          state: shipping.address.state,
-          country: shipping.address.country
-        )
-
         delivery = Delivery.create(
           price: 0.00, # Currently free
           delivered: false,
-          address_id: address.id,
           scheduled_at: Delivery.available_dts.sample
         )
 

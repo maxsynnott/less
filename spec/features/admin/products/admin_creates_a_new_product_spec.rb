@@ -13,7 +13,6 @@ RSpec.feature "Admin creates a item" do
 		fill_in "Name", with: "Flour"
 		fill_in "Description", with: "Snow white flour"
 		fill_in "Price", with: "0.005"
-		select store.name, from: "item_store_id"
 
 		click_on "Create Item"
 

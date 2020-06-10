@@ -23,7 +23,6 @@ ActiveAdmin.register Item do
       f.input :name
       f.input :description
       f.input :price
-      f.input :store
 
       f.input :image, as: :file
     end
@@ -31,5 +30,5 @@ ActiveAdmin.register Item do
     f.actions
   end
 
-  permit_params :name, :description, :price, :image, :store_id
+  permit_params :name, :description, :price, :image
 end

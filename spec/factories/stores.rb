@@ -3,7 +3,5 @@ FactoryBot.define do
     sequence :name do |n|
       "Shop ##{n}"
     end
-    
-    association :address
   end
 end
