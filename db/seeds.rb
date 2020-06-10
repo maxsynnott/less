@@ -4,10 +4,10 @@ puts "Default Admin account created with: email: admin@example.com, password: 12
 
 image_urls = [
 	"https://www.benjerry.com/files/live/sites/systemsite/files/flavors/products/us/pint/phish-food-detail-open-2019.png",
-	"https://png2.cleanpng.com/sh/18fe59802636e449d2fda21502acce22/L0KzQYm3WMI1N5l8epH0aYP2gLBuTgRiap1qj9N7ZT3wccT2jr1raaMyf95qc4Owc7L3gfNqfJJze9c2cHB1c7bzgflvNWIyTZ8AYkizQIHrhMRmQGFmSJC9OEW2Roe7WcE2O2Y2Sac9OEW2QoK9TwBvbz==/kisspng-tableware-mason-jar-glass-capacitance-porcelain-1-5-5b8000dd4e80a0.4853664915351154853216.png",
 	"https://i.pinimg.com/originals/0f/90/c1/0f90c1a847cb971519b96c6a1098f375.png",
-	"https://s3.amazonaws.com/greengiant-us/wp-content/uploads/2019/02/11224329/800x800_Green-Giant-Whole-Mushrooms-6-oz.-Jar.png",
-	"https://www.puremarket.com/wp-content/uploads/2019/10/earths-best-stage-3-organic-vegetable-chicken-soup-na-jars-meals.png?w=350"
+	"https://www.puremarket.com/wp-content/uploads/2019/10/earths-best-stage-3-organic-vegetable-chicken-soup-na-jars-meals.png?w=350",
+	"https://www.whi.de/fileadmin/user_upload/Wuensche_Food/ProduktbereicheKacheln/tomate.png",
+	"https://www.whi.de/fileadmin/user_upload/Wuensche_Food/ProduktbereicheKacheln/ananas.png"
 ]
 
 store_logo_urls = [
@@ -69,6 +69,6 @@ containers = [
 	}
 ]
 
-containers.each { |container| 5.times { Container.create(container) } }
+containers.each { |container| 100.times { Container.create(container) } }
 
 puts "It has been done"
