@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_10_214144) do
+ActiveRecord::Schema.define(version: 2020_06_11_171340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2020_06_10_214144) do
     t.string "address"
     t.text "instructions"
     t.string "phone"
+    t.string "status", default: "Order Received"
     t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 

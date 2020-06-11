@@ -7,6 +7,10 @@ class DeliveriesController < ApplicationController
 		redirect_to orders_path
 	end
 
+	def tracker
+		@delivery = Delivery.find(params[:delivery_id])
+	end
+
 	private
 
 	def delivery_params

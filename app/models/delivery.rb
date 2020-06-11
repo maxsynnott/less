@@ -1,4 +1,6 @@
 class Delivery < ApplicationRecord
+  before_save :broadcast_status, if: :will_save_change_to_status?
+
   belongs_to :order
 
   validates_presence_of :address, :scheduled_at
@@ -37,5 +39,9 @@ class Delivery < ApplicationRecord
 
   def assign_price
     self.price = 5.00
+  end
+
+  def broadcast_status
+    DeliveryTrackerChannel.broadcast_to self, { status: status }
   end
 end

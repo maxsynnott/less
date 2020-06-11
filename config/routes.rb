@@ -20,7 +20,9 @@ Rails.application.routes.draw do
 
   # Simple resources
   resources :cart_items, only: [:create]
-  resources :deliveries, only: [:edit, :update]
+  resources :deliveries, only: [:edit, :update] do
+    get "tracker", action: :tracker, as: :tracker
+  end
   resources :carts, only: [:edit, :update]
   resources :orders, only: [:index, :new, :create, :show]
   resources :items, only: [:index, :show] do
