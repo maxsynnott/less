@@ -1,63 +1,79 @@
-<div class="card">
-	<button type="button" class="btn btn-block text-left" data-toggle="collapse" data-target="#step0">
+<div
+	class="card"
+	data-target="checkouts.step0"
+>
+	<button type="button" class="btn btn-block text-left dropdown-toggle" data-toggle="collapse" data-target="#collapse0">
 		Delivery Address
 	</button>
 
-	<div id="step0" class="collapse show" data-parent="#orderAccordian">
+	<div id="collapse0" class="collapse show" data-parent="#orderAccordian">
 		<div class="card-body">
 			<div data-controller="algolia-places">
-				<%= f.input :address, autocomplete: "off", input_html: { data: { target: "algolia-places.input checkouts.input0" } }, label: false %>
+				<%= f.input :address, autocomplete: "off", input_html: { data: { target: "algolia-places.input" } }, label: false %>
+				<%= f.error :address, id: "address_errors" %>
 			</div>
 
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-field="deliveries.address" data-step="0">
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="0">
 				Save
 			</button>
 		</div>
 	</div>
 </div>
 
-<div class="card">
-	<button type="button" class="btn btn-block text-left" data-target="#step1">
+<div
+	class="card"
+	data-target="checkouts.step1"
+>
+	<button type="button" class="btn btn-block text-left" data-target="#collapse1">
 		Delivery Time
 	</button>
 
-	<div id="step1" class="collapse" data-parent="#orderAccordian">
+	<div id="collapse1" class="collapse" data-parent="#orderAccordian">
 		<div class="card-body">
 			<%= f.input :scheduled_at, label: false, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] } %>
+			<%= f.error :scheduled_at, id: "scheduled_at_errors" %>
 
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-field="deliveries.scheduled_at" data-step="1">
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="1">
 				Save
 			</button>
 		</div>
 	</div>
 </div>
 
-<div class="card">
-	<button type="button" class="btn btn-block text-left" data-target="#step2">
+<div
+	class="card"
+	data-target="checkouts.step2"
+>
+	<button type="button" class="btn btn-block text-left" data-target="#collapse2">
 		Delivery Instructions
 	</button>
 
-	<div id="step2" class="collapse" data-parent="#orderAccordian">
+	<div id="collapse2" class="collapse" data-parent="#orderAccordian">
 		<div class="card-body">
 			<%= f.input :instructions, label: false %>
+			<%= f.error :instructions, id: "instructions_errors" %>
 
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-field="deliveries.instructions" data-step="2">
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="2">
 				Save
 			</button>
 		</div>
 	</div>
 </div>
 
-<div class="card">
-	<button type="button" class="btn btn-block text-left" data-target="#step3">
+<div
+	class="card"
+	data-target="checkouts.step3"
+>
+	<button type="button" class="btn btn-block text-left" data-target="#collapse3">
 		Mobile Number
 	</button>
 
-	<div id="step3" class="collapse" data-parent="#orderAccordian">
+	<div id="collapse3" class="collapse" data-parent="#orderAccordian">
 		<div class="card-body">
 			<%= f.input :phone, label: false %>
+			<%= f.error :phone, id: "phone_errors" %>
 
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-field="deliveries.phone" data-step="3">
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="3">
 				Save
 			</button>
 		</div>

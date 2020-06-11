@@ -1,7 +1,9 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["form", "payButton", "subtotal", "total", "delivery"]
+	// This whole controller although handling some complex logic is currently overcomplicated and could use some refactoring
+
+	static targets = ["form", "payButton", "subtotal", "total", "delivery", "step0", "step1", "step2", "step3", "step4"]
 
 	connect() {
 		this.finalStep = 4
@@ -12,7 +14,7 @@ export default class extends Controller {
 		this.card = elements.create("card");
 		this.card.mount("#card-element");
 
-		this.card.on('change', this.displayErrors)
+		this.card.on('change', this.displayStripeErrors)
 
 		this.card.on('focus', (event) => {
 			$("#order_payment_method_id_new-card").prop("checked", true).trigger("click")
@@ -20,6 +22,8 @@ export default class extends Controller {
 	}
 
 	async checkValidity() {
+		this.clearFormErrors()
+
 		const response = await fetch(
 			routes.check_validity_api_v1_orders_path(),
 			{
@@ -46,6 +50,26 @@ export default class extends Controller {
 		const data = await response.json()
 
 		return data
+	}
+
+	displayFormErrors(errors, single_attribute=undefined) {
+		Object.keys(errors).forEach((key) => {
+			const attribute = key.split('.').slice(-1)[0]
+
+			if (single_attribute) {
+				if (single_attribute == attribute) {
+					$(`#${attribute}_errors`).text(errors[key])
+				}
+			} else {
+				$(`#${attribute}_errors`).text(errors[key])
+			}
+		})
+
+		if (!single_attribute) {
+			// This opens the first card with an error
+			// I am ashamed by this line of code but it's the end of the day and it works... DELETE ASAP
+			$(Array.from(document.querySelectorAll("div[id*='_errors']")).find(el => el.innerText).parentElement.parentElement.parentElement.previousSibling).collapse("show")
+		}
 	}
 
 	updateBreakdown(breakdown) {
@@ -81,13 +105,13 @@ export default class extends Controller {
 			})
 	}
 
-	displayErrors(event) {
-		const displayError = document.getElementById('card-errors');
+	displayStripeErrors(event) {
+		const displayStripeError = document.getElementById('card-errors');
 
 	  if (event.error) {
-	    displayError.textContent = event.error.message;
+	    displayStripeError.textContent = event.error.message;
 	  } else {
-	    displayError.textContent = '';
+	    displayStripeError.textContent = '';
 	  }
 	}
 
@@ -105,6 +129,10 @@ export default class extends Controller {
 		return data
 	}
 
+	clearFormErrors() {
+		$("div[id*='_errors']").text("")
+	}
+
 	triggerStep(event) {
 		event.preventDefault()
 
@@ -112,30 +140,34 @@ export default class extends Controller {
 
 		data
 			.then((data) => {
-				const dataset = event.target.dataset
+				const stepNumber = Number.parseInt(event.target.dataset.step, 10)
+				const attribute = this[`step${stepNumber}Target`].querySelector('input, textarea, select').name.match(/\[(\w+)\]$/)[1]
 
-				if (data.errors[dataset.field]) {
-					// Display errors
+				if (Object.keys(data.errors).some(key => key.endsWith(attribute))) {
+					this.displayFormErrors(data.errors, attribute)
 				} else {
-					const stepNumber = Number.parseInt(dataset.step, 10)
-
 					if (stepNumber >= this.finalStep) {
 						this.finalStep = 0
 
 						if (data.valid) {
 							this.enablePayButton()
+						} else {
+							this.displayFormErrors(data.errors)
 						}
 					} else {
-						this.enableStep(stepNumber + 1)
+						this.enableCollapseButton(stepNumber + 1)
 					}
 				}
 			})
 	}
 
-	enableStep(stepNumber) {
-		$(`#step${stepNumber}`).collapse("show")
+	enableCollapseButton(stepNumber) {
+		$(`#collapse${stepNumber}`).collapse("show")
 
-		document.querySelector(`button[data-target="#step${stepNumber}"`).setAttribute("data-toggle", "collapse")
+		const button = document.querySelector(`button[data-target="#collapse${stepNumber}"`)
+
+		button.setAttribute("data-toggle", "collapse")
+		button.classList.add("dropdown-toggle")
 	}
 
 	enablePayButton() {
@@ -152,25 +184,26 @@ export default class extends Controller {
 
 		data
 			.then((data) => {
-				fetch(
-					routes.pay_api_v1_orders_path({ id: data.id }),
-					{
-						method: "POST"
-					}
-				)
-				.then(response => response.json())
-				.then((data) => {
-					console.log(data)
+				if (data.errors) {
+					this.displayFormErrors(data.errors)
+				} else {
+					fetch(
+						routes.pay_api_v1_orders_path({ id: data.id }),
+						{
+							method: "POST"
+						}
+					)
+					.then(response => response.json())
+					.then((data) => {
+						if (data.status == "succeeded") {
+							console.log("SUCCESS!")
 
-					if (data.status == "succeeded") {
-						console.log("SUCCESS!")
-
-						document.location.href = routes.orders_path()
-					} else {
-						console.log("Something went wrong")
-					}
-				})
-
+							document.location.href = routes.orders_path()
+						} else {
+							console.log("Something went wrong")
+						}
+					})
+				}
 			})
 	}
 }

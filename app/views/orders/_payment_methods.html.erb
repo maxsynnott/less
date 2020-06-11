@@ -1,9 +1,12 @@
-<div class="card">
-	<button type="button" class="btn btn-block text-left" data-target="#step4">
+<div
+	class="card"
+	data-target="checkouts.step4"
+>
+	<button type="button" class="btn btn-block text-left" data-target="#collapse4">
 		Payment Method
 	</button>
 
-	<div id="step4" class="collapse" data-parent="#orderAccordian">
+	<div id="collapse4" class="collapse" data-parent="#orderAccordian">
 		<div class="card-body">
 			<%= f.input :payment_method_id, collection: payment_method_collection, as: :radio_buttons %>
 
@@ -20,7 +23,9 @@
 				</button>
 			</div>
 
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-field="payment_method_id" data-step="4">
+			<%= f.error :payment_method_id, id: "payment_method_id_errors" %>
+
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="4">
 				Save
 			</button>
 		</div>
