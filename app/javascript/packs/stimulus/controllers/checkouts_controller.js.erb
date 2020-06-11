@@ -88,7 +88,21 @@ export default class extends Controller {
 
 		data
 			.then((data) => {
-				console.log(data)
+				const dataset = event.target.dataset
+
+				if (data["errors"][dataset.field]) {
+					
+				} else {
+					const stepNumber = Number.parseInt(dataset.step, 10)
+
+					this.enableStep(stepNumber + 1)
+				}
 			})
+	}
+
+	enableStep(stepNumber) {
+		$(`#step${stepNumber}`).collapse("show")
+
+		document.querySelector(`button[data-target="#step${stepNumber}"`).setAttribute("data-toggle", "collapse")
 	}
 }

@@ -9,7 +9,7 @@
 				<%= f.input :address, autocomplete: "off", input_html: { data: { target: "algolia-places.input checkouts.input0" } }, label: false %>
 			</div>
 
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep">
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-field="deliveries.address" data-step="0">
 				Save
 			</button>
 		</div>
@@ -17,7 +17,7 @@
 </div>
 
 <div class="card">
-	<button type="button" class="btn btn-block text-left" data-toggle="collapse" data-target="#step1">
+	<button type="button" class="btn btn-block text-left" data-target="#step1">
 		Delivery Time
 	</button>
 
@@ -25,7 +25,7 @@
 		<div class="card-body">
 			<%= f.input :scheduled_at, label: false, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] } %>
 
-			<button type="button" class="btn btn-primary">
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-field="deliveries.scheduled_at" data-step="1">
 				Save
 			</button>
 		</div>
@@ -33,7 +33,7 @@
 </div>
 
 <div class="card">
-	<button type="button" class="btn btn-block text-left" data-toggle="collapse" data-target="#step2">
+	<button type="button" class="btn btn-block text-left" data-target="#step2">
 		Delivery Instructions
 	</button>
 
@@ -41,7 +41,7 @@
 		<div class="card-body">
 			<%= f.input :instructions, label: false %>
 
-			<button type="button" class="btn btn-primary">
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-field="deliveries.instructions" data-step="2">
 				Save
 			</button>
 		</div>
@@ -49,7 +49,7 @@
 </div>
 
 <div class="card">
-	<button type="button" class="btn btn-block text-left" data-toggle="collapse" data-target="#step3">
+	<button type="button" class="btn btn-block text-left" data-target="#step3">
 		Mobile Number
 	</button>
 
@@ -57,7 +57,7 @@
 		<div class="card-body">
 			<%= f.input :phone, label: false %>
 
-			<button type="button" class="btn btn-primary">
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-field="deliveries.phone" data-step="3">
 				Save
 			</button>
 		</div>
