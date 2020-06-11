@@ -55,7 +55,11 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :orders, only: [:create]
+      resources :orders, only: [:create] do
+        collection do
+          post "check_validity"
+        end
+      end
 
       namespace :stripe do
         resources :setup_intents, only: [:create]

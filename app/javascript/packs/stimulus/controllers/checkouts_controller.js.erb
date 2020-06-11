@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["form"]
+	static targets = ["form", "input0"]
 
 	connect() {
 		this.stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
@@ -65,5 +65,30 @@ export default class extends Controller {
 		})
 
 		console.log("Testing")
+	}
+
+	async checkValidity() {
+		const response = await fetch(
+			routes.check_validity_api_v1_orders_path(),
+			{
+				method: "POST",
+				body: new FormData(this.formTarget)
+			}
+		)
+
+		const data = await response.json()
+
+		return data
+	}
+
+	triggerStep(event) {
+		event.preventDefault()
+
+		const data = this.checkValidity()
+
+		data
+			.then((data) => {
+				console.log(data)
+			})
 	}
 }

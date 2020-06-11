@@ -30,6 +30,6 @@ class Order < ApplicationRecord
 			type: 'card'
 		).data.map(&:id)
 
-		errors.add(:payment_method_id, "must be valid")
+		errors.add(:payment_method_id, "must be valid") unless payment_method_ids.include?(payment_method_id)
 	end
 end
