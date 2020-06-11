@@ -1,49 +1,66 @@
-<div>
-	<h2>
-	  Delivery Address
-	</h2>
+<div class="card">
+	<button type="button" class="btn btn-block text-left" data-toggle="collapse" data-target="#step0">
+		Delivery Address
+	</button>
 
-	<div data-controller="algolia-places">
-		<%= f.input :address, autocomplete: "off", input_html: { data: { target: "algolia-places.input checkouts.input0" } }, label: false %>
+	<div id="step0" class="collapse show" data-parent="#orderAccordian">
+		<div class="card-body">
+			<div data-controller="algolia-places">
+				<%= f.input :address, autocomplete: "off", input_html: { data: { target: "algolia-places.input checkouts.input0" } }, label: false %>
+			</div>
+
+			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep">
+				Save
+			</button>
+		</div>
 	</div>
-
-	<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep">
-		Save
-	</button>
 </div>
 
-<div>
-	<h2>
-	  Delivery Time
-	</h2>
-
-	<%= f.input :scheduled_at, label: false, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] } %>
-
-	<button type="button" class="btn btn-primary">
-		Save
+<div class="card">
+	<button type="button" class="btn btn-block text-left" data-toggle="collapse" data-target="#step1">
+		Delivery Time
 	</button>
+
+	<div id="step1" class="collapse" data-parent="#orderAccordian">
+		<div class="card-body">
+			<%= f.input :scheduled_at, label: false, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] } %>
+
+			<button type="button" class="btn btn-primary">
+				Save
+			</button>
+		</div>
+	</div>
 </div>
 
-<div>
-	<h2>
-	  Delivery Instructions
-	</h2>
-
-	<%= f.input :instructions, label: false %>
-
-	<button type="button" class="btn btn-primary">
-		Save
+<div class="card">
+	<button type="button" class="btn btn-block text-left" data-toggle="collapse" data-target="#step2">
+		Delivery Instructions
 	</button>
+
+	<div id="step2" class="collapse" data-parent="#orderAccordian">
+		<div class="card-body">
+			<%= f.input :instructions, label: false %>
+
+			<button type="button" class="btn btn-primary">
+				Save
+			</button>
+		</div>
+	</div>
 </div>
 
-<div>
-	<h2>
-	  Mobile Number
-	</h2>
-
-	<%= f.input :phone, label: false %>
-
-	<button type="button" class="btn btn-primary">
-		Save
+<div class="card">
+	<button type="button" class="btn btn-block text-left" data-toggle="collapse" data-target="#step3">
+		Mobile Number
 	</button>
+
+	<div id="step3" class="collapse" data-parent="#orderAccordian">
+		<div class="card-body">
+			<%= f.input :phone, label: false %>
+
+			<button type="button" class="btn btn-primary">
+				Save
+			</button>
+		</div>
+	</div>
 </div>
+

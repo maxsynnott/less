@@ -2,36 +2,45 @@
 	<div class="row">
 		<div class="col-8">
 			<%= simple_form_for @order, disabled: true, data: { target: "checkouts.form", action: "checkouts#submitForm" } do |f| %>
-				<div id='deliveries'>
-				  <%= f.simple_fields_for :deliveries do |delivery| %>
-				    <%= render 'delivery_fields', f: delivery %>
-				  <% end %>
+				<div class="accordian" id="orderAccordian">
+					<div id='deliveries'>
+					  <%= f.simple_fields_for :deliveries do |delivery| %>
+					    <%= render 'delivery_fields', f: delivery %>
+					  <% end %>
+					</div>
+
+					<!-- Order_Items are hidden -->
+					<div id='order_items'>
+					  <%= f.simple_fields_for :order_items do |order_item| %>
+					    <%= render 'order_item_fields', f: order_item %>
+					  <% end %>
+					</div>
+
+					<div class="card">
+						<button type="button" class="btn btn-block text-left" data-toggle="collapse" data-target="#step4">
+							Payment Method
+						</button>
+
+						<div id="step4" class="collapse" data-parent="#orderAccordian">
+							<div class="card-body">
+								<%= f.input :payment_method_id, collection: @payment_method_collection, as: :radio_buttons %>
+
+								<div id="card-element" class="flex-grow-1">
+								  <!-- Stripe Element will be inserted here -->
+								</div>
+
+								<!-- Used to display form errors -->
+								<div id="card-errors" role="alert"></div>
+
+								<button type="button" class="btn btn-primary" data-action="checkouts#confirmCardSetup">
+									Save card
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<%= f.submit 'submit' %>
 				</div>
-
-				<div class="" id='order_items'>
-				  <%= f.simple_fields_for :order_items do |order_item| %>
-				    <%= render 'order_item_fields', f: order_item %>
-				  <% end %>
-				</div>
-
-				<%= f.input :payment_method_id, collection: @payment_method_collection, as: :radio_buttons %>
-
-				<div id="card-element" class="flex-grow-1">
-				  <!-- Stripe Element will be inserted here -->
-				</div>
-
-				<!-- Used to display form errors -->
-				<div id="card-errors" role="alert"></div>
-
-				<button type="button" class="btn btn-primary" data-action="checkouts#confirmCardSetup">
-					Save card
-				</button>
-
-				<button type="button" class="btn btn-primary" data-action="checkouts#checkValidity">
-					Check Validity
-				</button>
-
-				<%= f.submit 'submit' %>
 			<% end %>
 		</div>
 
