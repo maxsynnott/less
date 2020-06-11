@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["form", "payButton"]
+	static targets = ["form", "payButton", "subtotal", "total", "delivery"]
 
 	connect() {
 		this.finalStep = 4
@@ -30,6 +30,8 @@ export default class extends Controller {
 
 		const data = await response.json()
 
+		this.updateBreakdown(data.breakdown) 
+
 		return data
 	}
 
@@ -44,6 +46,12 @@ export default class extends Controller {
 		const data = await response.json()
 
 		return data
+	}
+
+	updateBreakdown(breakdown) {
+		this.subtotalTarget.innerText = breakdown.subtotal
+		this.deliveryTarget.innerText = breakdown.delivery
+		this.totalTarget.innerText = breakdown.total
 	}
 
 	confirmCardSetup() {

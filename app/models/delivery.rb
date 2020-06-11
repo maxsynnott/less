@@ -3,6 +3,8 @@ class Delivery < ApplicationRecord
 
   validates_presence_of :address, :scheduled_at
 
+  before_validation :assign_price
+
   validates :phone, phone: { possible: true }
 
   # Returns all available datetimes (60 min increments)
@@ -29,5 +31,11 @@ class Delivery < ApplicationRecord
     end
 
 	  slots
+  end
+
+  private
+
+  def assign_price
+    self.price = 5.00
   end
 end

@@ -37,6 +37,14 @@ class Order < ApplicationRecord
 	  Stripe::PaymentIntent.create(defaults.merge(args))
 	end
 
+	def breakdown
+		{
+			subtotal: total,
+			delivery: delivery.try(:price),
+			total: total + (delivery.try(:price) or 0)
+		}
+	end
+
 	private
 
 	def payment_method_id_is_valid
