@@ -14,9 +14,24 @@ class Api::V1::OrdersController < Api::V1::BaseController
     @order = Order.new(order_params)
     @order.user = current_user
 
+    @order.deliveries << Delivery.new if @order.deliveries.empty?
+
     @order.valid?
 
     render :check_validity, status: :ok
+  end
+
+  def pay
+    @order = Order.find(params[:id])
+
+    unless @order.paid?
+      @payment_intent = @order.create_payment_intent(
+        payment_method: @order.payment_method_id,
+        confirm: true
+      )
+
+      render :pay, status: :ok
+    end    
   end
 
   private

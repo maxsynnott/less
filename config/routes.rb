@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       resources :orders, only: [:create] do
         collection do
           post "check_validity"
+          post ":id/pay", action: :pay, as: :pay
         end
       end
 

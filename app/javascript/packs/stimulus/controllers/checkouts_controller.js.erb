@@ -1,9 +1,11 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["form", "input0"]
+	static targets = ["form", "payButton"]
 
 	connect() {
+		this.finalStep = 4
+
 		this.stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
 		const elements = this.stripe.elements();
 
@@ -11,35 +13,64 @@ export default class extends Controller {
 		this.card.mount("#card-element");
 
 		this.card.on('change', this.displayErrors)
+
+		this.card.on('focus', (event) => {
+			$("#order_payment_method_id_new-card").prop("checked", true).trigger("click")
+		})
 	}
 
-	confirmCardSetup(event) {
-		event.preventDefault()
+	async checkValidity() {
+		const response = await fetch(
+			routes.check_validity_api_v1_orders_path(),
+			{
+				method: "POST",
+				body: new FormData(this.formTarget)
+			}
+		)
 
-		fetch(routes.api_v1_stripe_setup_intents_path(), {
-			method: "POST"
-		})
-		.then(response => response.json())
-		.then((data) => {
-			const clientSecret = data.client_secret
+		const data = await response.json()
 
-			this.stripe.confirmCardSetup(clientSecret, {
-				payment_method: {
-	        card: this.card,
-	        billing_details: {
-	          name: "Placeholder name",
-	        }
-	      }
+		return data
+	}
+
+	async fetchSetupIntent() {
+		const response = await fetch(
+			routes.api_v1_stripe_setup_intents_path(),
+			{
+				method: "POST"
+			}
+		)
+
+		const data = await response.json()
+
+		return data
+	}
+
+	confirmCardSetup() {
+		const data = this.fetchSetupIntent()
+
+		data
+			.then((data) => {
+				const clientSecret = data.client_secret
+
+				this.stripe.confirmCardSetup(clientSecret, {
+					payment_method: {
+		        card: this.card,
+		        billing_details: {
+		          name: "Placeholder name",
+		        }
+		      }
+				})
+				.then(function(result) {
+					if (result.error) {
+						console.log(result.error)
+					} else {
+						$("#order_payment_method_id_new-card").val(result.setupIntent.payment_method)
+						$("label[for='order_payment_method_id_new-card']").text("Added card")
+						$("#stripe-new-card-div").remove()
+					}
+				})
 			})
-			.then(function(result) {
-				if (result.error) {
-					console.log(result.error)
-				} else {
-					// Add logic here
-					console.log("Successfully added card")
-				}
-			})
-		})
 	}
 
 	displayErrors(event) {
@@ -52,25 +83,10 @@ export default class extends Controller {
 	  }
 	}
 
-	submitForm(event) {
-		event.preventDefault()
-		
-		fetch(routes.api_v1_orders_path(), { 
-			method: "POST",
-			body: new FormData(this.formTarget)
-		})
-		.then(response => response.json())
-		.then((data) => {
-			console.log(data)
-		})
-
-		console.log("Testing")
-	}
-
-	async checkValidity() {
+	async createOrder() {
 		const response = await fetch(
-			routes.check_validity_api_v1_orders_path(),
-			{
+			routes.api_v1_orders_path(),
+			{ 
 				method: "POST",
 				body: new FormData(this.formTarget)
 			}
@@ -90,12 +106,20 @@ export default class extends Controller {
 			.then((data) => {
 				const dataset = event.target.dataset
 
-				if (data["errors"][dataset.field]) {
-					
+				if (data.errors[dataset.field]) {
+					// Display errors
 				} else {
 					const stepNumber = Number.parseInt(dataset.step, 10)
 
-					this.enableStep(stepNumber + 1)
+					if (stepNumber >= this.finalStep) {
+						this.finalStep = 0
+
+						if (data.valid) {
+							this.enablePayButton()
+						}
+					} else {
+						this.enableStep(stepNumber + 1)
+					}
 				}
 			})
 	}
@@ -104,5 +128,41 @@ export default class extends Controller {
 		$(`#step${stepNumber}`).collapse("show")
 
 		document.querySelector(`button[data-target="#step${stepNumber}"`).setAttribute("data-toggle", "collapse")
+	}
+
+	enablePayButton() {
+		const button = this.payButtonTarget
+
+		button.style.cursor = "pointer"
+		button.disabled = false
+		button.classList.remove("btn-secondary")
+		button.classList.add("btn-primary")
+	}
+
+	async payOrder() {
+		const data = this.createOrder()
+
+		data
+			.then((data) => {
+				fetch(
+					routes.pay_api_v1_orders_path({ id: data.id }),
+					{
+						method: "POST"
+					}
+				)
+				.then(response => response.json())
+				.then((data) => {
+					console.log(data)
+
+					if (data.status == "succeeded") {
+						console.log("SUCCESS!")
+
+						document.location.href = routes.orders_path()
+					} else {
+						console.log("Something went wrong")
+					}
+				})
+
+			})
 	}
 }

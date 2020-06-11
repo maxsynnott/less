@@ -7,6 +7,8 @@ class Order < ApplicationRecord
 	accepts_nested_attributes_for :deliveries, reject_if: :all_blank, allow_destroy: true
 	accepts_nested_attributes_for :order_items, reject_if: :all_blank, allow_destroy: true
 
+	validates_presence_of :user
+
 	validate :payment_method_id_is_valid, unless: :paid?
 
 	def total
@@ -22,7 +24,20 @@ class Order < ApplicationRecord
 		deliveries.first
 	end
 
-	# private
+	def create_payment_intent(args)
+	  defaults = {
+	    currency: 'eur',
+	    customer: user.stripe_customer_id,
+	    amount: total.to_cents,
+	    metadata: {
+	    	order_id: id
+	    }
+	  }
+
+	  Stripe::PaymentIntent.create(defaults.merge(args))
+	end
+
+	private
 
 	def payment_method_id_is_valid
 		payment_method_ids = Stripe::PaymentMethod.list(

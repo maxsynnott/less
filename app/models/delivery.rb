@@ -1,7 +1,7 @@
 class Delivery < ApplicationRecord
   belongs_to :order
 
-  validates_presence_of :address
+  validates_presence_of :address, :scheduled_at
 
   validates :phone, phone: { possible: true }
 
