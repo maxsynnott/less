@@ -4,7 +4,7 @@ class OrderItem < ApplicationRecord
 
   has_many :containers, dependent: :nullify
 
-  before_validation :assign_price
+  after_initialize :assign_price
 
   after_create :assign_containers
 

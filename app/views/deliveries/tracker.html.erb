@@ -1,1 +1,6 @@
-<h1>Status: <span id="status_span"><%= @delivery.status %></span></h1>
+<div data-controller="channels--delivery-tracker">
+	<h1>
+		Status:
+		<span data-target="channels--delivery-tracker.status"><%= @delivery.status %></span>
+	</h1>	
+</div>
