@@ -1,6 +1,6 @@
 <div class="card" id="recipe_<%= recipe.id %>">
-	<% if recipe.image.attached? %>
-		<%= image_tag recipe.image, class: "card-img-top", alt: recipe.name %>
+	<% if recipe.images.attached? %>
+		<%= image_tag recipe.images.first, class: "card-img-top", alt: recipe.name %>
 	<% end %>
 
   <div class="card-body">
