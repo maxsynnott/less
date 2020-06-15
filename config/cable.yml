@@ -1,5 +1,6 @@
 development:
   adapter: redis
+  url: redis://redistogo:4c6e8ed6b2a3b35b7400850b95563e41@soapfish.redistogo.com:9637/
 
 test:
   adapter: test
