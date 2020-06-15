@@ -9,7 +9,7 @@ class Order < ApplicationRecord
 
 	validates_presence_of :user
 
-	validate :payment_method_id_is_valid, unless: Proc.new { |o| o.paid? or !o.user }
+	validate :payment_method_id_is_valid, unless: Proc.new { |o| o.paid? or !o.user or Rails.env.test? }
 
 	def total
 		order_items.sum(&:total)
