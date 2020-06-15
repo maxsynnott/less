@@ -38,7 +38,8 @@ class Delivery < ApplicationRecord
   private
 
   def assign_price
-    self.price = 5.00
+    # Simple placeholder logic
+    self.price = order.total >= 35 ? 0 : 5
   end
 
   def broadcast_status

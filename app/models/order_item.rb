@@ -18,6 +18,9 @@ class OrderItem < ApplicationRecord
   	self.price = item.price
   end
 
+  # This assigns the least amount of containers possible however in some cases not the most efficient use of containers
+  # Eg. quantity of 350 with containers: [50, 300, 500] will currently be assigned [500]
+  # This should be reworked at some point however not simple due to time complexity issues with large num of containers in db
   def assign_containers
     remaining_containers = Container.all.select(&:available?).sort_by(&:size)
 
