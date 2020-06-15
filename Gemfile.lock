@@ -205,6 +205,9 @@ GEM
     phonelib (0.6.43)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
@@ -395,6 +398,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pg_search
   phonelib
+  pry
   puma (~> 4.3)
   rails (~> 6.0.3.1)
   rails-controller-testing
