@@ -133,5 +133,5 @@ Rails.application.configure do
 
   # Heroku action cable config
   config.web_socket_server_url = "wss://less-berlin.herokuapp.com/cable"
-  config.action_cable.allowed_request_origins = ['https://action-cable-example.herokuapp.com', 'http://action-cable-example.herokuapp.com']
+  config.action_cable.allowed_request_origins = ['https://less-berlin.herokuapp.com', 'http://less-berlin.herokuapp.com']
 end
