@@ -1,6 +1,6 @@
 <div class="card item-card border-0 h-100" id="item_<%= item.id %>">
   <div class="card-body">
-    <%= link_to item_path(item), remote: true, data: { toggle: "modal", target: "#modal-window" } do %>
+    <%= link_to item_path(id: item.id), remote: true, data: { toggle: "modal", target: "#modal-window" } do %>
       <% if item.image.attached? %>
         <%= image_tag item.image, class: "card-img-top mb-2", alt: item.name %>
       <% end %>

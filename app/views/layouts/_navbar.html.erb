@@ -4,6 +4,9 @@
 	</div>
 
 	<div class="col col-1">
+		<%= link_to "EN", url_for(locale: :en) %>
+		<%= link_to "DE", url_for(locale: :de) %>
+		
 		<% if current_user %>
 			<% current_user.reload # Is neccessary to ensure that the cart_items.length is up to date %>
 
