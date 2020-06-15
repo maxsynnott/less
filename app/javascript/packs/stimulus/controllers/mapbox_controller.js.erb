@@ -17,11 +17,15 @@ export default class extends Controller {
 
     initialMarkers.forEach((marker) => {
     	// Custom marker element
-    	const element = document.createElement('div');
-  	  element.style.backgroundImage = `url('${marker.image_url}')`;
-  	  element.style.backgroundSize = 'contain';
-  	  element.style.width = '38px';
-  	  element.style.height = '33px';
+      let element = null
+
+      if (marker.image_url) {
+        element = document.createElement('div');
+        element.style.backgroundImage = `url('${marker.image_url}')`;
+        element.style.backgroundSize = 'contain';
+        element.style.width = '38px';
+        element.style.height = '33px';
+      }
   	  //
 
     	const newMarker = new mapboxgl.Marker(element)

@@ -12,6 +12,10 @@ class DeliveriesController < ApplicationController
 
 		@initial_markers = [
 			{
+				lat: @delivery.latitude,
+				lng: @delivery.longitude
+			},
+			{
 				lat: 52.537154,
 				lng: 13.394585,
 				image_url: helpers.asset_url("delivery_driver_icon.png")

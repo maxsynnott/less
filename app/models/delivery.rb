@@ -1,4 +1,7 @@
 class Delivery < ApplicationRecord
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+  
   before_save :broadcast_status, if: :will_save_change_to_status?
 
   belongs_to :order
