@@ -1,0 +1,9 @@
+<%= simple_form_for(@recipe) do |f| %>
+	<%= f.input :name %>
+	<%= f.input :description %>
+	<%= f.rich_text_area :information %>
+	<%= f.input :public %>
+	<%= f.input :image %>	
+
+	<%= f.submit %>
+<% end %>

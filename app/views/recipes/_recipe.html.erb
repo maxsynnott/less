@@ -1,0 +1,16 @@
+<div class="card" id="recipe_<%= recipe.id %>">
+	<% if recipe.image.attached? %>
+		<%= image_tag recipe.image, class: "card-img-top", alt: recipe.name %>
+	<% end %>
+
+  <div class="card-body">
+    <h5 class="card-title"><%= recipe.name %></h5>
+    <p class="card-text"><%= recipe.get_likes.length %> likes</p>
+
+    <%= link_to toggle_like_recipes_path(id: recipe.id), method: :post, remote: true, class: ["btn", current_user.liked?(recipe) ? "btn-success" : "btn-primary"] do %>
+    	<%= fa_icon "thumbs-up" %>
+    <% end %>
+
+    <%= link_to "View recipe", recipe_path(id: recipe.id), class: "btn btn-primary" %>
+  </div>
+</div>

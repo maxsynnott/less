@@ -21,25 +21,27 @@ Rails.application.routes.draw do
 
     # Simple resources
     resources :cart_items, only: [:create]
-    resources :deliveries, only: [:edit, :update] do
-      get "tracker", action: :tracker, as: :tracker
-    end
     resources :carts, only: [:edit, :update]
     resources :orders, only: [:index, :new, :create, :show]
+    #
+
+    # Complex resources
+    resources :recipes, only: [:index, :show, :new, :create] do
+      collection do
+        post ":id/toggle_like", to: "recipes#toggle_like", as: :toggle_like
+        post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
+      end
+    end
+
     resources :items, only: [:index, :show] do
       collection do
         get "autocomplete"
       end
     end
-    #
 
-    # Complex resources
-    # resources :recipes, only: [:index, :show, :new, :create] do
-    #   collection do
-    #     post ":id/toggle_like", to: "recipes#toggle_like", as: :toggle_like
-    #     post ":id/add_to_cart", to: "recipes#add_to_cart", as: :add_to_cart
-    #   end
-    # end
+    resources :deliveries, only: [:edit, :update] do
+      get "tracker", action: :tracker, as: :tracker
+    end
     #
 
     namespace :stripe do

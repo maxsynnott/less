@@ -1,0 +1,21 @@
+<h4><%= @recipe.name %></h4>
+<p><%= @recipe.get_likes.length %> likes</p>
+<p><%= @recipe.description %></p>
+
+<h5>Ingredients</h5>
+
+<ul>
+	<% @recipe.recipe_items.each do |recipe_item| %>
+		<li>
+			<p>
+				<%= recipe_item.quantity %>g of <%= recipe_item.item.name %>
+			</p>
+		</li>
+	<% end %>
+</ul>
+
+<h5>Information</h5>
+
+<%= @recipe.information %>
+
+<%= link_to "Add to cart", add_to_cart_recipes_path(id: @recipe.id), method: :post, remote: true, class: "btn btn-success" %>

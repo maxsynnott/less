@@ -42,6 +42,10 @@ class User < ApplicationRecord
     Stripe::PaymentIntent.create(defaults.merge(args))
   end
 
+  def toggle_like(object)
+    liked?(object) ? unlike(object) : likes(object)
+  end
+
   def adjust_balance(amount)
     update(balance: balance + amount)
   end
