@@ -42,6 +42,9 @@ global.$ = jQuery;
 import flatpickr from "flatpickr"
 require("flatpickr/dist/flatpickr.css")
 
+import mapboxgl from 'mapbox-gl';
+global.mapboxgl = mapboxgl
+
 // Actiontext/trix
 require("trix")
 require("@rails/actiontext")

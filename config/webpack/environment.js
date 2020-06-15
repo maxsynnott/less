@@ -12,4 +12,16 @@ environment.plugins.append('Provide',
 )
 
 environment.loaders.prepend('erb', erb)
+
+// Excluding mapbox-gl from being transpiled by babel
+// Webpack/babel and mapbox don't currently work nicely together
+const nodeModulesLoader = environment.loaders.get('nodeModules')
+if (!Array.isArray(nodeModulesLoader.exclude)) {
+  nodeModulesLoader.exclude = (nodeModulesLoader.exclude == null)
+    ? []
+    : [nodeModulesLoader.exclude]
+}
+nodeModulesLoader.exclude.push(/mapbox-gl/)
+// 
+
 module.exports = environment

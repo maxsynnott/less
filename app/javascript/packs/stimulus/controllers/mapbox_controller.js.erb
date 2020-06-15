@@ -1,0 +1,42 @@
+import { Controller } from "stimulus"
+
+export default class extends Controller {
+	static targets = ["map"]
+
+	connect() {
+		mapboxgl.accessToken = "pk.eyJ1IjoibWF4c3lubm90dCIsImEiOiJja2Jnajl2eHUxMGNnMnVwMnM2aDFwMnlqIn0.czLiOqFAzs4VxY0DeTrb9w";
+
+    this.map = new mapboxgl.Map({
+      container: this.mapTarget,
+      style: 'mapbox://styles/mapbox/streets-v10'
+    });
+
+    const initialMarkers = JSON.parse(this.data.get('initial-markers'))
+
+    this.markers = []
+
+    initialMarkers.forEach((marker) => {
+    	// Custom marker element
+    	const element = document.createElement('div');
+  	  element.style.backgroundImage = `url('${marker.image_url}')`;
+  	  element.style.backgroundSize = 'contain';
+  	  element.style.width = '38px';
+  	  element.style.height = '33px';
+  	  //
+
+    	const newMarker = new mapboxgl.Marker(element)
+    		.setLngLat([marker.lng, marker.lat])
+    		.addTo(this.map)
+
+  		this.markers.push(newMarker)
+    })
+
+    this.fitMapToMarkers()
+	}
+
+	fitMapToMarkers() {
+		const bounds = new mapboxgl.LngLatBounds();
+		this.markers.forEach(marker => bounds.extend(Object.values(marker._lngLat)));
+		this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 });
+	}
+}
