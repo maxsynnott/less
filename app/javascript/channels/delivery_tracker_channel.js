@@ -1,9 +1,10 @@
 import consumer from "./consumer"
 
+// Move this into a stimulus controller
 consumer.subscriptions.create(
 	{
 		channel: "DeliveryTrackerChannel", 
-		delivery_id: window.location.href.match(/deliveries\/(\d+)\/tracker/)[1]
+		delivery_id: 1 // window.location.href.match(/deliveries\/(\d+)\/tracker/)[1]
 	},
 	{
 	  connected() {

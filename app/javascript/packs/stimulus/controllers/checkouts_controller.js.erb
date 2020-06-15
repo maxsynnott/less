@@ -8,6 +8,15 @@ export default class extends Controller {
 	connect() {
 		this.finalStep = 4
 
+		// Attributes must be indexed same as step positions
+		this.attributes = [
+			"deliveries.address", 
+			"deliveries.scheduled_at", 
+			"deliveries.instruction", 
+			"deliveries.phone", 
+			"payment_method_id"
+		]
+
 		this.stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
 		const elements = this.stripe.elements();
 
@@ -21,9 +30,35 @@ export default class extends Controller {
 		})
 	}
 
-	async checkValidity() {
-		this.clearFormErrors()
+	attributeToStepNumber(attribute) {
+		return this.attributes.indexOf(attribute)
+	}
 
+	attributeToStep(attribute) {
+		return $(this[`step${this.attributeToStepNumber(attribute)}Target`])
+	}
+
+	stepNumberToAttribute(stepNumber) {
+		return this.attributes[stepNumber]
+	}
+
+	stepNumberToStep(stepNumber) {
+		return $(this[`step${stepNumber}Target`])
+	}
+
+	stepNumberToErrorOutput(stepNumber) {
+		return this.stepNumberToStep(stepNumber).find('.error-output')
+	}
+
+	attributeToErrorOutput(attribute) {
+		return this.stepNumberToErrorOutput(this.attributeToStepNumber(attribute))
+	}
+
+	stepToCollapsable(step) {
+		return step.find('div[id*="collapse"]')
+	}
+
+	async checkValidity() {
 		const response = await fetch(
 			routes.check_validity_api_v1_orders_path(),
 			{
@@ -33,8 +68,6 @@ export default class extends Controller {
 		)
 
 		const data = await response.json()
-
-		this.updateBreakdown(data.breakdown) 
 
 		return data
 	}
@@ -53,23 +86,30 @@ export default class extends Controller {
 	}
 
 	displayFormErrors(errors, single_attribute=undefined) {
-		Object.keys(errors).forEach((key) => {
-			const attribute = key.split('.').slice(-1)[0]
+		this.clearFormErrors()
 
-			if (single_attribute) {
-				if (single_attribute == attribute) {
-					$(`#${attribute}_errors`).text(errors[key])
-				}
-			} else {
-				$(`#${attribute}_errors`).text(errors[key])
-			}
+		if (single_attribute) {
+			const value = errors[single_attribute]
+			errors = {}
+			errors[single_attribute] = value
+		}
+
+		Object.keys(errors).forEach((key) => {
+			const errorOutput = this.attributeToErrorOutput(key)
+
+			errorOutput.text(errors[key])
 		})
 
-		if (!single_attribute) {
-			// This opens the first card with an error
-			// I am ashamed by this line of code but it's the end of the day and it works... DELETE ASAP
-			$(Array.from(document.querySelectorAll("div[id*='_errors']")).find(el => el.innerText).parentElement.parentElement.parentElement.previousSibling).collapse("show")
-		}
+		this.showFirstStepWithError()
+	}
+
+	showFirstStepWithError() {
+		const step = $('.step').filter(function() {
+			return $(this).find('.error-output').text()	;
+		}).first()
+
+		const collapsable = this.stepToCollapsable(step)
+		collapsable.collapse('show')
 	}
 
 	updateBreakdown(breakdown) {
@@ -130,7 +170,7 @@ export default class extends Controller {
 	}
 
 	clearFormErrors() {
-		$("div[id*='_errors']").text("")
+		$(".error-output").text("")
 	}
 
 	triggerStep(event) {
@@ -140,10 +180,12 @@ export default class extends Controller {
 
 		data
 			.then((data) => {
-				const stepNumber = Number.parseInt(event.target.dataset.step, 10)
-				const attribute = this[`step${stepNumber}Target`].querySelector('input, textarea, select').name.match(/\[(\w+)\]$/)[1]
+				this.updateBreakdown(data.breakdown) 
 
-				if (Object.keys(data.errors).some(key => key.endsWith(attribute))) {
+				const stepNumber = Number.parseInt(event.target.dataset.step, 10)
+				const attribute = this.stepNumberToAttribute(stepNumber)
+
+				if (Object.keys(data.errors).includes(attribute)) {
 					this.displayFormErrors(data.errors, attribute)
 				} else {
 					if (stepNumber >= this.finalStep) {
@@ -161,8 +203,12 @@ export default class extends Controller {
 			})
 	}
 
+	showStep(step) {
+		this.stepToCollapsable(step).collapse("show")
+	}
+
 	enableCollapseButton(stepNumber) {
-		$(`#collapse${stepNumber}`).collapse("show")
+		this.showStep(this.stepNumberToStep(stepNumber))
 
 		const button = document.querySelector(`button[data-target="#collapse${stepNumber}"`)
 

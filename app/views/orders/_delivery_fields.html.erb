@@ -1,8 +1,8 @@
 <div
-	class="card"
+	class="card step"
 	data-target="checkouts.step0"
 >
-	<button type="button" class="btn btn-block text-left dropdown-toggle" data-toggle="collapse" data-target="#collapse0">
+	<button type="button" class="btn btn-block text-left dropdown-toggle collapse show" data-toggle="collapse" data-target="#collapse0">
 		Delivery Address
 	</button>
 
@@ -10,7 +10,7 @@
 		<div class="card-body">
 			<div data-controller="algolia-places">
 				<%= f.input :address, autocomplete: "off", input_html: { data: { target: "algolia-places.input" } }, label: false %>
-				<%= f.error :address, id: "address_errors" %>
+				<%= f.error :address, class: "error-output" %>
 			</div>
 
 			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="0">
@@ -21,7 +21,7 @@
 </div>
 
 <div
-	class="card"
+	class="card step"
 	data-target="checkouts.step1"
 >
 	<button type="button" class="btn btn-block text-left" data-target="#collapse1">
@@ -31,7 +31,7 @@
 	<div id="collapse1" class="collapse" data-parent="#orderAccordian">
 		<div class="card-body">
 			<%= f.input :scheduled_at, label: false, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] } %>
-			<%= f.error :scheduled_at, id: "scheduled_at_errors" %>
+			<%= f.error :scheduled_at, class: "error-output" %>
 
 			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="1">
 				Save
@@ -41,7 +41,7 @@
 </div>
 
 <div
-	class="card"
+	class="card step"
 	data-target="checkouts.step2"
 >
 	<button type="button" class="btn btn-block text-left" data-target="#collapse2">
@@ -51,7 +51,7 @@
 	<div id="collapse2" class="collapse" data-parent="#orderAccordian">
 		<div class="card-body">
 			<%= f.input :instructions, label: false %>
-			<%= f.error :instructions, id: "instructions_errors" %>
+			<%= f.error :instructions, class: "error-output" %>
 
 			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="2">
 				Save
@@ -61,7 +61,7 @@
 </div>
 
 <div
-	class="card"
+	class="card step"
 	data-target="checkouts.step3"
 >
 	<button type="button" class="btn btn-block text-left" data-target="#collapse3">
@@ -71,7 +71,7 @@
 	<div id="collapse3" class="collapse" data-parent="#orderAccordian">
 		<div class="card-body">
 			<%= f.input :phone, label: false %>
-			<%= f.error :phone, id: "phone_errors" %>
+			<%= f.error :phone, class: "error-output" %>
 
 			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="3">
 				Save

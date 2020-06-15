@@ -1,5 +1,5 @@
 <div
-	class="card"
+	class="card step"
 	data-target="checkouts.step4"
 >
 	<button type="button" class="btn btn-block text-left" data-target="#collapse4">
@@ -23,7 +23,7 @@
 				</button>
 			</div>
 
-			<%= f.error :payment_method_id, id: "payment_method_id_errors" %>
+			<%= f.error :payment_method_id, class: "error-output" %>
 
 			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="4">
 				Save
