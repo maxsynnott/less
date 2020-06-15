@@ -28,6 +28,7 @@ class Item < ApplicationRecord
 
 	has_one_attached :image
 
+	has_many :stocks
 	has_many :cart_items
 	has_many :store_items
 	has_many :stores, through: :store_items
@@ -36,5 +37,9 @@ class Item < ApplicationRecord
 
 	def price_for(amount)
 		price * amount
+	end
+
+	def stock
+		stocks.sum(&:balance)
 	end
 end

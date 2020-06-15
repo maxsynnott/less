@@ -40,6 +40,10 @@ num_items.times do
 	item.image.attach(io: open(image_urls.sample), filename: item.name.parameterize + '.jpg')
 end
 
+stock_items = Item.all.sample(num_items - 2)
+
+stock_items.each { |item| Stock.create(item_id: item.id, balance: rand(2000..10000)) }
+
 user = User.create(email: "user@example.com", password: "123456", cart: Cart.new)
 user_2 = User.create(email: "user_2@example.com", password: "123456", cart: Cart.new)
 
