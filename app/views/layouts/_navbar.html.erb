@@ -1,4 +1,104 @@
-<div class="bg-sky sticky-top row justify-content-between align-items-center p-0 mx-0">
+<div class="sticky-top" style="box-shadow: 0 1px 5px rgba(0,0,0,.16);">
+	<div class="navbar navbar-expand-md navbar-light bg-white pb-0">
+		<%= link_to "Less", root_path, class: "navbar-brand px-4 text-success" %>
+
+		<form class="form-inline w-100 d-none d-md-flex">
+			<div class="input-group w-100">
+				<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+
+				<div class="input-group-append">
+					<button class="btn btn-outline-success" type="submit">
+						<%= fa_icon "search" %>
+					</button>
+				</div>
+			</div>
+		</form>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+		<div class="navbar-collapse collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav ml-3">
+	      <li class="nav-item mr-3">
+	        <% if I18n.locale == :en %>
+	        	<%= link_to url_for(locale: :de), class: 'nav-link px-0' do %>
+	        		<%= flag_icon(:de) %>
+	        	<% end %>
+	        <% else %>
+	        	<%= link_to url_for(locale: :en), class: 'nav-link px-0' do %>
+	        		<%= flag_icon(:gb) %>
+	        	<% end %>
+	        <% end %>
+	      </li>
+
+	      <% if current_user %>
+	      	<li class="nav-item dropdown">
+	      	  <a class="dropdown-toggle btn btn-outline-success mr-2 mb-2 mb-md-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	      	    Account
+	      	  </a>
+	      	  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	      	    <a class="dropdown-item" href="#">Orders</a>
+	      	    <div class="dropdown-divider"></div>
+	      	    <a class="dropdown-item" href="#">Settings</a>
+	      	  </div>
+	      	</li>
+
+	      	<li class="nav-item">
+	      		<%= link_to edit_cart_path(id: current_user.cart.id), class: "btn btn-success position-relative", style: "min-width: 100px;" do %>
+	      			<%= fa_icon "shopping-cart" %>
+	      			Cart
+	      			<span class="badge badge-pill badge-danger notify"><%= current_user.cart.cart_items.length %></span>
+	      		<% end %>
+	      	</li>
+      	<% else %>
+      		<li class="nav-item">
+      			<%= link_to "Log in", new_user_session_path, class: "btn btn-success", style: "min-width: 80px;" %>
+      		</li>
+	      <% end %>
+	    </ul>
+	  </div>
+	</div>
+
+	<div class="bg-white">
+		<ul class="nav nav-fill">
+			<li class="nav-item">
+				<%= link_to 'Dairy', '#', class: 'nav-link py-1 text-secondary' %>
+			</li>
+
+			<li class="nav-item">
+				<%= link_to 'Meat', '#', class: 'nav-link py-1 text-secondary' %>
+			</li>
+
+			<li class="nav-item">
+				<%= link_to 'Cereals', '#', class: 'nav-link py-1 text-secondary' %>
+			</li>
+
+			<li class="nav-item">
+				<%= link_to 'Vegetables', '#', class: 'nav-link py-1 text-success' %>
+			</li>
+
+			<li class="nav-item">
+				<%= link_to 'Grains', '#', class: 'nav-link py-1 text-secondary' %>
+			</li>
+
+			<li class="nav-item">
+				<%= link_to 'Beverages', '#', class: 'nav-link py-1 text-secondary' %>
+			</li>
+
+			<li class="nav-item">
+				<%= link_to 'Personal Care', '#', class: 'nav-link py-1 text-secondary' %>
+			</li>
+
+			<li class="nav-item">
+				<%= link_to 'Other', '#', class: 'nav-link py-1 text-secondary' %>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+<!-- <div class="bg-sky sticky-top row justify-content-between align-items-center p-0 mx-0">
 	<div class="col col-1 text-center">
 		<%= link_to "less", root_path, class: "text-white aleo logo-text" %>
 	</div>
@@ -41,4 +141,4 @@
 	.aleo {
 		font-family: 'Aleo', serif;
 	}
-</style>
+</style> -->

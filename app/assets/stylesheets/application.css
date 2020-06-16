@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require flag-icon
  */
 
 form input[type='number']::-webkit-outer-spin-button,
