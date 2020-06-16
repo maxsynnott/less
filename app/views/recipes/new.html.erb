@@ -3,7 +3,17 @@
 	<%= f.input :description %>
 	<%= f.rich_text_area :information %>
 	<%= f.input :public %>
-	<%= f.file_field :images, multiple: true %>	
+	<%= f.file_field :images, multiple: true %>
+
+	<div id="recipe_items">
+		<%= f.simple_fields_for :recipe_items do |recipe_item| %>
+			<%= render 'recipe_item_fields', f: recipe_item %>
+		<% end %>
+		
+		<div class='links'>
+      <%= link_to_add_association 'add ingredient', f, :recipe_items %>
+    </div>
+	</div>
 
 	<%= f.submit %>
 <% end %>

@@ -1,0 +1,2 @@
+<%= f.input :item_id, collection: Item.all.map { |item| [item.name, item.id] } %>
+<%= f.input :quantity %>
