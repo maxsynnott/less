@@ -2,14 +2,6 @@ AdminUser.create!(email: 'admin@example.com', password: '123456', password_confi
 
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
 
-image_urls = [
-	"https://www.benjerry.com/files/live/sites/systemsite/files/flavors/items/us/pint/phish-food-detail-open-2019.png",
-	"https://i.pinimg.com/originals/0f/90/c1/0f90c1a847cb971519b96c6a1098f375.png",
-	"https://www.puremarket.com/wp-content/uploads/2019/10/earths-best-stage-3-organic-vegetable-chicken-soup-na-jars-meals.png?w=350",
-	"https://www.whi.de/fileadmin/user_upload/Wuensche_Food/ProduktbereicheKacheln/tomate.png",
-	"https://www.whi.de/fileadmin/user_upload/Wuensche_Food/ProduktbereicheKacheln/ananas.png"
-]
-
 store_logo_urls = [
 	"https://cdn.shopify.com/s/files/1/1008/4236/files/01Original_Unverpackt_Logo_nichtoffen_160712_Kopie.jpg",
 	"https://www.designenlassen.de/blog/wp-content/uploads/2018/09/%C3%B6ko-logo-bio-h%C3%BCllenlos-unverpackt-nachhaltig.png",
@@ -37,7 +29,7 @@ num_items.times do
 		store_ids: Store.all.sample(rand(0..Store.count)).map(&:id)
 	)
 
-	item.image.attach(io: open(image_urls.sample), filename: item.name.parameterize + '.jpg')
+	item.image.attach(io: File.open(Rails.root.join("app", "assets", "images", "glass_jar.png")), filename: item.name.parameterize + '.png')
 end
 
 stock_items = Item.all.sample(num_items - 2)
