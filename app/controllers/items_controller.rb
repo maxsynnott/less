@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
 
   	filter_items if params[:search].present?
 
-    @items = @items.limit(5)
+    @items = @items.limit(5) unless @items.empty?
 
   	render layout: false
   end
@@ -28,11 +28,16 @@ class ItemsController < ApplicationController
   def filter_items
     search = params[:search]
 
-    @items = @items.search(search[:query]) if search[:query].present?
+    # Clean this up, was just a temp hack to have autocomplete clear on empty string
+    if !search[:tags] and search[:query].blank?
+      @items = []
+    else
+      @items = @items.search(search[:query]) if search[:query].present?
 
-    if search[:tags]
-      search[:tags].each do |tag|
-        @items = @items.tagged_with(tag) unless tag.blank?
+      if search[:tags]
+        search[:tags].each do |tag|
+          @items = @items.tagged_with(tag) unless tag.blank?
+        end
       end
     end
   end

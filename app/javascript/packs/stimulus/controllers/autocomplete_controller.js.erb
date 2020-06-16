@@ -3,6 +3,10 @@ import { Controller } from "stimulus"
 export default class extends Controller {
 	static targets = ["input", "results"]
 
+	connect() {
+		this.resultsTarget.style.width = `${this.inputTarget.offsetWidth}px`
+	}
+
 	fetchResults() {
 		// Rework this to include existing filters
 		const target = `${this.data.get('url')}?search%5Bquery%5D=${this.inputTarget.value}`

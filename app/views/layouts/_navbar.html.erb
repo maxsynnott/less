@@ -2,17 +2,21 @@
 	<div class="navbar navbar-light">
 		<%= link_to "Less", root_path, class: "navbar-brand px-4 text-success", style: "letter-spacing: 0.5rem; font-weight: 300;" %>
 
-		<%= form_for :search, url: items_path, method: :get, html: { class: "form-inline flex-grow-1 d-none d-lg-flex" } do |f| %>
-			<div class="input-group w-100">
-				<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?" %>
+		<div class="flex-grow-1" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_items_url %>">
+			<%= form_for :search, url: items_path, method: :get, html: { class: "form-inline d-none d-lg-flex", autocomplete: "off" } do |f| %>
+				<div class="input-group w-100">
+					<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?", data: { target: 'autocomplete.input', action: "input->autocomplete#fetchResults" } %>
 
-				<div class="input-group-append">
-					<button class="btn btn-outline-success" type="submit">
-						<%= fa_icon "search" %>
-					</button>
+					<div class="input-group-append">
+						<button class="btn btn-outline-success" type="submit">
+							<%= fa_icon "search" %>
+						</button>
+					</div>
 				</div>
-			</div>
-		<% end %>
+			<% end %>
+
+			<ul class="list-group position-absolute" data-target="autocomplete.results" style="z-index: 10;"></ul>
+		</div>
 
 		<div class="navbar-expand">
 			<ul class="navbar-nav ml-lg-3">
