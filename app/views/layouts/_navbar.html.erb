@@ -2,9 +2,9 @@
 	<div class="navbar navbar-light">
 		<%= link_to "Less", root_path, class: "navbar-brand px-4 text-success" %>
 
-		<form class="form-inline flex-grow-1 d-none d-lg-flex">
+		<%= form_for :search, url: items_path, method: :get, html: { class: "form-inline flex-grow-1 d-none d-lg-flex" } do |f| %>
 			<div class="input-group w-100">
-				<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+				<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?" %>
 
 				<div class="input-group-append">
 					<button class="btn btn-outline-success" type="submit">
@@ -12,18 +12,18 @@
 					</button>
 				</div>
 			</div>
-		</form>
+		<% end %>
 
 		<div class="navbar-expand">
 			<ul class="navbar-nav ml-lg-3">
 			  <li class="nav-item mr-3">
 			    <% if I18n.locale == :en %>
 			    	<%= link_to url_for(locale: :de), class: 'nav-link px-0' do %>
-			    		<%= flag_icon(:de) %>
+			    		<%= flag_icon(:gb) %>
 			    	<% end %>
 			    <% else %>
 			    	<%= link_to url_for(locale: :en), class: 'nav-link px-0' do %>
-			    		<%= flag_icon(:gb) %>
+			    		<%= flag_icon(:de) %>
 			    	<% end %>
 			    <% end %>
 			  </li>
@@ -33,10 +33,13 @@
 			  	  <a class="dropdown-toggle btn btn-outline-success mr-2 mb-2 mb-lg-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			  	    Account
 			  	  </a>
+
 			  	  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			  	    <a class="dropdown-item" href="#">Orders</a>
+			  	  	<%= link_to "Your Account", edit_user_registration_path, class: "dropdown-item" %>
+			  	  	<%= link_to "Your Orders", orders_path, class: "dropdown-item" %>
+			  	  	<%= link_to "Your Recipes", recipes_path, class: "dropdown-item" %>
 			  	    <div class="dropdown-divider"></div>
-			  	    <a class="dropdown-item" href="#">Settings</a>
+			  	    <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
 			  	  </div>
 			  	</li>
 
@@ -57,9 +60,9 @@
 	</div>
 
 	<div class="px-3">
-		<form class="form-inline flex-grow-1 d-flex d-lg-none pb-3">
+		<%= form_for :search, url: items_path, method: :get, html: { class: "form-inline flex-grow-1 d-flex d-lg-none pb-3" } do |f| %>
 			<div class="input-group w-100">
-				<input class="form-control" type="search" placeholder="Search" aria-label="Search">
+				<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?" %>
 
 				<div class="input-group-append">
 					<button class="btn btn-outline-success" type="submit">
@@ -67,40 +70,18 @@
 					</button>
 				</div>
 			</div>
-		</form>
+		<% end %>
 
 		<ul class="nav nav-fill d-none d-lg-flex">
 			<li class="nav-item">
-				<%= link_to 'Dairy', '#', class: 'nav-link pt-0 pb-1 text-secondary' %>
+				<%= link_to 'All Items', items_path, class: "nav-link pt-0 pb-1 #{@tags ? 'text-secondary' : 'text-success'}" %>
 			</li>
 
-			<li class="nav-item">
-				<%= link_to 'Meat', '#', class: 'nav-link pt-0 pb-1 text-secondary' %>
-			</li>
-
-			<li class="nav-item">
-				<%= link_to 'Cereals', '#', class: 'nav-link pt-0 pb-1 text-secondary' %>
-			</li>
-
-			<li class="nav-item">
-				<%= link_to 'Vegetables', '#', class: 'nav-link pt-0 pb-1 text-success' %>
-			</li>
-
-			<li class="nav-item">
-				<%= link_to 'Grains', '#', class: 'nav-link pt-0 pb-1 text-secondary' %>
-			</li>
-
-			<li class="nav-item">
-				<%= link_to 'Beverages', '#', class: 'nav-link pt-0 pb-1 text-secondary' %>
-			</li>
-
-			<li class="nav-item">
-				<%= link_to 'Personal Care', '#', class: 'nav-link pt-0 pb-1 text-secondary' %>
-			</li>
-
-			<li class="nav-item">
-				<%= link_to 'Other', '#', class: 'nav-link pt-0 pb-1 text-secondary' %>
-			</li>
+			<% ['Meats', 'Cereals', 'Vegetables', 'Grains', 'Beverages', 'Personal Care'].each do |tag| %>
+				<li class="nav-item">
+					<%= link_to tag, items_path(search: { tags: [tag] }), class: "nav-link pt-0 pb-1 text-secondary #{@tags.try(:include?, tag) ? 'text-success' : 'text-secondary'}" %>
+				</li>
+			<% end %>
 		</ul>
 	</div>
 </nav>

@@ -30,9 +30,9 @@ class ItemsController < ApplicationController
 
     @items = @items.search(search[:query]) if search[:query].present?
 
-    if search[:tags] and search[:tags].count > 1
-      search[:tags][1..-1].each do |tag|
-        @items = @items.tagged_with(tag)
+    if search[:tags]
+      search[:tags].each do |tag|
+        @items = @items.tagged_with(tag) unless tag.blank?
       end
     end
   end

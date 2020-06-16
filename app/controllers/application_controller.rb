@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 	before_action :authenticate_user!
 	before_action :set_locale
+	before_action :set_tags
 
 	helper_method :current_cart
 
@@ -13,6 +14,10 @@ class ApplicationController < ActionController::Base
 	end
 
 	private
+
+	def set_tags
+		@tags = params[:search][:tags] if params[:search]
+	end
 
 	def set_locale
 		locale = params[:locale].to_s.to_sym
