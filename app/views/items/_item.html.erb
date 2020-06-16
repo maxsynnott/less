@@ -1,20 +1,24 @@
-<div class="card item-card border-0 h-100" id="item_<%= item.id %>">
+<div class="card border-0 h-100 item-card" id="item_<%= item.id %>">
   <%= link_to item_path(id: item.id), remote: true, data: { toggle: "modal", target: "#modal-window" } do %>
-    <div class="card-body">
-      <% if item.image.attached? %>
-        <%= image_tag item.image, class: "card-img-top mb-2", alt: item.name %>
-      <% end %>
+    <% if item.image.attached? %>
+      <%= image_tag item.image, class: "card-img-top", alt: item.name %>
+    <% end %>
 
-      <p class="text-dark font-weight-bold mb-0">
-        <%= number_to_currency(item.price * item.display_unit_quantity, unit: '€', format: "%n %u") %>
+    <div class="card-body text-center">
+      <h5 class="card-title text-secondary font-weight-normal">
+        <%= item.name %>
+      </h5>
+
+      <p class="card-text text-dark mb-0" style="font-weight: 600">
+        <%= number_to_currency(item.price_for(item.display_unit_quantity)) %>
+
         <span class="text-muted">
           <%= " / " + item.display_unit %>
         </span>
       </p>
-
-      <p class="text-muted mb-0">
-        <%= item.name %>
-      </p>
     </div>
+
+    <%= fa_icon 'plus-square', type: :regular, class: "text-success position-absolute", style: "font-size: 1.8rem; right: 1rem; top: 0.5rem" %>
   <% end %>
 </div>
+

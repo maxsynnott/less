@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
 
     filter_items if params[:search].present?
 
-  	@items = @items.paginate(page: params[:page], per_page: 12)
+  	@items = @items.paginate(page: params[:page], per_page: 24)
   end
 
   def show

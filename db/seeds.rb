@@ -29,7 +29,7 @@ num_items.times do
 		store_ids: Store.all.sample(rand(0..Store.count)).map(&:id)
 	)
 
-	item.image.attach(io: File.open(Rails.root.join("app", "assets", "images", "glass_jar.png")), filename: item.name.parameterize + '.png')
+	item.image.attach(io: File.open(Rails.root.join("app", "assets", "images", "glass_jar_#{rand(0..3)}.png")), filename: item.name.parameterize + '.png')
 end
 
 stock_items = Item.all.sample(num_items - 2)
