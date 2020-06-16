@@ -57,3 +57,7 @@ form input[type='number']::-webkit-inner-spin-button {
 body {
 	background-color: #F7F7F7 !important;
 }
+
+* {
+	font-family: 'Montserrat', sans-serif;
+}

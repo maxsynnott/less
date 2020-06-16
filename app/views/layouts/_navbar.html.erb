@@ -1,6 +1,6 @@
 <nav class="sticky-top bg-white" style="box-shadow: 0 1px 5px rgba(0,0,0,.16);">
 	<div class="navbar navbar-light">
-		<%= link_to "Less", root_path, class: "navbar-brand px-4 text-success" %>
+		<%= link_to "Less", root_path, class: "navbar-brand px-4 text-success", style: "letter-spacing: 0.5rem; font-weight: 300;" %>
 
 		<%= form_for :search, url: items_path, method: :get, html: { class: "form-inline flex-grow-1 d-none d-lg-flex" } do |f| %>
 			<div class="input-group w-100">
