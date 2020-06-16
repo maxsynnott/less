@@ -1,3 +1,12 @@
+# DELETE THIS BEFORE REAL TIME PRODUCTION!
+AdminUser.destroy_all
+Delivery.destroy_all
+CartItem.destroy_all
+Cart.destroy_all
+Order.destroy_all
+User.destroy_all
+########################################### IMPORTANT ######################################################################
+
 AdminUser.create!(email: 'admin@example.com', password: '123456', password_confirmation: '123456') if Rails.env.development?
 
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
