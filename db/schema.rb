@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_181010) do
+ActiveRecord::Schema.define(version: 2020_06_16_072434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -115,6 +115,8 @@ ActiveRecord::Schema.define(version: 2020_06_15_181010) do
     t.string "status", default: "Order Received"
     t.float "latitude"
     t.float "longitude"
+    t.float "driver_longitude"
+    t.float "driver_latitude"
     t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 

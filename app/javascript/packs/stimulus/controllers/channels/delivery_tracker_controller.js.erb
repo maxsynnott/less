@@ -2,7 +2,7 @@ import { Controller } from 'stimulus';
 import consumer from './../../../../channels/consumer.js';
 
 export default class extends Controller {
-  static targets = ["status"];
+  static targets = ["status", "map"];
 
   connect() {
     this.channel = consumer.subscriptions.create(
@@ -28,6 +28,15 @@ export default class extends Controller {
 
   _cableReceived(data) {
     // Called when there's incoming data on the websocket for this channel
-    this.statusTarget.innerText = data.status
+    if (data.latitude || data.longitude) {
+      this.mapTarget.mapbox.updateDeliveryDriverCoordinates({
+        latitude: data.latitude,
+        longitude: data.longitude
+      })
+    }
+
+    if (data.status) {
+      this.statusTarget.innerText = data.status
+    }
   }
 }
