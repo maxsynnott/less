@@ -5,7 +5,7 @@
 		<div class="flex-grow-1 d-none d-lg-block" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_items_url %>">
 			<%= form_for :search, url: items_path, method: :get, html: { class: "form-inline", autocomplete: "off" } do |f| %>
 				<div class="input-group w-100">
-					<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?", data: { target: 'autocomplete.input', action: "input->autocomplete#fetchResults" } %>
+					<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?", data: { target: 'autocomplete.input', action: "input->autocomplete#fetchResults blur->autocomplete#clearResults" } %>
 
 					<div class="input-group-append">
 						<button class="btn btn-outline-success" type="submit">
@@ -67,7 +67,7 @@
 		<div class="flex-grow-1 d-block d-lg-none pb-3" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_items_url %>">
 			<%= form_for :search, url: items_path, method: :get, html: { class: "form-inline", autocomplete: "off" } do |f| %>
 				<div class="input-group w-100">
-					<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?", data: { target: 'autocomplete.input', action: "input->autocomplete#fetchResults" } %>
+					<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?", data: { target: 'autocomplete.input', action: "input->autocomplete#fetchResults blur->autocomplete#clearResults" } %>
 
 					<div class="input-group-append">
 						<button class="btn btn-outline-success" type="submit">

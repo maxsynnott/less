@@ -1,5 +1,11 @@
-<% @items.each do |item| %>
-	<%= link_to item_path(item), class: "list-group-item" do %>
-		<%= item.name %>
+<% if @items.empty? %>
+	<li class="list-group-item">
+		No items found :(
+	</li>
+<% else %>
+	<% @items.each do |item| %>
+		<%= link_to item_path(item), class: "list-group-item" do %>
+			<%= item.name %>
+		<% end %>
 	<% end %>
 <% end %>
