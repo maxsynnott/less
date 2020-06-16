@@ -50,6 +50,7 @@ gem 'rails-i18n'
 gem 'geocoder'
 gem 'flag-icons-rails'
 gem 'cloudinary'
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -76,7 +77,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   # Self-Added Gems:
-  gem 'faker'
   gem "better_errors"
   gem "binding_of_caller"
 end
