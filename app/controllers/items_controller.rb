@@ -36,8 +36,6 @@ class ItemsController < ApplicationController
   def sort_items
     sort = params[:sort]
 
-    binding.pry
-
     case sort
     when "relevance"
       # Fancy sort

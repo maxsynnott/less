@@ -10,19 +10,9 @@ export default class extends Controller {
 	}
 
 	submitForm() {
-		// This is super sloppy, find a cleaner way to preserve params
-		
-		let search = new URL(document.location).search
-		const value = $(this.sortTarget).find(':selected').val()
+		let params = new URLSearchParams(new URL(location.href).search)
+		params.set('sort', $(this.sortTarget).find(':selected').val())
 
-		if (search) {
-			if (search.includes('sort=')) {
-				window.location.search = search.replace(search.match(/sort=(\w*)(?:&|$)/)[1], value)
-			} else {
-				window.location.search += `&sort=${value}`
-			}
-		} else {
-			window.location.search = `?sort=${value}`
-		}
+		window.location.href = `${window.location.origin}${window.location.pathname}?${params.toString()}`
 	}
 }

@@ -87,7 +87,7 @@
 
 			<% ['Meats', 'Cereals', 'Vegetables', 'Grains', 'Beverages', 'Personal Care'].each do |tag| %>
 				<li class="nav-item">
-					<%= link_to tag, items_path(search: { tags: [tag] }), class: "nav-link pt-0 pb-1 text-secondary #{@tags.try(:include?, tag) ? 'text-success' : 'text-secondary'}" %>
+					<%= link_to tag, items_path(request.query_parameters.deep_merge(search: { tags: [tag] })), class: "nav-link pt-0 pb-1 text-secondary #{@tags.try(:include?, tag) ? 'text-success' : 'text-secondary'}" %>
 				</li>
 			<% end %>
 		</ul>
