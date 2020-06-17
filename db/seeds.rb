@@ -29,7 +29,9 @@ num_items.times do
 		store_ids: Store.all.sample(rand(0..Store.count)).map(&:id)
 	)
 
-	item.image.attach(io: File.open(Rails.root.join("app", "assets", "images", "glass_jar_#{rand(0..3)}.png")), filename: item.name.parameterize + '.png')
+	images = [0, 1, 2, 3].sample(rand(1..4)).map { |i| { io: File.open(Rails.root.join("app", "assets", "images", "glass_jar_#{i}.png")), filename: "jar_#{i}.png" } }
+
+	item.images.attach(images)
 end
 
 Item.all.each do |item|

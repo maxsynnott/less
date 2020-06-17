@@ -6,8 +6,26 @@
 	<div class="container-fluid pt-4">
 		<div class="row align-items-center">
 			<div class="col-12 col-lg-6 text-center">
-				<% if @item.image.attached? %>
-				  <%= cl_image_tag @item.image.key, alt: @item.name, class: 'img-fluid' %>
+				<% if @item.images.attached? %>
+					<% if @item.images.count > 1 %>
+						<!-- Slider main container -->
+						<div class="swiper-container" data-controller="swiper">
+					    <!-- Additional required wrapper -->
+					    <div class="swiper-wrapper align-items-center">
+				        <!-- Slides -->
+				        <% @item.images.each do |image| %>
+				        	<div class="swiper-slide">
+				        		<%= image_tag image, alt: image.filename, class: 'img-fluid' %>
+				        	</div>
+				        <% end %>
+					    </div>
+
+					    <div class="swiper-button-prev" style="color: lightgray;"></div>
+			        <div class="swiper-button-next" style="color: lightgray;"></div>
+						</div>
+					<% else %>
+						<%= image_tag @item.images.first, alt: @item.images.first.filename, class: "img-fluid" %>
+					<% end %>
 				<% end %>
 			</div>
 
@@ -18,7 +36,7 @@
 							<%= @item.name %>
 						</h2>
 
-						<h3 class="card-subtitle mt-2">
+						<h3 class="card-subtitle mt-2 text-success">
 							<%= number_to_currency(@item.price_for(1000)) %>
 
 							<small class="text-muted">
@@ -62,6 +80,6 @@
 
 <div class="modal-footer mx-5">
 	<div class="container-fluid text-center">
-		<%= link_to "More product info", item_path(@item), class: "text-success text-decoration-none" %>
+		<%= link_to "More product info", item_path(@item), class: "text-secondary text-decoration-none" %>
 	</div>
 </div>

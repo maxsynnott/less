@@ -26,6 +26,9 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import './bootstrap_custom.js'
 import 'cocoon-js';
 
+import Swiper from 'swiper';
+global.Swiper = Swiper
+
 // Algolia places
 import places from "places.js"
 global.places = places
@@ -42,8 +45,10 @@ global.$ = jQuery;
 import flatpickr from "flatpickr"
 require("flatpickr/dist/flatpickr.css")
 
+// Mapbox
 import mapboxgl from 'mapbox-gl';
 global.mapboxgl = mapboxgl
+//
 
 // Actiontext/trix
 require("trix")

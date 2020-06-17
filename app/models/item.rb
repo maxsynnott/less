@@ -26,7 +26,7 @@ class Item < ApplicationRecord
 
 	acts_as_taggable_on :tags
 
-	has_one_attached :image
+	has_many_attached :images
 
 	has_many :stocks
 	has_many :cart_items

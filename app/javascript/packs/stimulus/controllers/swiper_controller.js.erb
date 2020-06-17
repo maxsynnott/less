@@ -1,0 +1,21 @@
+import { Controller } from "stimulus"
+
+export default class extends Controller {
+	connect() {
+		// Wait for modal to finish before activating
+		$("#modal-window").on("shown.bs.modal", () => {
+			this.initializeSwiper()
+		})
+	}
+
+	initializeSwiper() {
+		new Swiper(this.element, {
+			loop: true,
+
+			navigation: {
+	      nextEl: '.swiper-button-next',
+	      prevEl: '.swiper-button-prev',
+	    },
+		})
+	}
+}
