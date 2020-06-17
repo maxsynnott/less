@@ -23,7 +23,7 @@ num_items = 36
 num_items.times do
 	item = Item.create(
 		name: Faker::Food.unique.ingredient,
-		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis.",
+		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis. " * rand(1..5),
 		price: rand(0.001..0.1),
 		tag_list: ["vegan", "organic"].sample([0, 1, 2].sample),
 		store_ids: Store.all.sample(rand(0..Store.count)).map(&:id)
