@@ -1,3 +1,4 @@
 $("#modal-window").modal('hide');
 
-$(".navbar").replaceWith("<%= j render 'layouts/navbar' %>")
+<% current_user.cart.reload %>
+$("#item_count").text("<%= current_user.cart.cart_items.length %>")

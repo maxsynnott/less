@@ -1,76 +1,59 @@
-<div class="container-fluid">
-	<div class="modal-body pt-5">
+<div class="modal-body">
+	<div class="container-fluid pt-4">
 		<div class="row">
-			<div class="col-6 text-center">
+			<div class="col-6 d-flex justify-content-center align-items-center">
 				<% if @item.image.attached? %>
-				  <%= image_tag @item.image, alt: @item.name, style: "max-height: 50vh" %>
+				  <%= cl_image_tag @item.image.key, alt: @item.name, class: 'img-fluid' %>
 				<% end %>
 			</div>
 
 			<div class="col-6">
-				<h2>
-					<%= @item.name %>
-				</h2>
+				<div class="card border-0">
+					<div class="card-body">
+						<h2 class="card-title">
+							<%= @item.name %>
+						</h2>
 
-				<ul class="list-group mt-5">
-					<li class="list-group-item">
-						<p>
-							<b>
-								Price
-							</b>
+						<h3 class="card-subtitle mt-2">
+							<%= number_to_currency(@item.price_for(1000)) %>
 
-							<br>
+							<small class="text-muted">
+								per kg
+							</small>
+						</h3>
 
-							<%= number_to_currency(@item.price * @item.display_unit_quantity, unit: '€', format: "%n %u") %>
-							<span class="text-muted">
-							  <%= " per " + @item.display_unit %>
-							</span>
-						</p>
-					</li>
+						<%= simple_form_for CartItem.new(item_id: @item.id), html: { class: "mt-4", data: { "item-price": @item.price, controller: "item" } }, remote: true do |f| %>
+							<%= f.hidden_field :item_id %>
 
-					<li class="list-group-item">
-						<p>
-							<b>
-								Details
-							</b>
+							<%= f.input :quantity, hint: "Enter your desired quantity in grams", input_html: { data: { target: "item.input", action: "input->item#updateValues" } } %>
 
-							<br>
+							<div class="row">
+								<div class="col-6">
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item" data-target="item.quantity">
+											333 grams
+										</li>
 
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-					</li>
-				</ul>
+										<li class="list-group-item" data-target="item.price">
+											<%= number_to_currency(@item.price_for(333)) %>
+										</li>
+									</ul>
+								</div>
+
+								<div class="col-6 d-flex justify-content-end align-items-center">
+									<%= f.submit "Add to cart", class: "btn btn-success" %>
+								</div>
+							</div>
+						<% end %>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
-	<div class="modal-footer">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col col-6">
-					<p class="text-muted">
-						400 grams | 7.13 €
-					</p>
-				</div>
-
-				<div class="col col-6">
-					<%= simple_form_for(CartItem.new, remote: true, wrapper: :inline_form, html: { class: 'form-inline w-100' }) do |f| %>
-			      <%= f.hidden_field :item_id, value: @item.id %>
-
-			      <%= f.input :quantity, placeholder: "Want some?", class: "w-100" %>
-
-			      <%= button_tag type: "submit", class: "btn btn-primary ml-auto" do %>
-			      	Add to cart
-			        <%= fa_icon "plus" %>
-			      <% end %>
-			    <% end %>
-				</div>	
-			</div>
-		</div>
+<div class="modal-footer mx-5">
+	<div class="container-fluid text-center">
+		<%= link_to "More product info", item_path(@item), class: "text-success text-decoration-none" %>
 	</div>
 </div>

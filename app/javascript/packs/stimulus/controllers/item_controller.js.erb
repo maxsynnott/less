@@ -1,0 +1,44 @@
+import { Controller } from "stimulus"
+
+export default class extends Controller {
+	static targets = ["input", "quantity", "price"]
+
+	connect() {
+		this.price = parseFloat(this.data.get('price'), 10)
+
+		this.formatter = new Intl.NumberFormat("de", {
+			style: "currency",
+			currency: "EUR"
+		})
+	}
+
+	updateQuantity(quantity) {
+		let append;
+
+		if (quantity >= 1000) {
+			append = "kg"
+			quantity /= 1000
+		} else {
+			append = "gram"
+		}
+
+		this.quantityTarget.innerText = `${quantity} ${append}${(quantity != 1) ? "s" : ""}`
+	}
+
+	updatePrice(price) {
+		this.priceTarget.innerText = this.formatter.format(price)
+	}
+
+	updateValues(event) {
+		let quantity = parseInt(this.inputTarget.value, 10)
+
+		if (isNaN(quantity)) {
+			quantity = 0
+		}
+
+		const price = quantity * this.price
+
+		this.updateQuantity(quantity)
+		this.updatePrice(price)
+	}
+}
