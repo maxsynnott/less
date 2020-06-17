@@ -36,9 +36,14 @@ export default class extends Controller {
 			quantity = 0
 		}
 
-		const price = quantity * this.price
+		if (quantity == 0) {
+			this.quantityTarget.innerText = "Chosen quantity"
+			this.priceTarget.innerText = "Price"
+		} else {
+			const price = quantity * this.price
 
-		this.updateQuantity(quantity)
-		this.updatePrice(price)
+			this.updateQuantity(quantity)
+			this.updatePrice(price)
+		}
 	}
 }
