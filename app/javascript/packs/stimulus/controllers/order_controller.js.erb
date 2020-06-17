@@ -1,17 +1,17 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["sort"]
+	static targets = ["select"]
 
 	connect() {
-		$(this.sortTarget).on('select2:select', (event) => {
+		$(this.selectTarget).on('select2:select', (event) => {
 			this.submitForm()
 		})
 	}
 
 	submitForm() {
 		let params = new URLSearchParams(new URL(location.href).search)
-		params.set('sort', $(this.sortTarget).find(':selected').val())
+		params.set('order', $(this.selectTarget).find(':selected').val())
 
 		window.location.href = `${window.location.origin}${window.location.pathname}?${params.toString()}`
 	}

@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
 	skip_before_action :authenticate_user!, only: [:index, :show, :autocomplete]
 
   def index
-    @sort_options = [
+    @order_options = [
       ["Relevance", "relevance"],
       ["Price Ascending", "price_asc"],
       ["Price Descending", "price_desc"],
@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
     @items = Item.all
 
     filter_items if params[:search].present?
-    sort_items if params[:sort].present?
+    order_items if params[:order].present?
 
   	@items = @items.paginate(page: params[:page], per_page: 24)
   end
@@ -33,21 +33,19 @@ class ItemsController < ApplicationController
 
   private
 
-  def sort_items
-    sort = params[:sort]
+  def order_items
+    order = params[:order]
 
-    case sort
+    case order
     when "relevance"
-      # Fancy sort
+      # Fancy order
     when "price_asc"
-      @items.order!(price: :asc)
+      @items.reorder!(price: :asc)
     when "price_desc"
-      @items.order!(price: :desc)
+      @items.reorder!(price: :desc)
     when "alphabetical"
-      @items.order!(name: :asc)
+      @items.reorder!(name: :asc)
     end
-
-    p @items
   end
 
   def filter_items
