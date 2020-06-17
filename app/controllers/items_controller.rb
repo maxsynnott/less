@@ -36,6 +36,8 @@ class ItemsController < ApplicationController
   def sort_items
     sort = params[:sort]
 
+    binding.pry
+
     case sort
     when "relevance"
       # Fancy sort
@@ -46,6 +48,8 @@ class ItemsController < ApplicationController
     when "alphabetical"
       @items.order!(name: :asc)
     end
+
+    p @items
   end
 
   def filter_items

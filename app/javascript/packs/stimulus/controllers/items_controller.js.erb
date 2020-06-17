@@ -1,0 +1,28 @@
+import { Controller } from "stimulus"
+
+export default class extends Controller {
+	static targets = ["sort"]
+
+	connect() {
+		$(this.sortTarget).on('select2:select', (event) => {
+			this.submitForm()
+		})
+	}
+
+	submitForm() {
+		// This is super sloppy, find a cleaner way to preserve params
+		
+		let search = new URL(document.location).search
+		const value = $(this.sortTarget).find(':selected').val()
+
+		if (search) {
+			if (search.includes('sort=')) {
+				window.location.search = search.replace(search.match(/sort=(\w*)(?:&|$)/)[1], value)
+			} else {
+				window.location.search += `&sort=${value}`
+			}
+		} else {
+			window.location.search = `?sort=${value}`
+		}
+	}
+}

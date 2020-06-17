@@ -1,15 +1,13 @@
-<div class="container">
-	<%= form_tag items_path, method: :get do |f| %>
-		<div class="input-group mt-4 mb-3 ml-auto" style="max-width: 400px; margin-right: -15px;">
-		  <div class="input-group-prepend">
-		    <label class="input-group-text" for="sort_by_select">Sort by</label>
-		  </div>
+<div class="container" data-controller="items">
+	<div class="input-group mt-4 mb-3 ml-auto" style="max-width: 400px; margin-right: -15px;">
+	  <div class="input-group-prepend">
+	    <label class="input-group-text" for="sort_by_select">Sort by</label>
+	  </div>
 
-		  <select name="sort" class="custom-select" id="sort_by_select" data-controller="select2" onchange="this.form.submit()">
-		  	<%= options_for_select @sort_options, params[:sort] %>
-		  </select>
-		</div>
-	<% end %>
+	  <select name="sort" class="custom-select" id="sort_by_select" data-controller="select2" data-target="items.sort">
+	  	<%= options_for_select @sort_options, params[:sort] %>
+	  </select>
+	</div>
 
 	<div class="row bg-white pt-3">
 		<% @items.each do |item| %>
