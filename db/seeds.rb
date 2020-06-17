@@ -32,6 +32,12 @@ num_items.times do
 	item.image.attach(io: File.open(Rails.root.join("app", "assets", "images", "glass_jar_#{rand(0..3)}.png")), filename: item.name.parameterize + '.png')
 end
 
+Item.all.each do |item|
+	tags = ["Meats", "Cereals", "Vegetables", "Grains", "Beverages", "Personal Care"]
+
+	item.update(tag_list: tags.sample(rand(0..3)))
+end
+
 stock_items = Item.all.sample(num_items - 2)
 
 stock_items.each { |item| Stock.create(item_id: item.id, balance: rand(2000..10000)) }
