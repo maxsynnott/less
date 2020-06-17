@@ -50,6 +50,11 @@ import mapboxgl from 'mapbox-gl';
 global.mapboxgl = mapboxgl
 //
 
+// Select2
+import Select2 from 'select2';
+global.Select2 = Select2
+//
+
 // Actiontext/trix
 require("trix")
 require("@rails/actiontext")

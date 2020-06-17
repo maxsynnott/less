@@ -66,3 +66,12 @@ select:focus {
 	border-color: #28a745 !important;
 	box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
 }
+
+.select2-container--bootstrap4 .select2-results__option--highlighted {
+	background-color: #28a745 !important;
+}
+
+.select2-container--bootstrap4.select2-container--focus .select2-selection {
+	border-color: #28a745 !important;
+	box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+}
