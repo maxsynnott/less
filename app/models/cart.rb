@@ -1,7 +1,7 @@
 class Cart < ApplicationRecord
   belongs_to :user, optional: true
 
-  has_many :cart_items, inverse_of: :cart # For cocoon gem
+  has_many :cart_items, dependent: :destroy, inverse_of: :cart
 
   accepts_nested_attributes_for :cart_items, reject_if: :all_blank, allow_destroy: true
 
