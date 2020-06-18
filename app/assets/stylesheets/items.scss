@@ -19,3 +19,16 @@
 .item-card a:hover {
 	text-decoration: none;
 }
+
+.fa-plus-square {
+  transition: all 0.2s ease-in-out;
+  font-size: 1.8rem;
+
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+}
+
+.fa-plus-square:hover {
+  transform: scale(1.2)
+}

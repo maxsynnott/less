@@ -1,7 +1,7 @@
 <div class="card border-0 h-100 item-card" id="item_<%= item.id %>">
   <%= link_to item_path(id: item.id), remote: true, data: { toggle: "modal", target: "#modal-window" } do %>
-    <% if item.images.attached? %>
-      <%= image_tag item.images.first, class: "card-img-top", style: "min-height: 100px;", alt: item.name %>
+    <% if item.main_image.attached? %>
+      <%= image_tag item.main_image, class: "card-img-top", alt: item.name %>
     <% end %>
 
     <div class="card-body text-center">
@@ -18,7 +18,6 @@
       </p>
     </div>
 
-    <%= fa_icon 'plus-square', type: :regular, class: "text-success position-absolute", style: "font-size: 1.8rem; right: 1rem; top: 0.5rem" %>
+    <%= fa_icon 'plus-square', type: :regular, class: "text-success" %>
   <% end %>
 </div>
-
