@@ -1,0 +1,29 @@
+import { Controller } from "stimulus"
+
+export default class extends Controller {
+	static targets = ['test']
+
+	connect() {
+		this.element[this.identifier] = this
+	}
+
+	hide() {
+		$("#sidebar").removeClass('show')
+
+		$('#sidebar .sidebar-content').html("")
+
+		$("#sidebar-backdrop").removeClass("show")
+
+		setTimeout(() => {
+			$("#sidebar-backdrop").remove()
+		}, 150)
+
+		$('body').removeClass('sidebar-open')
+	}
+
+	triggerHide(event) {
+		event.preventDefault()
+
+		this.hide()
+	}
+}
