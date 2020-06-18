@@ -6,13 +6,10 @@ class CartsController < ApplicationController
 	end
 
 	def update
-		@cart = Cart.find(params[:id])
+		# Need to include error handling logic
 
-		if @cart.update(cart_params)
-			redirect_to edit_cart_path(id: @cart.id)
-		else
-			render :edit
-		end
+		@cart = Cart.find(params[:id])
+		@cart.update(cart_params)
 	end
 
 	private

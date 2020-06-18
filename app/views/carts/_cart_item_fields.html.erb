@@ -5,19 +5,15 @@
 		</div>
 
 		<div class="col-10 pl-3">
-			<div class="row" data-controller="cart_item" data-cart_item-price="<%= f.object.item.price %>">
+			<div class="row" data-controller="cart-item" data-cart-item-price="<%= f.object.item.price %>">
 				<div class="col-9">
-					<%= f.input :quantity, label: f.object.item.name, required: false, wrapper_html: { class: "mb-0" }, label_html: { class: "mb-1" }, input_html: { data: { target: "cart_item.input", action: "input->cart_item#quantityChange" } } %>
+					<%= f.input :quantity, label: f.object.item.name, required: false, wrapper_html: { class: "mb-0" }, label_html: { class: "mb-1" }, input_html: { data: { target: "cart-item.input", action: "input->cart-item#quantityChange" } } %>
 				</div>
 
-				<div class="col-3 d-flex flex-column justify-content-between align-items-center pr-0">
-					<p class="mb-0" data-target="cart_item.price">
+				<div class="col-3 d-flex align-items-end pr-0">
+					<p class="mb-2" data-target="cart-item.price">
 						<%= number_to_currency(f.object.item.price_for(f.object.quantity)) %>
 					</p>
-
-					<button type="button" class="btn btn-primary btn-sm mb-1" style="cursor: auto;" disabled>
-						Update
-					</button>
 				</div>
 			</div>
 		</div>

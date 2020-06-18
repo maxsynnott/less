@@ -4,8 +4,6 @@ export default class extends Controller {
 	static targets = ["input", "price"]
 
 	connect() {
-		console.log("Test")
-
 		this.price = parseFloat(this.data.get('price'), 10)
 
 		this.formatter = new Intl.NumberFormat("de", {
@@ -28,5 +26,10 @@ export default class extends Controller {
 		const price = quantity * this.price
 
 		this.updatePrice(price)
+		this.enableButton()
+	}
+
+	enableButton() {
+		$('#update_cart_button').prop('disabled', false)
 	}
 }
