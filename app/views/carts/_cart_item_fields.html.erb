@@ -1,6 +1,25 @@
 <li class="list-group-item nested-fields">
-  <%= f.input :quantity, label: f.object.item.name, required: false %>
-  <%= link_to_remove_association f do %>
-  	Remove item
-  <% end %>
+	<div class="row align-items-center">
+		<div class="col-2 d-flex align-items-center p-0">
+			<%= image_tag f.object.item.main_image, class: "w-100" %>
+		</div>
+
+		<div class="col-10 pl-3">
+			<div class="row" data-controller="cart_item" data-cart_item-price="<%= f.object.item.price %>">
+				<div class="col-9">
+					<%= f.input :quantity, label: f.object.item.name, required: false, wrapper_html: { class: "mb-0" }, label_html: { class: "mb-1" }, input_html: { data: { target: "cart_item.input", action: "input->cart_item#quantityChange" } } %>
+				</div>
+
+				<div class="col-3 d-flex flex-column justify-content-between align-items-center pr-0">
+					<p class="mb-0" data-target="cart_item.price">
+						<%= number_to_currency(f.object.item.price_for(f.object.quantity)) %>
+					</p>
+
+					<button type="button" class="btn btn-primary btn-sm mb-1" style="cursor: auto;" disabled>
+						Update
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </li>

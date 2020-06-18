@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
 	connect() {
-		this.element[this.identifier] = this
+		global.sidebar = this
 	}
 
 	hide() {
@@ -53,6 +53,7 @@ export default class extends Controller {
 	}
 
 	removeListeners() {
-
+		$('#sidebar-backdrop').off('click')
+		$("[data-dismiss='sidebar']").off('click')
 	}
 }

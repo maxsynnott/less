@@ -1,29 +1,33 @@
-<div
-	class="container my-5"
->
-	<%= simple_form_for @cart do |f| %>
-	  <ul class="list-group list-group-flush" id='cart_items'>
-	    <%= f.simple_fields_for :cart_items do |cart_item| %>
-	      <%= render 'cart_item_fields', f: cart_item %>
-	    <% end %>
+<div class="h-100 d-flex flex-column" style="width: 500px;">
+	<div class="p-3 border-bottom d-flex justify-content-between align-items-center">
+		<h4 class="m-0 font-weight-light">
+			Max's Shopping Cart
+		</h4>
 
-	    <li class="list-group-item">
-	    	Total: <%= number_to_currency(@cart.total) %>
+		<button class="btn btn-outline-success" data-dismiss="sidebar">
+			<%= fa_icon 'times' %>
 
-	    	<%= f.submit class: "btn btn-primary" %>
-	    </li>
-	  </ul>
-	<% end %>
+			Close
+		</button>
+	</div>
 
-	<% if current_user %>
-  	<%= link_to "Checkout", new_order_path, class: "btn btn-success" %>
-	<% else %>
-		<div data-toggle="tooltip" title="You must be logged in to checkout" style="width: fit-content;">
-			<%= link_to "Checkout", new_order_path, class: "btn btn-success disabled" %>
-		</div>
-	<% end %>
+	<div class="container">
+		<%= simple_form_for @cart do |f| %>
+		  <ul class="list-group list-group-flush" id='cart_items'>
+		    <%= f.simple_fields_for :cart_items do |cart_item| %>
+		      <%= render 'cart_item_fields', f: cart_item %>
+		    <% end %>
+		  </ul>
+		<% end %>
+	</div>
 
-	<button data-dismiss="sidebar">
-		Close Sidebar
-	</button>
+	<div class="flex-grow-1 d-flex flex-column justify-content-end p-2">
+		<%= link_to new_order_path, class: "btn btn-success btn-lg btn-block position-relative" do %>
+			Checkout
+
+			<div class="position-absolute" style="background: #218838; right: 5px; bottom: 3px; padding: 0.3rem; border-radius: 4px;">
+				<%= number_to_currency(@cart.total) %>
+			</div>
+		<% end %>
+	</div>
 </div>
