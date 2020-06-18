@@ -6,13 +6,17 @@
 	<div class="container-fluid pt-4">
 		<div class="row align-items-center">
 			<div class="col-12 col-lg-6 text-center">
-				<% if @item.images.attached? %>
-					<% if @item.images.count > 1 %>
+				<% if @item.image_count.positive? %>
+					<% if @item.image_count > 1 %>
 						<!-- Slider main container -->
 						<div class="swiper-container" data-controller="swiper">
 					    <!-- Additional required wrapper -->
 					    <div class="swiper-wrapper align-items-center">
 				        <!-- Slides -->
+				        <div class="swiper-slide">
+				        	<%= image_tag @item.main_image, alt: @item.main_image.filename, class: 'img-fluid' %>
+				        </div>
+
 				        <% @item.images.each do |image| %>
 				        	<div class="swiper-slide">
 				        		<%= image_tag image, alt: image.filename, class: 'img-fluid' %>
@@ -24,7 +28,7 @@
 			        <div class="swiper-button-next" style="color: lightgray;"></div>
 						</div>
 					<% else %>
-						<%= image_tag @item.images.first, alt: @item.images.first.filename, class: "img-fluid" %>
+						<%= image_tag @item.main_image, alt: @item.main_image.filename, class: "img-fluid" %>
 					<% end %>
 				<% end %>
 			</div>

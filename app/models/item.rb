@@ -26,6 +26,7 @@ class Item < ApplicationRecord
 
 	acts_as_taggable_on :tags
 
+	has_one_attached :main_image
 	has_many_attached :images
 
 	has_many :stocks
@@ -41,5 +42,9 @@ class Item < ApplicationRecord
 
 	def stock
 		stocks.sum(&:balance)
+	end
+
+	def image_count
+		images.count + (main_image.attached? ? 1 : 0)
 	end
 end

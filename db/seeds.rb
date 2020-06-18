@@ -31,6 +31,7 @@ num_items.times do
 
 	images = [0, 1, 2, 3].sample(rand(1..4)).map { |i| { io: File.open(Rails.root.join("app", "assets", "images", "glass_jar_#{i}.png")), filename: "jar_#{i}.png" } }
 
+	item.main_image.attach(images.delete_at(0))
 	item.images.attach(images)
 end
 
