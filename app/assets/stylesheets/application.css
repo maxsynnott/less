@@ -21,10 +21,6 @@ form input[type='number']::-webkit-inner-spin-button {
    margin: 0;
 }
 
-#logo {
-	height: 35px;
-}
-
 .icon {
 	display: inline-block;
 	text-align: center;
@@ -35,7 +31,7 @@ form input[type='number']::-webkit-inner-spin-button {
 	font-size: 20px;
 }
 
-.notify {
+#cart_count {
   position: absolute !important;
   top: -5px !important;
   right: -5px !important;
@@ -62,6 +58,7 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
+.select2-container--bootstrap4.select2-container--focus .select2-selection,
 select:focus {
 	border-color: #28a745 !important;
 	box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
@@ -69,11 +66,6 @@ select:focus {
 
 .select2-container--bootstrap4 .select2-results__option--highlighted {
 	background-color: #28a745 !important;
-}
-
-.select2-container--bootstrap4.select2-container--focus .select2-selection {
-	border-color: #28a745 !important;
-	box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
 }
 
 .page-link {
