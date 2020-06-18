@@ -11,8 +11,6 @@ class User < ApplicationRecord
   has_many :orders
   has_many :deliveries, through: :orders
 
-  before_create :generate_cart
-
   after_create :generate_stripe_customer
 
   validates :phone, phone: { possible: true, allow_blank: true }
@@ -49,10 +47,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def generate_cart
-    self.cart = Cart.new unless cart.present?
-  end
 
   def generate_stripe_customer
     customer = Stripe::Customer.create(

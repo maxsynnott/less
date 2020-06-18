@@ -48,33 +48,27 @@
 							<%= @item.description %>
 						</p>
 
-						<% if current_user %>
-							<%= simple_form_for CartItem.new(item_id: @item.id), html: { class: "mt-4 border-top pt-4", data: { "item-price": @item.price, controller: "item" } }, remote: true do |f| %>
-								<%= f.hidden_field :item_id %>
+						<%= simple_form_for CartItem.new(item_id: @item.id), html: { class: "mt-4 border-top pt-4", data: { "item-price": @item.price, controller: "item" } }, remote: true do |f| %>
+							<%= f.hidden_field :item_id %>
 
-								<%= f.input :quantity, hint: "Enter your desired quantity in grams", input_html: { data: { target: "item.input", action: "input->item#updateValues" } } %>
+							<%= f.input :quantity, hint: "Enter your desired quantity in grams", input_html: { data: { target: "item.input", action: "input->item#updateValues" } } %>
 
-								<div class="row">
-									<div class="col-6">
-										<ul class="list-group list-group-flush">
-											<li class="list-group-item" data-target="item.quantity">
-												Chosen quantity
-											</li>
+							<div class="row">
+								<div class="col-6">
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item" data-target="item.quantity">
+											Chosen quantity
+										</li>
 
-											<li class="list-group-item" data-target="item.price">
-												Price
-											</li>
-										</ul>
-									</div>
-
-									<div class="col-6 d-flex justify-content-end align-items-center">
-										<%= f.submit "Add to cart", class: "btn btn-success btn-lg" %>
-									</div>
+										<li class="list-group-item" data-target="item.price">
+											Price
+										</li>
+									</ul>
 								</div>
-							<% end %>
-						<% else %>
-							<div class="mt-4 border-top pt-4">
-								<%= link_to "You must sign in before purchasing items", new_user_session_path, class: "btn btn-success btn-block" %>	
+
+								<div class="col-6 d-flex justify-content-end align-items-center">
+									<%= f.submit "Add to cart", class: "btn btn-success btn-lg" %>
+								</div>
 							</div>
 						<% end %>
 					</div>

@@ -1,9 +1,7 @@
 class Cart < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
 
   has_many :cart_items, inverse_of: :cart # For cocoon gem
-
-  validates_presence_of :user
 
   accepts_nested_attributes_for :cart_items, reject_if: :all_blank, allow_destroy: true
 
@@ -16,11 +14,6 @@ class Cart < ApplicationRecord
   		CartItem.create(item_id: item.id, cart_id: id, quantity: amount)
   	end
   end
-
-  # Currently unused
-  # def quantity_of(item)
-  # 	find_cart_item(item).try(:quantity)
-  # end
 
   def clear
   	cart_items.destroy_all

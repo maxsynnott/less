@@ -11,10 +11,15 @@
 	    	Total: <%= number_to_currency(@cart.total) %>
 
 	    	<%= f.submit class: "btn btn-primary" %>
-
-	    	<%= link_to "Checkout", new_order_path, class: "btn btn-success" %>
 	    </li>
 	  </ul>
 	<% end %>
-</div>
 
+	<% if current_user %>
+  	<%= link_to "Checkout", new_order_path, class: "btn btn-success" %>
+	<% else %>
+		<div data-toggle="tooltip" title="You must be logged in to checkout" style="width: fit-content;">
+			<%= link_to "Checkout", new_order_path, class: "btn btn-success disabled" %>
+		</div>
+	<% end %>
+</div>

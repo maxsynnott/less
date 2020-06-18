@@ -1,13 +1,13 @@
 class CartItemsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:create]
+
   # Error handling is difficult for this guy, needs a rework
   def create
-    cart = current_user.cart
-
   	@cart_item = CartItem.new(cart_item_params)
 
     @item = @cart_item.item
 
-    cart.add_item(@item, @cart_item.quantity)
+    current_cart.add_item(@item, @cart_item.quantity)
   end
 
   private

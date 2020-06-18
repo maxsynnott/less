@@ -1,12 +1,17 @@
 class ApplicationController < ActionController::Base
-	before_action :authenticate_user!
-	before_action :set_locale
-	before_action :set_tags
-
+	before_action :authenticate_user!, :set_locale, :set_tags
 	helper_method :current_cart
 
 	def current_cart
-		current_user.try(:cart)
+		if current_user
+			current_user.cart
+		elsif session[:cart_id] and (cart = Cart.find(session[:cart_id])) and cart.user_id.nil?
+			cart
+		else
+			cart = Cart.create
+			session[:cart_id] = cart.id
+			cart
+		end
 	end
 
 	def default_url_options
@@ -15,6 +20,7 @@ class ApplicationController < ActionController::Base
 
 	private
 
+	# Remove and replace this at some point
 	def set_tags
 		@tags = params[:search][:tags] if params[:search]
 	end
