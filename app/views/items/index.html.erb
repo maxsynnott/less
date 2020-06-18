@@ -1,12 +1,14 @@
 <div class="container-lg">
-	<div class="input-group mt-4 mb-3 ml-auto" style="max-width: 400px; margin-right: -15px;">
-	  <div class="input-group-prepend">
-	    <label class="input-group-text" for="order_by_select">Sort by</label>
-	  </div>
+	<div class="mr-3 mr-lg-0">
+		<div class="input-group mt-4 mb-3 ml-auto" style="max-width: 400px; margin-right: -15px;">
+		  <div class="input-group-prepend">
+		    <label class="input-group-text" for="order_by_select">Sort by</label>
+		  </div>
 
-	  <select name="order" class="custom-select" id="order_by_select" data-controller="select2 order" data-target="order.select">
-	  	<%= options_for_select @order_options, params[:order] %>
-	  </select>
+		  <select name="order" class="custom-select" id="order_by_select" data-controller="select2 order" data-target="order.select">
+		  	<%= options_for_select @order_options, params[:order] %>
+		  </select>
+		</div>
 	</div>
 
 	<div class="row bg-white pt-3 mb-0 mb-lg-5 pb-3">

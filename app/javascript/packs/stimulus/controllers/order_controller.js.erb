@@ -12,6 +12,7 @@ export default class extends Controller {
 	submitForm() {
 		let params = new URLSearchParams(new URL(location.href).search)
 		params.set('order', $(this.selectTarget).find(':selected').val())
+		params.delete('page')
 
 		window.location.href = `${window.location.origin}${window.location.pathname}?${params.toString()}`
 	}
