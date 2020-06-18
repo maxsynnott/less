@@ -1,12 +1,1 @@
-$('body').addClass('sidebar-open')
-
-// If it works it works right?
-$('body').append("<div id='sidebar-backdrop' class='fade' onclick=\"$('#sidebar')[0]['sidebar'].hide()\"></div>")
-
-setTimeout(() => {
-	$('#sidebar-backdrop').addClass('show')
-}, 10)
-
-$('#sidebar .sidebar-content').html("<%= j render 'carts/edit_sidebar' %>")
-
-$('#sidebar').addClass('show')
+$('#sidebar')[0]['sidebar'].show("<%= j render 'carts/edit_sidebar' %>")

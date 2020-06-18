@@ -2,7 +2,7 @@
 	class="container my-5"
 >
 	<%= simple_form_for @cart do |f| %>
-	  <ul class="list-group" id='cart_items'>
+	  <ul class="list-group list-group-flush" id='cart_items'>
 	    <%= f.simple_fields_for :cart_items do |cart_item| %>
 	      <%= render 'cart_item_fields', f: cart_item %>
 	    <% end %>
@@ -22,4 +22,8 @@
 			<%= link_to "Checkout", new_order_path, class: "btn btn-success disabled" %>
 		</div>
 	<% end %>
+
+	<button data-dismiss="sidebar">
+		Close Sidebar
+	</button>
 </div>

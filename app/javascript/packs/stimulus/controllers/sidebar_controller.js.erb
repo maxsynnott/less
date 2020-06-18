@@ -1,13 +1,13 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ['test']
-
 	connect() {
 		this.element[this.identifier] = this
 	}
 
 	hide() {
+		this.removeListeners()
+
 		$("#sidebar").removeClass('show')
 
 		$('#sidebar .sidebar-content').html("")
@@ -21,9 +21,38 @@ export default class extends Controller {
 		$('body').removeClass('sidebar-open')
 	}
 
-	triggerHide(event) {
-		event.preventDefault()
+	show(content) {
+		$('body').addClass('sidebar-open')
 
-		this.hide()
+		// If it works it works right?
+		$('body').append("<div id='sidebar-backdrop' class='fade'></div>")
+
+		setTimeout(() => {
+			$('#sidebar-backdrop').addClass('show')
+		}, 10)
+
+		$('#sidebar .sidebar-content').html(content)
+
+		$('#sidebar').addClass('show')
+
+		this.addListeners()
+	}
+
+	addListeners() {
+		$('#sidebar-backdrop').on('click', (event) => {
+			event.preventDefault()
+			
+			this.hide()
+		})
+
+		$("[data-dismiss='sidebar']").on('click', (event) => {
+			event.preventDefault()
+			
+			this.hide()
+		})
+	}
+
+	removeListeners() {
+
 	}
 }
