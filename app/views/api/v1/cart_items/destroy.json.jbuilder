@@ -1,3 +1,3 @@
 json.destroyed? @cart_item.destroyed?
 
-json.cart @cart_item.cart, :total
+json.cart @cart_item.cart, :total, :count

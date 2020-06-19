@@ -35,4 +35,8 @@ class Cart < ApplicationRecord
   def to_order_items
     cart_items.map(&:to_order_item)
   end
+
+  def count
+    cart_items.count
+  end
 end

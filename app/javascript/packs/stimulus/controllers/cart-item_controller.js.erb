@@ -65,7 +65,7 @@ export default class extends Controller {
 
 				this.data.set('price', data.item.price)
 				this.updateValues()
-				
+
 				$('#checkout_button_total').text(this.formatter.format(data.cart.total))
 
 				this.flashCheckoutButton()
@@ -95,6 +95,7 @@ export default class extends Controller {
 				console.log(data.errors)
 			} else {
 				$('#checkout_button_total').text(this.formatter.format(data.cart.total))
+				$("#cart_count").text(data.cart.count)
 
 				this.flashCheckoutButton()
 
