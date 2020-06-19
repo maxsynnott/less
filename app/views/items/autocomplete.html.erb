@@ -7,7 +7,9 @@
 		<%= link_to item_path(item), class: "list-group-item text-decoration-none autocomplete-link", style: "height: 80px;" do %>
 			<div class="d-flex align-items-center">
 				<div class="d-flex align-items-center"style="height: 60px; width: 60px;">
-					<%= image_tag item.main_image, class: 'img-fluid' %>
+					<% if item.main_image.attached? %>
+						<%= image_tag item.main_image, class: 'img-fluid' %>
+					<% end %>
 				</div>
 
 				<p class="mb-0 ml-4 text-secondary">
