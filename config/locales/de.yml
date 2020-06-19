@@ -1,0 +1,12 @@
+de:
+  layouts:
+    navbar:
+      account: Konto
+      cart: Wagen
+      your_account: Ihr Konto
+      your_orders: Deine Bestellungen
+      log_out: Ausloggen
+
+  items:
+    index:
+      sort_by: Sortiere nach

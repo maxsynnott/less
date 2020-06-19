@@ -30,4 +30,14 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  layouts:
+    navbar:
+      account: Account
+      cart: Cart
+      your_account: Your Account
+      your_orders: Your Orders
+      log_out: Log out
+
+  items:
+    index:
+      sort_by: Sort by

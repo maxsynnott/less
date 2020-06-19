@@ -35,15 +35,15 @@
 			  <% if current_user %>
 			  	<li class="nav-item dropdown">
 			  	  <a class="dropdown-toggle btn btn-outline-success mr-2 mb-2 mb-lg-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			  	    Account
+			  	    <%= t('.account') %>
 			  	  </a>
 
 			  	  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			  	  	<%= link_to "Your Account", edit_user_registration_path, class: "dropdown-item" %>
-			  	  	<%= link_to "Your Orders", orders_path, class: "dropdown-item" %>
+			  	  	<%= link_to t(".your_account"), edit_user_registration_path, class: "dropdown-item" %>
+			  	  	<%= link_to t(".your_orders"), orders_path, class: "dropdown-item" %>
 			  	  	<!-- <%= link_to "Your Recipes", recipes_path, class: "dropdown-item" %> -->
 			  	    <div class="dropdown-divider"></div>
-			  	    <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+			  	    <%= link_to t(".log_out"), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
 			  	  </div>
 			  	</li>
 				<% else %>
@@ -55,7 +55,7 @@
 			  <li class="nav-item">
 			  	<%= link_to edit_cart_path(id: current_cart.id), remote: true, class: "btn btn-success position-relative", style: "min-width: 100px;"  do %>
 			  		<%= fa_icon "shopping-cart" %>
-			  		Cart
+			  		<%= t('.cart') %>
 			  		<span class="badge badge-pill badge-danger" id="cart_count"><%= current_cart.count %></span>
 			  	<% end %>
 			  </li>
