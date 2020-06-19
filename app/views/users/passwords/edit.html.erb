@@ -4,21 +4,19 @@
 			<%= link_to "Back to less", root_path, class: "text-secondary text-left" %>
 
 			<h1 class="card-title mb-0 font-weight-light">
-				Sign up for less
+				Change your password
 			</h1>
 		</div>
 
 		<div class="card-body d-flex flex-column align-items-center">
-			<%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: 'w-75 mb-3' } do |f| %>
-			  <%= f.input :first_name, autofocus: true, autocomplete: 'given-name', required: false %>
+			<%= simple_form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'w-75 mb-3' } do |f| %>
+		    <%= f.hidden_field :reset_password_token %>
 
-		    <%= f.input :email, autocomplete: "email" %>
+        <%= f.input :password, autofocus: true, label: "New password", autocomplete: "new-password" %>
 
-		    <%= f.input :password, autocomplete: "new-password" %>
+        <%= f.input :password_confirmation, label: "Confirm new password", autocomplete: "new-password" %>
 
-		    <%= f.input :password_confirmation, autocomplete: "new-password" %>
-
-		    <%= f.submit "Sign up", class: "btn btn-success btn-block btn-lg mt-4" %>
+        <%= f.submit "Change my password", class: "btn btn-success btn-lg btn-block" %>
 			<% end %>
 
 			<%= render "users/shared/links" %>

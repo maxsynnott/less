@@ -1,0 +1,44 @@
+<div class="container text-center d-flex justify-content-center">
+	<div class="card w-50">
+		<div class="card-header">
+			<%= link_to "Back to less", root_path, class: "text-secondary text-left" %>
+
+			<h1 class="card-title mb-0 font-weight-light">
+				Edit Account
+			</h1>
+		</div>
+
+		<div class="card-body d-flex flex-column align-items-center">
+			<%= simple_form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: 'w-75 mb-3' } do |f| %>
+		    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+		      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+		    <% end %>
+		    <%= f.input :first_name, required: false %>
+
+	      <%= f.input :password, autocomplete: "new-password", label: "New password" %>
+
+	      <%= f.input :password_confirmation, autocomplete: "new-password", label: "Confirm new password" %>
+
+	      <%= f.input :current_password, autocomplete: "current-password" %>
+
+	      <%= f.submit "Update", class: "btn btn-success btn-block btn-lg" %>
+			<% end %>
+		</div>
+
+		<div class="card-footer">
+			<%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure you want to delete your account?" }, method: :delete, class: "btn btn-danger" %>
+		</div>
+	</div>
+</div>
+
+<style>
+	nav {
+		display: none;
+	}
+
+	body {
+		background: lightgreen !important;
+		display: flex;
+		align-items: center;
+	}
+</style>
