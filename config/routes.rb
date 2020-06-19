@@ -69,6 +69,7 @@ Rails.application.routes.draw do
         end
 
         resources :deliveries, only: [:update]
+        resources :cart_items, only: [:update, :destroy]
 
         namespace :stripe do
           resources :setup_intents, only: [:create]

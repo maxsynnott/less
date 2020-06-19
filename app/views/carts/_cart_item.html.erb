@@ -1,0 +1,35 @@
+<%= simple_form_for cart_item, url: api_v1_cart_item_path(id: cart_item.id), html: { class: "cart-item-partial" }, data: { controller: 'cart-item', action: 'cart-item#submitForm', target: 'cart-item.form', 'cart-item-price': cart_item.item.price, 'cart-item-id': cart_item.id } do |f| %>
+	<li class="list-group-item nested-fields pr-2 pl-0">
+		<div class="d-flex align-items-center">
+			<%= link_to 'cart_item/destroy', class: 'text-danger pr-2', style: "font-size: 20px;", data: { action: 'cart-item#destroyItem' } do %>
+				<%= fa_icon 'minus-circle' %>
+			<% end %>
+
+			<%= image_tag cart_item.item.main_image, style: "width: 80px;" %>
+
+			<div class="pl-4 pr-3" style="width: 280px;">
+				<p class="mb-0">
+					<%= cart_item.item.name %>
+				</p>
+
+				<div class="input-group">
+				  <%= f.input_field :quantity, disabled: true, class: "form-control", data: { target: "cart-item.input", action: "input->cart-item#quantityChange" } %>
+
+				  <div class="input-group-append" data-target="cart-item.buttonDiv">
+				    <button class="btn btn-outline-primary" type="button" data-action="cart-item#editButton">
+				    	<%= fa_icon 'pen' %>
+				    </button>
+				  </div>
+				</div>
+
+				<p class="mb-0 ml-1 text-muted" style="font-size: 12px;">
+					Quantity in grams
+				</p>
+			</div>
+
+			<p class="mb-0 mt-2 text-right flex-grow-1" data-target="cart-item.price">
+				<%= number_to_currency(cart_item.item.price_for(cart_item.quantity)) %>
+			</p>
+		</div>
+	</li>
+<% end %>

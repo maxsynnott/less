@@ -2,6 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-#update_cart_button {
-	transition: opacity 0.6s ease-in-out;
+#checkout_button_total,
+#checkout_button {
+	transition: all 0.5s ease-in-out;
+}
+
+#checkout_button_total.flash {
+	transform: scale(1.2);
+}
+
+#checkout_button.flash {
+	background-color: #218838;
+	border-color: #218838;
+}
+
+.cart-item-partial {
+	transition: all 0.5s ease-in-out;
 }

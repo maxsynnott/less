@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["input", "price"]
+	static targets = ["input", "price", "buttonDiv", "form"]
 
 	connect() {
 		this.price = parseFloat(this.data.get('price'), 10)
@@ -26,10 +26,79 @@ export default class extends Controller {
 		const price = quantity * this.price
 
 		this.updatePrice(price)
-		this.enableButton()
 	}
 
-	enableButton() {
-		$('#update_cart_button').prop('disabled', false)
+	editButton(event) {
+		event.preventDefault()
+
+		const checkButtonHTML = "<button class='btn btn-outline-success' type='submit' data-action='cart-item#submitForm'><i class='fas fa-check'></i></button>"
+
+		$(this.inputTarget).prop('disabled', false)
+		$(this.buttonDivTarget).html(checkButtonHTML)
+	}
+
+	submitForm(event) {
+		event.preventDefault()
+
+		const penButtonHTML = "<button class='btn btn-outline-primary' type='button' data-action='cart-item#editButton'><i class='fas fa-pen'></i></button>"
+
+		fetch(routes.api_v1_cart_item_path({ id: this.data.get('id') }), {
+			method: "PATCH",
+			body: new FormData(this.formTarget)
+		})
+		.then(response => response.json())
+		.then((data) => {
+			if (data.errors) {
+				console.log(data.errors)
+			} else {
+				$(this.inputTarget).prop('disabled', true)
+				$(this.inputTarget).val(data.quantity)
+				$(this.buttonDivTarget).html(penButtonHTML)
+
+				this.data.set('price', data.item.price)
+
+				$('#checkout_button_total').text(this.formatter.format(data.cart.total))
+
+				this.flashCheckoutButton()
+			}
+		})
+	}
+
+	flashCheckoutButton() {
+		$('#checkout_button_total').addClass('flash')
+		$('#checkout_button').addClass('flash')
+
+		setTimeout(() => {
+			$('#checkout_button_total').removeClass('flash')
+			$('#checkout_button').removeClass('flash')
+		}, 500)
+	}
+
+	destroyItem(event) {
+		event.preventDefault()
+
+		fetch(routes.api_v1_cart_item_path({ id: this.data.get('id') }), {
+			method: "DELETE"
+		})
+		.then(response => response.json())
+		.then((data) => {
+			if (data.errors) {
+				console.log(data.errors)
+			} else {
+				$('#checkout_button_total').text(this.formatter.format(data.cart.total))
+
+				this.flashCheckoutButton()
+
+				this.removeSelf()
+			}
+		})
+	}
+
+	removeSelf() {
+		$(this.element).css('opacity', 0)
+
+		setTimeout(() => {
+			$(this.element).remove()
+		}, 500)
 	}
 }
