@@ -11,3 +11,15 @@
 .nav-item .nav-link:hover {
 	color: #28a745 !important;
 }
+
+.autocomplete-link {
+	transition: all 0.5s ease-in-out;
+}
+
+.autocomplete-link:hover {
+	transform: scale(1.02);
+}
+
+.autocomplete-link:hover p {
+	color: #28a745 !important;
+}

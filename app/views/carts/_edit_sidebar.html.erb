@@ -11,21 +11,27 @@
 		</button>
 	</div>
 
-	<div class="container flex-grow-1 overflow-auto">
-	  <ul class="list-group list-group-flush">
-	    <% @cart.cart_items.each do |cart_item| %>
-	      <%= render 'cart_item', cart_item: cart_item %>
-	    <% end %>
-	  </ul>
-	</div>
+	<% if @cart.count.positive? %>
+		<div class="container flex-grow-1 overflow-auto">
+		  <ul class="list-group list-group-flush">
+		    <% @cart.cart_items.each do |cart_item| %>
+		      <%= render 'cart_item', cart_item: cart_item %>
+		    <% end %>
+		  </ul>
+		</div>
 
-	<div class="p-2 border-top">
-		<%= link_to new_order_path, id: "checkout_button", class: "btn btn-success btn-lg btn-block position-relative" do %>
-			Checkout
+		<div class="p-2 border-top">
+			<%= link_to new_order_path, id: "checkout_button", class: "btn btn-success btn-lg btn-block position-relative" do %>
+				Checkout
 
-			<div class="position-absolute" id="checkout_button_total" style="background: #218838; right: 5px; bottom: 3px; padding: 0.3rem; border-radius: 4px;">
-				<%= number_to_currency(@cart.total) %>
-			</div>
-		<% end %>
-	</div>
+				<div class="position-absolute" id="checkout_button_total" style="background: #218838; right: 5px; bottom: 3px; padding: 0.3rem; border-radius: 4px;">
+					<%= number_to_currency(@cart.total) %>
+				</div>
+			<% end %>
+		</div>
+	<% else %>
+		<p class="text-center my-auto" style="font-size: 25px;">
+			Your cart is currently empty
+		</p>
+	<% end %>
 </div>

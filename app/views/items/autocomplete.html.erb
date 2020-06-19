@@ -4,8 +4,14 @@
 	</li>
 <% else %>
 	<% @items.each do |item| %>
-		<%= link_to item_path(item), class: "list-group-item" do %>
-			<%= item.name %>
+		<%= link_to item_path(item), class: "list-group-item text-decoration-none autocomplete-link", style: "height: 80px;" do %>
+			<div class="d-flex align-items-center">
+				<%= image_tag item.main_image, style: 'height: 50px' %>
+
+				<p class="mb-0 ml-4 text-secondary">
+					<%= item.name %>
+				</p>
+			</div>
 		<% end %>
 	<% end %>
 <% end %>
