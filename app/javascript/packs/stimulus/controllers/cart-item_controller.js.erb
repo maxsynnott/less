@@ -4,28 +4,36 @@ export default class extends Controller {
 	static targets = ["input", "price", "buttonDiv", "form"]
 
 	connect() {
-		this.price = parseFloat(this.data.get('price'), 10)
-
 		this.formatter = new Intl.NumberFormat("de", {
 			style: "currency",
 			currency: "EUR"
 		})
 	}
 
+	price() {
+		return parseFloat(this.data.get('price'), 10)
+	}
+
 	updatePrice(price) {
 		this.priceTarget.innerText = this.formatter.format(price)
 	}
 
-	quantityChange(event) {
+	updateValues() {
 		let quantity = parseInt(this.inputTarget.value, 10)
 
 		if (isNaN(quantity)) {
 			quantity = 0
 		}
 
-		const price = quantity * this.price
+		const price = quantity * this.price()
 
 		this.updatePrice(price)
+	}
+
+	quantityChange(event) {
+		event.preventDefault()
+
+		this.updateValues()
 	}
 
 	editButton(event) {
@@ -56,7 +64,8 @@ export default class extends Controller {
 				$(this.buttonDivTarget).html(penButtonHTML)
 
 				this.data.set('price', data.item.price)
-
+				this.updateValues()
+				
 				$('#checkout_button_total').text(this.formatter.format(data.cart.total))
 
 				this.flashCheckoutButton()
