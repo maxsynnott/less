@@ -1,4 +1,4 @@
 $("#modal-window").modal('hide');
 
 <% current_cart.reload %>
-$("#cart_count").text("<%= current_cart.cart_items.length %>")
+$("#cart_count").text("<%= current_cart.count %>")

@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   after_create :generate_stripe_customer
 
-  validates :phone, phone: { possible: true, allow_blank: true }
+  validates_presence_of :first_name
 
   def stripe_customer
     Stripe::Customer.retrieve(stripe_customer_id)

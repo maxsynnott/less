@@ -56,7 +56,7 @@
 			  	<%= link_to edit_cart_path(id: current_cart.id), remote: true, class: "btn btn-success position-relative", style: "min-width: 100px;"  do %>
 			  		<%= fa_icon "shopping-cart" %>
 			  		Cart
-			  		<span class="badge badge-pill badge-danger" id="cart_count"><%= current_cart.cart_items.length %></span>
+			  		<span class="badge badge-pill badge-danger" id="cart_count"><%= current_cart.count %></span>
 			  	<% end %>
 			  </li>
 			</ul>

@@ -1,0 +1,42 @@
+<div class="container text-center d-flex justify-content-center">
+	<div class="card w-50">
+		<div class="card-header">
+			<%= link_to "Back to less", root_path, class: "text-secondary text-left" %>
+
+			<h1 class="card-title mb-0 font-weight-light">
+				Log in to less
+			</h1>
+		</div>
+
+		<div class="card-body d-flex flex-column align-items-center">
+			<%= simple_form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'w-75 mb-3' } do |f| %>
+		    <%= f.input :email, autofocus: true, autocomplete: "email" %>
+
+		    <%= f.input :password, autocomplete: "current-password" %>
+
+			  <% if devise_mapping.rememberable? %>
+				  <div class="custom-control custom-checkbox mt-4 mb-2">
+				    <input type="checkbox" name="user[remember_me]" class="custom-control-input" id="remember_me">
+				    <label class="custom-control-label" for="remember_me">Remember me</label>
+				  </div>
+			  <% end %>
+
+		    <%= f.submit "Log in", class: "btn btn-success btn-lg btn-block" %>
+			<% end %>
+
+			<%= render "users/shared/links" %>
+		</div>
+	</div>
+</div>
+
+<style>
+	nav {
+		display: none;
+	}
+
+	body {
+		background: lightgreen !important;
+		display: flex;
+		align-items: center;
+	}
+</style>
