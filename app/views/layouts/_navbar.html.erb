@@ -20,13 +20,13 @@
 
 		<div class="navbar-expand">
 			<ul class="navbar-nav ml-lg-3">
-			  <li class="nav-item mr-3">
+			  <li class="nav-item mr-3 my-auto">
 			    <% if I18n.locale == :en %>
-			    	<%= link_to url_for(locale: :de), class: 'nav-link px-0' do %>
+			    	<%= link_to url_for(locale: :de), class: 'nav-link px-0 py-0', style: "line-height: 0;" do %>
 			    		<%= flag_icon(:gb) %>
 			    	<% end %>
 			    <% else %>
-			    	<%= link_to url_for(locale: :en), class: 'nav-link px-0' do %>
+			    	<%= link_to url_for(locale: :en), class: 'nav-link px-0 py-0', style: "line-height: 0;" do %>
 			    		<%= flag_icon(:de) %>
 			    	<% end %>
 			    <% end %>
