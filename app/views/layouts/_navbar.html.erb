@@ -3,9 +3,9 @@
 		<%= link_to "Less", root_path, class: "navbar-brand px-4 text-success", style: "letter-spacing: 0.5rem; font-weight: 300;" %>
 
 		<div class="flex-grow-1 d-none d-lg-block" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_items_url %>">
-			<%= form_for :search, url: items_path, method: :get, html: { class: "form-inline", autocomplete: "off" } do |f| %>
+			<%= form_tag items_path, method: :get, autocomplete: "off" do %>
 				<div class="input-group w-100">
-					<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?", id: "desktop_search_field" ,data: { target: 'autocomplete.input', action: "input->autocomplete#fetchResults blur->autocomplete#clearResults" } %>
+					<%= search_field_tag :search, params[:search], class: "form-control", placeholder: "What are you looking for?", id: "desktop_search_field", data: { target: 'autocomplete.input', action: "input->autocomplete#fetchResults blur->autocomplete#clearResults" } %>
 
 					<div class="input-group-append">
 						<button class="btn btn-outline-success" type="submit">
@@ -65,9 +65,9 @@
 
 	<div class="px-3">
 		<div class="flex-grow-1 d-block d-lg-none pb-3" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_items_url %>">
-			<%= form_for :search, url: items_path, method: :get, html: { class: "form-inline", autocomplete: "off" } do |f| %>
+			<%= form_tag items_path, method: :get, autocomplete: "off" do %>
 				<div class="input-group w-100">
-					<%= f.search_field :query, class: "form-control", placeholder: "What are you looking for?", id: "mobile_search_field", data: { target: 'autocomplete.input', action: "input->autocomplete#fetchResults blur->autocomplete#clearResults" } %>
+					<%= search_field_tag :search, params[:search], class: "form-control", placeholder: "What are you looking for?", id: "mobile_search_field", data: { target: 'autocomplete.input', action: "input->autocomplete#fetchResults blur->autocomplete#clearResults" } %>
 
 					<div class="input-group-append">
 						<button class="btn btn-outline-success" type="submit">
@@ -87,7 +87,7 @@
 
 			<% ['Meats', 'Cereals', 'Vegetables', 'Grains', 'Beverages', 'Personal Care'].each do |tag| %>
 				<li class="nav-item">
-					<%= link_to tag, items_path(request.query_parameters.except("page").deep_merge(search: { tags: [tag] })), class: "nav-link pt-0 pb-1 text-secondary #{@tags.try(:include?, tag) ? 'text-success' : 'text-secondary'}" %>
+					<%= link_to tag, items_path(request.query_parameters.except("page").deep_merge(filter: [tag] )), class: "nav-link pt-0 pb-1 text-secondary #{@tags.try(:include?, tag) ? 'text-success' : 'text-secondary'}" %>
 				</li>
 			<% end %>
 		</ul>

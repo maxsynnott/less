@@ -11,7 +11,8 @@ class ItemsController < ApplicationController
 
     @items = Item.all
 
-    filter_items if params[:search].present?
+    search_items if params[:search].present?
+    filter_items if params[:filter].present?
     order_items if params[:order].present?
 
   	@items = @items.paginate(page: params[:page], per_page: 24)
@@ -24,7 +25,7 @@ class ItemsController < ApplicationController
   def autocomplete
     @items = Item.all
 
-  	filter_items if params[:search].present?
+  	search_items if params[:search].present?
 
     @items = @items.limit(5) unless @items.empty?
 
@@ -48,20 +49,13 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search_items
+    @items = @items.search(params[:search])
+  end
+
   def filter_items
-    search = params[:search]
-
-    # Clean this up, was just a temp hack to have autocomplete clear on empty string
-    if !search[:tags] and search[:query].blank?
-      @items = []
-    else
-      @items = @items.search(search[:query]) if search[:query].present?
-
-      if search[:tags]
-        search[:tags].each do |tag|
-          @items = @items.tagged_with(tag) unless tag.blank?
-        end
-      end
+    params[:filter].each do |filter|
+      @items = @items.tagged_with(filter) unless filter.blank?
     end
   end
 end

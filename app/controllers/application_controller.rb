@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
 	# Remove and replace this at some point
 	def set_tags
-		@tags = params[:search][:tags] if params[:search]
+		@tags = params[:filter]
 	end
 
 	def set_locale

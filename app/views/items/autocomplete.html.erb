@@ -6,7 +6,7 @@
 	<% @items.each do |item| %>
 		<%= link_to item_path(item), class: "list-group-item text-decoration-none autocomplete-link", style: "height: 80px;" do %>
 			<div class="d-flex align-items-center">
-				<div class="d-flex align-items-center"style="height: 60px; width: 60px;">
+				<div class="d-flex align-items-center" style="height: 60px; width: 60px;">
 					<% if item.main_image.attached? %>
 						<%= image_tag item.main_image, class: 'img-fluid' %>
 					<% end %>
