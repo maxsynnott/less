@@ -5,13 +5,6 @@ class CartsController < ApplicationController
 		@cart = Cart.find(params[:id])
 	end
 
-	def update
-		# Need to include error handling logic
-
-		@cart = Cart.find(params[:id])
-		@cart.update(cart_params)
-	end
-
 	private
 
 	def cart_params
