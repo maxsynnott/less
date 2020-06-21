@@ -10,8 +10,14 @@ ActiveAdmin.register Item do
       row :price
       row :created_at
       row :updated_at
-      row :image do |item|
-        image_tag url_for(item.image) if item.image.attached?
+      row :images do |item|
+        ul do
+          item.images.each do |image|
+            li do
+              image_tag url_for(image)
+            end
+          end
+        end
       end
     end
 

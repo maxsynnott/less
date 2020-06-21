@@ -6,6 +6,10 @@ FactoryBot.define do
   		cart_items_count { 0 }
   	end
 
+    trait :with_cart_item do
+      cart_items_count { 1 }
+    end
+
   	trait :with_cart_items do
   		cart_items_count { 3 }
   	end
