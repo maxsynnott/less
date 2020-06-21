@@ -4,8 +4,6 @@ RSpec.feature "Admin creates a item" do
 	before { login_as create(:admin_user) }
 
 	scenario "they see the created item" do
-		store = create(:store)
-
 		visit admin_items_path
 
 		click_on "New Item"

@@ -11,13 +11,6 @@ AdminUser.create!(email: 'admin@example.com', password: '123456', password_confi
 
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
 
-5.times do
-	store = Store.create(
-		name: Faker::Company.name,
-		address: "Rudi-Dutschke-Straße 26 10969"
-	)
-end
-
 num_items = 36
 
 num_items.times do
@@ -25,8 +18,7 @@ num_items.times do
 		name: Faker::Food.unique.ingredient,
 		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis. " * rand(1..5),
 		price: rand(0.001..0.1),
-		tag_list: ["vegan", "organic"].sample([0, 1, 2].sample),
-		store_ids: Store.all.sample(rand(0..Store.count)).map(&:id)
+		tag_list: ["vegan", "organic"].sample([0, 1, 2].sample)
 	)
 
 	images = [0, 1, 2, 3].sample(rand(1..4)).map { |i| { io: File.open(Rails.root.join("app", "assets", "images", "glass_jar_#{i}.png")), filename: "jar_#{i}.png" } }

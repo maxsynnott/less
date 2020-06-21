@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_19_101620) do
+ActiveRecord::Schema.define(version: 2020_06_21_172933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -189,22 +189,6 @@ ActiveRecord::Schema.define(version: 2020_06_19_101620) do
     t.index ["item_id"], name: "index_stocks_on_item_id"
   end
 
-  create_table "store_items", force: :cascade do |t|
-    t.bigint "store_id", null: false
-    t.bigint "item_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["item_id"], name: "index_store_items_on_item_id"
-    t.index ["store_id"], name: "index_store_items_on_store_id"
-  end
-
-  create_table "stores", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "address"
-  end
-
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -278,7 +262,5 @@ ActiveRecord::Schema.define(version: 2020_06_19_101620) do
   add_foreign_key "stock_transactions", "orders"
   add_foreign_key "stock_transactions", "stocks"
   add_foreign_key "stocks", "items"
-  add_foreign_key "store_items", "items"
-  add_foreign_key "store_items", "stores"
   add_foreign_key "taggings", "tags"
 end

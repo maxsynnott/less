@@ -31,8 +31,6 @@ class Item < ApplicationRecord
 
 	has_many :stocks
 	has_many :cart_items
-	has_many :store_items
-	has_many :stores, through: :store_items
 
 	validates_presence_of :name, :price
 
