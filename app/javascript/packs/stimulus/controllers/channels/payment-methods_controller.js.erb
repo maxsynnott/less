@@ -30,13 +30,18 @@ export default class extends Controller {
   _cableReceived(data) {
     // Called when there's incoming data on the websocket for this channel
     const html = this.dataToHTML(data)
-    console.log(html)
-    console.log($(this.inputsTarget))
 
     $(this.inputsTarget).append(html)
   }
 
   dataToHTML(data) {
+    // This is pretty messy but is essentially just the output of:
+    /*
+    label_tag "order_payment_method_id_#{payment_method.id}", class: "list-group-item" do
+      radio_button_tag "order[payment_method_id]", payment_method.id
+      '**** ' * 3 + payment_method.card.last4
+    end
+    */
     return `<label class='list-group-item' for='order_payment_method_id_${data.id}'><input type='radio' name='order[payment_method_id]' id='order_payment_method_id_${data.id}' value='${data.id}'>**** **** **** ${data.card.last4}</label>`
   }
 }

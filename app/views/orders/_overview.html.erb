@@ -1,21 +1,23 @@
-<button data-target="checkout.payButton" data-action="checkout#payOrder" type="button" class="btn btn-secondary btn-block" style="cursor: not-allowed;" disabled>
-	Place Order
-</button>
+<div class="card">
+	<button data-target="checkout.payButton" data-action="checkout#payOrder" type="button" class="btn btn-secondary btn-block" style="cursor: not-allowed;" disabled>
+		Place Order
+	</button>
 
-<br>
+	<br>
 
-<br>
+	<br>
 
-Order Breakdown
+	Order Breakdown
 
-<br>
+	<br>
 
-Subtotal: <span id="breakdown_subtotal"><%= order.total %></span>
+	Subtotal: <span id="breakdown_subtotal"><%= order.total %></span>
 
-<br>
+	<br>
 
-Delivery: <span id="breakdown_delivery">0.00</span>
+	Delivery: <span id="breakdown_delivery">0.00</span>
 
-<br>
+	<br>
 
-Total: <span id="breakdown_total">0.00</span>
+	Total: <span id="breakdown_total">0.00</span>
+</div>

@@ -148,7 +148,7 @@ export default class extends Controller {
 			.then((data) => {
 				const errorObjects = this.errorsToObjects(data.errors)
 
-				this.displayErrorObjects(errorObjects.filter(object => object.input[0].id === event.target.id))
+				this.displayErrorObjects(errorObjects.filter(object => object.input[0] === event.target))
 			})
 	}
 
