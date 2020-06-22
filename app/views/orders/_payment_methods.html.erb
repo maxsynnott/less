@@ -1,33 +1,16 @@
-<div
-	class="card step"
-	data-target="checkouts.step4"
->
-	<button type="button" class="btn btn-block text-left" data-target="#collapse4">
-		Payment Method
-	</button>
+<%= f.input :payment_method_id, collection: payment_method_collection, as: :radio_buttons %>
 
-	<div id="collapse4" class="collapse" data-parent="#orderAccordian">
-		<div class="card-body">
-			<%= f.input :payment_method_id, collection: payment_method_collection, as: :radio_buttons %>
-
-			<div id="stripe-new-card-div">
-				<div id="card-element" class="flex-grow-1">
-				  <!-- Stripe Element will be inserted here -->
-				</div>
-
-				<!-- Used to display form errors -->
-				<div id="card-errors" role="alert"></div>
-
-				<button type="button" class="btn btn-primary" data-action="checkouts#confirmCardSetup">
-					Save card
-				</button>
-			</div>
-
-			<%= f.error :payment_method_id, class: "error-output" %>
-
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="4">
-				Save
-			</button>
-		</div>
+<div id="stripe-new-card-div">
+	<div id="card-element" class="flex-grow-1">
+	  <!-- Stripe Element will be inserted here -->
 	</div>
+
+	<!-- Used to display form errors -->
+	<div id="card-errors" role="alert"></div>
+
+	<button type="button" class="btn btn-primary" data-action="checkouts#confirmCardSetup">
+		Save card
+	</button>
 </div>
+
+<%= f.error :payment_method_id, id: "payment_method_id-errors", class: "error-div" %>

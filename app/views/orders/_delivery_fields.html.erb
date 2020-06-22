@@ -1,82 +1,13 @@
-<div
-	class="card step"
-	data-target="checkouts.step0"
->
-	<button type="button" class="btn btn-block text-left dropdown-toggle collapse show" data-toggle="collapse" data-target="#collapse0">
-		Delivery Address
-	</button>
-
-	<div id="collapse0" class="collapse show" data-parent="#orderAccordian">
-		<div class="card-body">
-			<div data-controller="algolia-places">
-				<%= f.input :address, autocomplete: "off", input_html: { data: { target: "algolia-places.input" } }, label: false %>
-				<%= f.error :address, class: "error-output" %>
-			</div>
-
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="0">
-				Save
-			</button>
-		</div>
-	</div>
+<div data-controller="algolia-places">
+	<%= f.input :address, label: "Delivery Address", autocomplete: "off", input_html: { data: { target: "algolia-places.input", action: "focus->checkout#clearSelf blur->checkout#checkSelf" }, id: "deliveries__address-input" }, required: false %>
+	<%= f.error :address, id: "deliveries__address-errors", class: "error-div" %>
 </div>
 
-<div
-	class="card step"
-	data-target="checkouts.step1"
->
-	<button type="button" class="btn btn-block text-left" data-target="#collapse1">
-		Delivery Time
-	</button>
+<%= f.input :scheduled_at, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] }, label: "Delivery Timeslot", required: false, input_html: { id: "deliveries__scheduled_at-input", data: { action: "focus->checkout#clearSelf blur->checkout#checkSelf" } } %>
+<%= f.error :scheduled_at, id: "deliveries__scheduled_at-errors", class: "error-div" %>
 
-	<div id="collapse1" class="collapse" data-parent="#orderAccordian">
-		<div class="card-body">
-			<%= f.input :scheduled_at, label: false, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] } %>
-			<%= f.error :scheduled_at, class: "error-output" %>
+<%= f.input :phone, label: "Phone number", input_html: { id: "deliveries__phone-input", data: { action: "focus->checkout#clearSelf blur->checkout#checkSelf" } } %>
+<%= f.error :phone, id: "deliveries__phone-errors", class: "error-div" %>
 
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="1">
-				Save
-			</button>
-		</div>
-	</div>
-</div>
-
-<div
-	class="card step"
-	data-target="checkouts.step2"
->
-	<button type="button" class="btn btn-block text-left" data-target="#collapse2">
-		Delivery Instructions
-	</button>
-
-	<div id="collapse2" class="collapse" data-parent="#orderAccordian">
-		<div class="card-body">
-			<%= f.input :instructions, label: false %>
-			<%= f.error :instructions, class: "error-output" %>
-
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="2">
-				Save
-			</button>
-		</div>
-	</div>
-</div>
-
-<div
-	class="card step"
-	data-target="checkouts.step3"
->
-	<button type="button" class="btn btn-block text-left" data-target="#collapse3">
-		Mobile Number
-	</button>
-
-	<div id="collapse3" class="collapse" data-parent="#orderAccordian">
-		<div class="card-body">
-			<%= f.input :phone, label: false %>
-			<%= f.error :phone, class: "error-output" %>
-
-			<button type="button" class="btn btn-primary" data-action="checkouts#triggerStep" data-step="3">
-				Save
-			</button>
-		</div>
-	</div>
-</div>
-
+<%= f.input :instructions, input_html: { id: "deliveries__instructions-input", action: "focus->checkout#clearSelf blur->checkout#checkSelf" } %>
+<%= f.error :instructions, id: "deliveries__instructions-errors", class: "error-div" %>

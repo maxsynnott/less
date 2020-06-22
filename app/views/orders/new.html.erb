@@ -1,24 +1,30 @@
-<div class="container" data-controller="checkouts">
+<div class="container mt-5" data-controller="checkout">
 	<div class="row">
 		<div class="col-8">
-			<%= simple_form_for @order, disabled: true, data: { target: "checkouts.form", action: "checkouts#submitForm" } do |f| %>
-				<div class="accordian" id="orderAccordian">
-					<div id='deliveries'>
-					  <%= f.simple_fields_for :deliveries do |delivery| %>
-					    <%= render 'delivery_fields', f: delivery %>
-					  <% end %>
-					</div>
+			<div class="card">
+				<div class="card-body px-5">
+					<%= simple_form_for @order, disabled: true, data: { target: "checkout.form", action: "checkouts#submitForm" } do |f| %>
+						<!-- Order_Items are hidden -->
+						<div id='order_items' class="d-none">
+						  <%= f.simple_fields_for :order_items do |order_item| %>
+						    <%= render 'order_item_fields', f: order_item %>
+						  <% end %>
+						</div>
 
-					<!-- Order_Items are hidden -->
-					<div id='order_items'>
-					  <%= f.simple_fields_for :order_items do |order_item| %>
-					    <%= render 'order_item_fields', f: order_item %>
-					  <% end %>
-					</div>
+						<div id='deliveries'>
+						  <%= f.simple_fields_for :deliveries do |delivery| %>
+						    <%= render 'delivery_fields', f: delivery %>
+						  <% end %>
+						</div>
 
-					<%= render 'payment_methods', payment_method_collection: @payment_method_collection, f: f %>
+						<%= render 'payment_methods', payment_method_collection: @payment_method_collection, f: f %>
+
+						<button type="button" data-action="checkout#checkValidity">
+							Check Validity
+						</button>
+					<% end %>
 				</div>
-			<% end %>
+			</div>
 		</div>
 
 		<div class="col-4">
