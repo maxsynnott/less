@@ -1,23 +1,41 @@
-<div class="card">
-	<button data-target="checkout.payButton" data-action="checkout#payOrder" type="button" class="btn btn-secondary btn-block" style="cursor: not-allowed;" disabled>
-		Place Order
-	</button>
+<div class="card border-0">
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item">
+			<button data-target="checkout.payButton" data-action="checkout#payOrder" type="button" class="btn btn-secondary btn-lg btn-block" style="cursor: not-allowed;" disabled>
+				Place Order
+			</button>
+		</li>
 
-	<br>
+		<li class="list-group-item">
+			<div class="d-flex justify-content-between">
+				<p>
+					Subtotal
+				</p>
 
-	<br>
+				<p id="breakdown_subtotal">
+					<%= number_to_currency(order.subtotal) %>
+				</p>
+			</div>
 
-	Order Breakdown
+			<div class="d-flex justify-content-between">
+				<p>
+					Delivery
+				</p>
 
-	<br>
+				<p id="breakdown_delivery">
+					<%= number_to_currency(order.delivery_price) %>
+				</p>
+			</div>
 
-	Subtotal: <span id="breakdown_subtotal"><%= order.total %></span>
+			<div class="d-flex justify-content-between">
+				<p>
+					Total
+				</p>
 
-	<br>
-
-	Delivery: <span id="breakdown_delivery">0.00</span>
-
-	<br>
-
-	Total: <span id="breakdown_total">0.00</span>
+				<p id="breakdown_total">
+					<%= number_to_currency(order.total) %>
+				</p>
+			</div>
+		</li>
+	</ul>
 </div>

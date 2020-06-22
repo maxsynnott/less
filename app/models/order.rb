@@ -11,8 +11,16 @@ class Order < ApplicationRecord
 
 	validate :payment_method_id_is_valid, unless: Proc.new { |o| o.paid? or !o.user or Rails.env.test? }
 
-	def total
+	def subtotal
 		order_items.sum(&:total)
+	end
+
+	def delivery_price
+		delivery.try(:price).to_i
+	end
+
+	def total
+		subtotal + delivery_price
 	end
 
 	def delivered?
@@ -39,9 +47,9 @@ class Order < ApplicationRecord
 
 	def breakdown
 		{
-			subtotal: total,
-			delivery: delivery.try(:price),
-			total: total + (delivery.try(:price) or 0)
+			subtotal: subtotal,
+			delivery: delivery_price,
+			total: total
 		}
 	end
 
