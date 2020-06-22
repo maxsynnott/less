@@ -17,7 +17,9 @@
 						  <% end %>
 						</div>
 
-						<%= render 'payment_methods', payment_method_collection: @payment_method_collection, f: f %>
+						<div id="payment_methods" data-controller="channels--payment-methods" data-channels--payment-methods-user-id="<%= current_user.id %>">
+							<%= render 'payment_methods', payment_method_collection: @payment_method_collection, f: f %>
+						</div>
 
 						<button type="button" data-action="checkout#checkValidity">
 							Check Validity

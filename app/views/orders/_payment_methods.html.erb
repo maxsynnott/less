@@ -1,16 +1,6 @@
-<%= f.input :payment_method_id, collection: payment_method_collection, as: :radio_buttons %>
-
-<div id="stripe-new-card-div">
-	<div id="card-element" class="flex-grow-1">
-	  <!-- Stripe Element will be inserted here -->
-	</div>
-
-	<!-- Used to display form errors -->
-	<div id="card-errors" role="alert"></div>
-
-	<button type="button" class="btn btn-primary" data-action="checkouts#confirmCardSetup">
-		Save card
-	</button>
-</div>
+<%= f.input :payment_method_id, collection: payment_method_collection, as: :radio_buttons, input_html: { data: { action: "change->checkout#clearSelf change->checkout#checkSelf" }} %>
 
 <%= f.error :payment_method_id, id: "payment_method_id-errors", class: "error-div" %>
+
+<%= link_to "Add a new card", new_stripe_payment_method_path, remote: true %>
+

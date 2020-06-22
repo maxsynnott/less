@@ -3,20 +3,6 @@ import { Controller } from "stimulus"
 export default class extends Controller {
 	static targets = ["form", "payButton"]
 
-	connect() {
-		this.stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
-		const elements = this.stripe.elements();
-
-		this.card = elements.create("card");
-		this.card.mount("#card-element");
-
-		this.card.on('change', this.displayStripeErrors)
-
-		this.card.on('focus', (event) => {
-			$("#order_payment_method_id_new-card").prop("checked", true).trigger("click")
-		})
-	}
-
 	async checkValidity() {
 		const response = await fetch(
 			routes.check_validity_api_v1_orders_path(),
@@ -62,47 +48,9 @@ export default class extends Controller {
 	}
 
 	updateBreakdown(breakdown) {
-		console.log(breakdown)
 		$("#breakdown_subtotal").text(breakdown.subtotal)
 		$("#breakdown_delivery").text(breakdown.delivery)
 		$("#breakdown_total").text(breakdown.total)
-	}
-
-	confirmCardSetup() {
-		const data = this.fetchSetupIntent()
-
-		data
-			.then((data) => {
-				const clientSecret = data.client_secret
-
-				this.stripe.confirmCardSetup(clientSecret, {
-					payment_method: {
-		        card: this.card,
-		        billing_details: {
-		          name: "Placeholder name",
-		        }
-		      }
-				})
-				.then(function(result) {
-					if (result.error) {
-						console.log(result.error)
-					} else {
-						$("#order_payment_method_id_new-card").val(result.setupIntent.payment_method)
-						$("label[for='order_payment_method_id_new-card']").text("Added card")
-						$("#stripe-new-card-div").remove()
-					}
-				})
-			})
-	}
-
-	displayStripeErrors(event) {
-		const displayStripeError = document.getElementById('card-errors');
-
-	  if (event.error) {
-	    displayStripeError.textContent = event.error.message;
-	  } else {
-	    displayStripeError.textContent = '';
-	  }
 	}
 
 	async createOrder() {
@@ -148,7 +96,7 @@ export default class extends Controller {
 		data
 			.then((data) => {
 				if (data.errors) {
-					this.displayFormErrors(data.errors)
+					this.displayErrors(data.errors)
 				} else {
 					fetch(
 						routes.pay_api_v1_orders_path({ id: data.id }),
@@ -199,8 +147,12 @@ export default class extends Controller {
 		data
 			.then((data) => {
 				const errorObjects = this.errorsToObjects(data.errors)
-				
-				this.displayErrorObjects(errorObjects.filter(object => object.input[0] === event.target))
+
+				this.displayErrorObjects(errorObjects.filter(object => object.input[0].id === event.target.id))
 			})
+	}
+
+	displayErrors(errors) {
+		this.displayErrorObjects(this.errorsToObjects(errors))
 	}
 }

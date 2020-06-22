@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["saveCheckbox", "newCardRadio"]
+	static targets = ["saveCheckbox"]
 
 	connect() {
 		this.stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
@@ -28,10 +28,6 @@ export default class extends Controller {
 		this.card.mount("#card-element");
 
 		this.card.on('change', this.displayErrors)
-
-		this.card.on('focus', (event) => {
-			this.newCardRadioTarget.checked = true
-		})
 	}
 
 	displayErrors(event) {
@@ -90,5 +86,25 @@ export default class extends Controller {
 	      }
 	    }
 	  });
+	}
+
+	confirmCardSetup() {
+		const clientSecret = this.data.get("clientSecret")
+
+		this.stripe.confirmCardSetup(clientSecret, {
+			payment_method: {
+        card: this.card,
+        billing_details: {
+          name: "Placeholder name",
+        }
+      }
+		})
+		.then(function(result) {
+			if (result.error) {
+				console.log(result.error)
+			} else {
+				$("#modal-window").modal("hide");
+			}
+		})
 	}
 }

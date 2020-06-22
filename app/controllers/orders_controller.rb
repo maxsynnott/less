@@ -14,8 +14,6 @@ class OrdersController < ApplicationController
       customer: @user.stripe_customer_id,
       type: 'card'
     ).data.map { |pm| ["**** " * 3 + pm.card.last4, pm.id] }
-
-    @payment_method_collection << ["Add a new card", "new-card"]
 	end
 
 	def create

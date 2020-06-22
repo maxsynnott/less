@@ -13,4 +13,5 @@ require 'stripe/handlers/payment_intent_event'
 
 StripeEvent.configure do |events|
 	events.subscribe 'payment_intent.', Stripe::Handlers::PaymentIntentEvent.new
+	events.subscribe 'setup_intent.', Stripe::Handlers::SetupIntentEvent.new
 end

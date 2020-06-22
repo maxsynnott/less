@@ -49,13 +49,7 @@ Rails.application.routes.draw do
       mount StripeEvent::Engine, at: '/webhook', as: :event
       #
 
-      resources :checkouts, only: [:new] do
-        collection do
-          get "success"
-        end
-      end
-
-      resources :payments, only: [:new]
+      resources :payment_methods, only: [:new]
     end
 
     namespace :api, defaults: { format: :json } do
