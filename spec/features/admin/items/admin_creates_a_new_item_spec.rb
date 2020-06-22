@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "Admin creates a item" do
-	before { login_as create(:admin_user) }
+	before { login_as create(:user, role: "admin") }
 
 	scenario "they see the created item" do
 		visit admin_items_path

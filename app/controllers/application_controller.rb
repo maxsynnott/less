@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	def current_cart
 		if current_user
 			current_user.cart
-		elsif session[:cart_id] and (cart = Cart.find(session[:cart_id])) and cart.user_id.nil?
+		elsif session[:cart_id] and (cart = Cart.find_by_id(session[:cart_id])) and cart.user_id.nil?
 			cart
 		else
 			cart = Cart.create
@@ -29,5 +29,9 @@ class ApplicationController < ActionController::Base
 	def set_locale
 		I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
 		session[:locale] = I18n.locale
+	end
+
+	def authenticate_admin!
+		redirect_to new_user_session_path unless current_user.try(:admin?)
 	end
 end

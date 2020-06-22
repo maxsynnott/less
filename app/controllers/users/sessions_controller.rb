@@ -12,8 +12,6 @@ class Users::SessionsController < Devise::SessionsController
   def create
     super
 
-    p "* " * 10000
-
     # If signed out user adds item to cart then replace cart upon sign in
     cart = Cart.find(session[:cart_id])
 

@@ -7,7 +7,7 @@ Order.destroy_all
 User.destroy_all
 ########################################### IMPORTANT ######################################################################
 
-AdminUser.create!(email: 'admin@example.com', password: '123456', password_confirmation: '123456') if Rails.env.development?
+User.create!(first_name: "Max", email: 'admin@example.com', password: '123456', password_confirmation: '123456', role: 2, cart: Cart.new) if Rails.env.development?
 
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
 
@@ -37,8 +37,8 @@ stock_items = Item.all.sample(num_items - 2)
 
 stock_items.each { |item| Stock.create(item_id: item.id, balance: rand(2000..10000)) }
 
-user = User.create(email: "user@example.com", password: "123456", cart: Cart.new)
-user_2 = User.create(email: "user_2@example.com", password: "123456", cart: Cart.new)
+user = User.create(first_name: "Max", email: "user@example.com", password: "123456", cart: Cart.new)
+user_2 = User.create(first_name: "Max", email: "user_2@example.com", password: "123456", cart: Cart.new)
 
 puts "Default user account created with: email: user@example.com, password: 123456"
 

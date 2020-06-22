@@ -3,13 +3,13 @@ Rails.application.routes.draw do
     root to: 'items#index'
 
     # ActiveAdmin routes
-    devise_for :admin_users, ActiveAdmin::Devise.config
     ActiveAdmin.routes(self)
     #
 
     # Sidekiq
     require "sidekiq/web"
 
+    # Change this
     authenticate :admin_user do
       mount Sidekiq::Web => '/sidekiq'
     end

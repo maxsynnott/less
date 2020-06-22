@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Admin deletes a item" do
 	before do 
-		login_as create(:admin_user)
+		login_as create(:user, role: "admin")
 		create(:item, name: "Spinach")
 	end
 

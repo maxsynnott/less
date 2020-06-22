@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  enum role: [:customer, :driver, :admin]
+
   acts_as_voter
   
   # Include default devise modules. Others available are:
