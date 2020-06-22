@@ -1,0 +1,83 @@
+<h2>Unaccepted deliveries</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Created at
+			</th>
+
+			<th>
+				Scheduled at
+			</th>
+		
+			<th>
+				Address
+			</th>
+
+			<th>
+				Actions
+			</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @unaccepted_deliveries.each do |delivery| %>
+			<tr>
+				<td>
+					<%= delivery.created_at %>
+				</td>
+
+				<td>
+					<%= delivery.scheduled_at %>
+				</td>
+
+				<td>
+					<%= delivery.address %>
+				</td>
+
+				<td>
+					<%= link_to "Accept", delivery_path(id: delivery.id, delivery: { driver_id: current_user.id }), method: :patch, class: "btn btn-success" %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<h2>Your deliveries</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Scheduled at
+			</th>
+		
+			<th>
+				Address
+			</th>
+
+			<th>
+				Actions
+			</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @driver_deliveries.each do |delivery| %>
+			<tr>
+				<td>
+					<%= delivery.scheduled_at %>
+				</td>
+
+				<td>
+					<%= delivery.address %>
+				</td>
+
+				<td>
+					<%= link_to "View", delivery_path(id: delivery.id), class: "btn btn-primary" %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

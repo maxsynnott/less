@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_22_075556) do
+ActiveRecord::Schema.define(version: 2020_06_22_084034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -105,6 +105,8 @@ ActiveRecord::Schema.define(version: 2020_06_22_075556) do
     t.float "longitude"
     t.float "driver_longitude"
     t.float "driver_latitude"
+    t.bigint "driver_id"
+    t.index ["driver_id"], name: "index_deliveries_on_driver_id"
     t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 
@@ -242,6 +244,7 @@ ActiveRecord::Schema.define(version: 2020_06_22_075556) do
   add_foreign_key "cart_items", "items"
   add_foreign_key "carts", "users"
   add_foreign_key "containers", "order_items"
+  add_foreign_key "deliveries", "users", column: "driver_id"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"

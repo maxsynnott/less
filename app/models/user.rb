@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  enum role: [:customer, :driver, :admin]
+  enum role: [:user, :driver, :admin]
 
   acts_as_voter
   
