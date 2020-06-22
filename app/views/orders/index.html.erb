@@ -1,54 +1,18 @@
-<h2>Current Orders:</h2>
-
-<ul class="list-group">
-	<% @current_orders.each do |order| %>
+<div class="container mt-5">
+	<ul class="list-group list-group-flush">
 		<li class="list-group-item">
-			<p>
-				<b>Delivery Scheduled: </b>
-				<%= order.delivery.scheduled_at.strftime("%B %d | %H:%M") %> to <%= (order.delivery.scheduled_at + 2.hours).strftime("%H:%M") %>
-			</p>
+			<h2>Your Orders</h2>
 		</li>
-		<li class="list-group-item">
-			<h3>Items:</h3>
 
-			<ul class="list-group">
-				<% order.order_items.each do |oi| %>
-					<li class="list-group-item">
-						<p>
-							<b><%= oi.item.name %>: </b>
-							<%= oi.quantity %>g
-						</p>
-					</li>
-				<% end %>
-			</ul>
-		</li>
-	<% end %>
-</ul>
+		<% @orders.each do |order| %>
+			<li class="list-group-item">
+				<div class="d-inline-block">
+					<b class="mr-3"><%= number_to_currency(order.total) %></b>
+					<%= order.delivery.scheduled_at.strftime("%B %d | %H:%M") %> to <%= (order.delivery.scheduled_at + 2.hours).strftime("%H:%M") %>
+				</div>
 
-<h2>Past Orders:</h2>
-
-<ul class="list-group">
-	<% @past_orders.each do |order| %>
-		<li class="list-group-item">
-			<p>
-				<b>Delivered on: </b>
-				<%= order.delivery.delivered_at.strftime("%B %d | %H:%M") %>
-			</p>
-		</li>
-		
-		<li class="list-group-item">
-			<h3>Items:</h3>
-
-			<ul class="list-group">
-				<% order.order_items.each do |oi| %>
-					<li class="list-group-item">
-						<p>
-							<b><%= oi.item.name %>: </b>
-							<%= oi.quantity %>g
-						</p>
-					</li>
-				<% end %>
-			</ul>
-		</li>
-	<% end %>
-</ul>
+				<%= link_to "View", order_path(order), class: "btn btn-primary d-inline-block float-right" %>
+			</li>
+		<% end %>
+	</ul>
+</div>

@@ -1,9 +1,6 @@
 class OrdersController < ApplicationController
 	def index
-    @orders = current_user.orders
-
-    @past_orders = @orders.select(&:delivered?)
-    @current_orders = @orders - @past_orders
+    @orders = current_user.orders.reject(&:delivered?)
 	end
 
 	def new

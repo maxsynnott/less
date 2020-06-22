@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
 
   has_many :orders
-  has_many :deliveries, through: :orders
+  has_many :deliveries, foreign_key: :driver_id
 
   after_create :generate_stripe_customer
 

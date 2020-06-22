@@ -16,8 +16,8 @@ class DeliveriesController < ApplicationController
 		end
 	end
 
-	def tracker
-		@delivery = Delivery.find(params[:delivery_id])
+	def track
+		@delivery = Delivery.find(params[:id])
 
 		@initial_markers = [
 			{
@@ -25,8 +25,8 @@ class DeliveriesController < ApplicationController
 				lng: @delivery.longitude
 			},
 			{
-				lat: 52.537154,
-				lng: 13.394585,
+				lat: @delivery.driver_latitude,
+				lng: @delivery.driver_longitude,
 				image_url: helpers.asset_url("delivery_driver_icon.png")
 			}
 		]

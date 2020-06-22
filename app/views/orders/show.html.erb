@@ -1,66 +1,27 @@
-<% if @order.paid %>
-	<h2>You're Order is on the way!</h2>
+<h2>You're Order is on the way!</h2>
 
-	<h3>
-		To be delivered on: 
-		<%= @order.deliveries.first.scheduled_at %>
-	</h3>
+<h3>
+	To be delivered on: 
+	<%= @order.deliveries.first.scheduled_at %>
+</h3>
 
 
-	<h4>Items:</h4>
+<h4>Items:</h4>
 
-	<ul class="list-group">
-		<% @order.order_items.each do |order_item| %>
-			<li class="list-group-item">
-				<p>
-					<b>Item Name: </b>
-					<%= order_item.item.name %>
-				</p>
+<ul class="list-group">
+	<% @order.order_items.each do |order_item| %>
+		<li class="list-group-item">
+			<p>
+				<b>Item Name: </b>
+				<%= order_item.item.name %>
+			</p>
 
-				<p>
-					<b>Quantity: </b>
-					<%= order_item.quantity %>
-				</p>
-			</li>
-		<% end %>
-	</ul>
-<% else %>
-	<div
-		data-controller="stripe"
-		data-stripe-client-secret="<%= @payment_intent.client_secret %>"
-		class="container"
-	>
-		<form id="payment-form" data-action="stripe#confirmCardPayment">
-			<% @payment_methods.each do |payment_method| %>
-				<label class="d-flex">
-					<input type="radio" name="payment-method" value="<%= payment_method.id %>">
-					
-					<div>
-						<%= "**** " * 3 + payment_method.card.last4 %>
-					</div>
-				</label>
-			<% end %>
+			<p>
+				<b>Quantity: </b>
+				<%= order_item.quantity %>
+			</p>
+		</li>
+	<% end %>
+</ul>
 
-			<label class="w-100">
-				<div class="d-flex">
-					<input type="radio" name="payment-method" value="new-card" data-target="stripe.newCardRadio" checked>
-
-					<div id="card-element" class="flex-grow-1" data-action="change->stripe#displayErrors">
-					  <!-- Stripe Element will be inserted here -->
-					</div>
-				</div>
-
-				<!-- Used to display form errors -->
-				<div id="card-errors" role="alert"></div>
-			</label>
-
-			<input type="checkbox" id="save_card" data-target="stripe.saveCheckbox">
-
-			<label for="save_card">
-				Save for future payments
-			</label>
-
-		  <button class="btn btn-primary" id="submit">Pay <%= number_to_currency(@payment_intent.amount.to_money) %></button>	
-		</form>
-	</div>
-<% end %>
+<%= link_to "Track delivery", track_delivery_path(@order.delivery), class: "btn btn-primary" %>

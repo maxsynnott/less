@@ -8,6 +8,7 @@ class Delivery < ApplicationRecord
   before_save :broadcast_status, if: :will_save_change_to_status?
 
   belongs_to :order
+  belongs_to :driver, optional: true
 
   validates_presence_of :address, :scheduled_at
 

@@ -41,7 +41,9 @@ Rails.application.routes.draw do
     end
 
     resources :deliveries, only: [:edit, :update, :index, :show] do
-      get "tracker", action: :tracker, as: :tracker
+      member do
+        get :track, action: :track
+      end
     end
     #
 
