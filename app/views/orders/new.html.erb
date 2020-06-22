@@ -11,19 +11,13 @@
 						  <% end %>
 						</div>
 
-						<div id='deliveries'>
+						<ul class="list-group list-group-flush">
 						  <%= f.simple_fields_for :deliveries do |delivery| %>
 						    <%= render 'delivery_fields', f: delivery %>
 						  <% end %>
-						</div>
 
-						<div id="payment_methods" data-controller="channels--payment-methods" data-channels--payment-methods-user-id="<%= current_user.id %>">
 							<%= render 'payment_methods', payment_method_collection: @payment_method_collection, f: f %>
-						</div>
-
-						<button type="button" data-action="checkout#checkValidity">
-							Check Validity
-						</button>
+						</ul>
 					<% end %>
 				</div>
 			</div>

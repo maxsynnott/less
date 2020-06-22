@@ -2,6 +2,8 @@ import { Controller } from 'stimulus';
 import consumer from './../../../../channels/consumer.js';
 
 export default class extends Controller {
+  static targets = ["inputs"]
+
   connect() {
     this.channel = consumer.subscriptions.create(
       {
@@ -28,11 +30,13 @@ export default class extends Controller {
   _cableReceived(data) {
     // Called when there's incoming data on the websocket for this channel
     const html = this.dataToHTML(data)
+    console.log(html)
+    console.log($(this.inputsTarget))
 
-    $("fieldset.order_payment_method_id").append(html)
+    $(this.inputsTarget).append(html)
   }
 
   dataToHTML(data) {
-    return `<div class='form-check'><input class='form-check-input radio_buttons optional' data-action='change->checkout#clearSelf change->checkout#checkSelf' type='radio' value='${data.id}' name='order[payment_method_id]' id='order_payment_method_id_${data.id}'><label class='form-check-label collection_radio_buttons' for='order_payment_method_id_${data.id}'>**** **** **** ${data.card.last4}</label></div>`
+    return `<label class='list-group-item' for='order_payment_method_id_${data.id}'><input type='radio' name='order[payment_method_id]' id='order_payment_method_id_${data.id}' value='${data.id}'>**** **** **** ${data.card.last4}</label>`
   }
 }

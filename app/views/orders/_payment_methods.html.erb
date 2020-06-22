@@ -1,6 +1,18 @@
-<%= f.input :payment_method_id, collection: payment_method_collection, as: :radio_buttons, input_html: { data: { action: "change->checkout#clearSelf change->checkout#checkSelf" }} %>
+<div id="payment_methods" data-controller="channels--payment-methods" data-channels--payment-methods-user-id="<%= current_user.id %>">
+	<h5>Select a payment method</h5>
 
-<%= f.error :payment_method_id, id: "payment_method_id-errors", class: "error-div" %>
+	<div data-target="channels--payment-methods.inputs">
+		<% payment_method_collection.each do |payment_method| %>
+			<%= label_tag "order_payment_method_id_#{payment_method.id}", class: "list-group-item" do %>
+				<%= radio_button_tag "order[payment_method_id]", payment_method.id %>
+				<%= '**** ' * 3 + payment_method.card.last4 %>
+			<% end %>
+		<% end %>
+	</div>
 
-<%= link_to "Add a new card", new_stripe_payment_method_path, remote: true %>
+	<li class="list-group-item">
+		<%= link_to "Add a new card", new_stripe_payment_method_path, remote: true, class: 'btn btn-primary' %>
+	</li>
 
+	<%= f.error :payment_method_id, id: "payment_method_id-errors", class: "error-div" %>
+</div>
