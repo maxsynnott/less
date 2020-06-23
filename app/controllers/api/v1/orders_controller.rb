@@ -14,7 +14,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     @order = Order.new(order_params)
     @order.user = current_user
 
-    @order.deliveries << Delivery.new if @order.deliveries.empty?
+    @order.delivery = Delivery.new unless @order.delivery
 
     @order.valid?
 
@@ -37,7 +37,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   private
 
   def order_params
-    params.require(:order).permit(:payment_method_id, order_items_attributes: [:price, :quantity, :item_id], deliveries_attributes: [:scheduled_at, :address, :phone, :instructions])
+    params.require(:order).permit(:payment_method_id, order_items_attributes: [:price, :quantity, :item_id], delivery_attributes: [:scheduled_at, :address, :phone, :instructions])
   end
 
   def render_error

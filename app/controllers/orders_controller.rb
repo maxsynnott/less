@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
 		@order = Order.new
     @user = current_user
 
-		@order.deliveries << Delivery.new
+		@order.delivery = Delivery.new
 		@order.order_items = @user.cart.to_order_items
 
     @payment_method_collection = Stripe::PaymentMethod.list(
@@ -50,6 +50,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(order_items_attributes: [:quantity, :item_id], deliveries_attributes: [:scheduled_at, :address, :phone, :instructions])
+    params.require(:order).permit(order_items_attributes: [:quantity, :item_id], delivery_attributes: [:scheduled_at, :address, :phone, :instructions])
   end
 end

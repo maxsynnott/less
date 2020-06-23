@@ -1,10 +1,10 @@
 class Order < ApplicationRecord
 	belongs_to :user
 
-	has_many :deliveries, inverse_of: :order
+	has_one :delivery, inverse_of: :order
 	has_many :order_items, inverse_of: :order, dependent: :destroy
 
-	accepts_nested_attributes_for :deliveries, reject_if: :all_blank, allow_destroy: true
+	accepts_nested_attributes_for :delivery, reject_if: :all_blank, allow_destroy: true
 	accepts_nested_attributes_for :order_items, reject_if: :all_blank, allow_destroy: true
 
 	validates_presence_of :user
@@ -24,12 +24,7 @@ class Order < ApplicationRecord
 	end
 
 	def delivered?
-		deliveries.all?(&:delivered?)
-	end
-
-	# Remove this + related logic if support for multiple deliveries ever added
-	def delivery
-		deliveries.first
+		delivery.delivered?
 	end
 
 	def create_payment_intent(args)
