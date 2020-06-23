@@ -26,6 +26,7 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import './bootstrap_custom.js'
 import 'cocoon-js';
 
+// Swiper.js
 import Swiper from 'swiper';
 global.Swiper = Swiper
 
@@ -48,12 +49,10 @@ require("flatpickr/dist/flatpickr.css")
 // Mapbox
 import mapboxgl from 'mapbox-gl';
 global.mapboxgl = mapboxgl
-//
 
 // Select2
 import Select2 from 'select2';
 global.Select2 = Select2
-//
 
 // Actiontext/trix
 require("trix")
