@@ -1,4 +1,7 @@
-<div data-controller="channels--delivery-tracker">
+<div
+	data-controller="channels--delivery-tracker"
+	data-channels--delivery-tracker-delivery-id="<%= @delivery.id %>"
+>
 	<h1>
 		Status:
 		<span data-target="channels--delivery-tracker.status"><%= @delivery.status %></span>

@@ -47,6 +47,23 @@ class OrdersController < ApplicationController
   	end
   end
 
+  def track
+    @order = Order.find(params[:id])
+    @delivery = @order.delivery
+
+    @initial_markers = [
+      {
+        lat: @delivery.latitude,
+        lng: @delivery.longitude
+      },
+      {
+        lat: @delivery.driver_latitude,
+        lng: @delivery.driver_longitude,
+        image_url: helpers.asset_url("delivery_driver_icon.png")
+      }
+    ]
+  end
+
   private
 
   def order_params

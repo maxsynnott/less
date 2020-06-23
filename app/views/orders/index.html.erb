@@ -11,7 +11,10 @@
 					<%= order.delivery.scheduled_at.strftime("%B %d | %H:%M") %> to <%= (order.delivery.scheduled_at + 2.hours).strftime("%H:%M") %>
 				</div>
 
-				<%= link_to "View", order_path(order), class: "btn btn-primary d-inline-block float-right" %>
+				<div class="float-right">
+					<%= link_to "Track", track_order_path(order), class: "btn btn-success" %>
+					<%= link_to "View", order_path(order), class: "btn btn-primary" %>
+				</div>
 			</li>
 		<% end %>
 	</ul>

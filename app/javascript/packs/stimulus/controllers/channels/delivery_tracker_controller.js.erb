@@ -8,7 +8,7 @@ export default class extends Controller {
     this.channel = consumer.subscriptions.create(
       {
         channel: 'DeliveryTrackerChannel',
-        delivery_id: window.location.href.match(/deliveries\/(\d+)\/track/)[1]
+        delivery_id: this.data.get("deliveryId")
       },
       {
         connected: this._cableConnected.bind(this),

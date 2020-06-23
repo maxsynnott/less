@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     # Simple resources
     resources :cart_items, only: [:create]
     resources :carts, only: [:edit, :update]
-    resources :orders, only: [:index, :new, :create, :show]
+    resources :deliveries, only: [:edit, :update, :index, :show]
     #
 
     # Complex resources
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :deliveries, only: [:edit, :update, :index, :show] do
+    resources :orders, only: [:index, :new, :create, :show] do
       member do
         get :track, action: :track
       end
@@ -60,6 +60,8 @@ Rails.application.routes.draw do
             post ":id/pay", action: :pay, as: :pay
           end
         end
+
+        post "users/:id/update_driver_coordinates", to: "users#update_driver_coordinates", as: :update_driver_coordinates
 
         resources :deliveries, only: [:update]
         resources :cart_items, only: [:update, :destroy]
