@@ -3,6 +3,13 @@ import { Controller } from "stimulus"
 export default class extends Controller {
 	static targets = ["form", "payButton"]
 
+	connect() {
+		this.formatter = new Intl.NumberFormat("de", {
+			style: "currency",
+			currency: "EUR"
+		})
+	}
+
 	async checkValidity() {
 		const response = await fetch(
 			routes.check_validity_api_v1_orders_path(),
@@ -48,9 +55,9 @@ export default class extends Controller {
 	}
 
 	updateBreakdown(breakdown) {
-		$("#breakdown_subtotal").text(breakdown.subtotal)
-		$("#breakdown_delivery").text(breakdown.delivery)
-		$("#breakdown_total").text(breakdown.total)
+		$("#breakdown_subtotal").text(this.formatter.format(breakdown.subtotal))
+		$("#breakdown_delivery").text(this.formatter.format(breakdown.delivery))
+		$("#breakdown_total").text(this.formatter.format(breakdown.total))
 	}
 
 	async createOrder() {
