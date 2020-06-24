@@ -12,6 +12,10 @@ class OrderItem < ApplicationRecord
   	quantity * price
   end
 
+  def add_to_cart(cart)
+    cart.add_item(item, quantity)
+  end
+
   private
 
   def assign_price

@@ -12,7 +12,7 @@ class Order < ApplicationRecord
 	validate :payment_method_id_is_valid, unless: Proc.new { |o| o.paid? or !o.user or Rails.env.test? }
 
 	def add_to_cart(cart)
-		order_items.each { |order_item| cart.add_item(order_item.item, order_item.quantity) }
+		order_items.each { |order_item| order_item.add_to_cart(cart) }
 	end
 
 	def subtotal

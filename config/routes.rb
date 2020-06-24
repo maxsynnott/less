@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :deliveries, only: [:edit, :update, :index, :show]
     #
 
+    post "order_items/:id/add_to_cart", to: "order_items#add_to_cart", as: "add_to_cart_order_item"
+
     # Complex resources
     resources :recipes, only: [:index, :show, :new, :create] do
       collection do
