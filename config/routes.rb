@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       member do
         get :track, action: :track
         get :receipt, action: :receipt
+        post :add_to_cart, action: :add_to_cart
       end
     end
     #

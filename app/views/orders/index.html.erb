@@ -30,7 +30,7 @@
 							<%= order.order_items.count %> items
 						</p>
 
-						<%= link_to '#', class: "btn btn-success btn-sm", data: { toggle: 'tooltip', placement: 'right' }, title: number_to_currency(order.total) do %>
+						<%= link_to add_to_cart_order_path(order), remote: true, method: :post, class: "btn btn-success btn-sm", data: { toggle: 'tooltip', placement: 'right' }, title: number_to_currency(order.total) do %>
 							<%= fa_icon 'plus' %>
 
 							Add all items to cart

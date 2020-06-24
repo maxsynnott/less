@@ -72,6 +72,12 @@ class OrdersController < ApplicationController
     render pdf: "file_name", template: "orders/receipt.html.erb", layout: 'pdf.html'
   end
 
+  def add_to_cart
+    @order = Order.find(params[:id])
+
+    @order.add_to_cart(current_user.cart)
+  end
+
   private
 
   def order_params
