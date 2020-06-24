@@ -1,0 +1,51 @@
+<div class="p-5 text-center">
+	
+
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item">
+			<h4>
+				Your order was delivered on
+			</h4>
+
+			<h3 class="font-weight-light mt-4">
+				<%= @delivery.delivered_at.strftime("%B %d at %H:%M") %>
+			</h3>
+		</li>
+
+		<li class="list-group-item d-flex justify-content-between align-items-center py-4">
+			<div class="text-left">
+				<h5>
+					Want to show your gratitude?
+				</h5>
+
+				<p class="text-muted mb-0">
+					Max will receive 100% of your contribution
+				</p>
+			</div>
+
+			<div style="min-width: 175px">
+				<%= image_tag "https://via.placeholder.com/125", class: "mb-3", style: "border-radius: 50%" %>
+
+				<%= link_to "Tip Max", '#', class: "btn btn-success btn-block" %>
+			</div>
+		</li>
+
+		<li class="list-group-item d-flex justify-content-between align-items-center py-4">
+			<div class="text-left">
+				<h5>
+					Was there a problem?
+				</h5>
+
+				<p class="text-muted mb-0">
+					Our support staff is available to help
+				</p>
+			</div>
+
+			<div style="min-width: 175px">
+				<%= image_tag "https://via.placeholder.com/125", class: "mb-3", style: "border-radius: 50%" %>
+
+				<%= link_to "Contact support", '#', class: "btn btn-danger btn-block" %>
+			</div>
+		</li>
+	</ul>
+</div>

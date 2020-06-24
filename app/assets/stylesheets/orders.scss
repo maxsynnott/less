@@ -1,3 +1,64 @@
 // Place all the styles related to the orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.milestone {
+	position: absolute;
+}
+
+.milestone-text {
+	width: 200px;
+
+	text-align: center;
+
+	position: absolute;
+	
+	left: calc(20px - 100px);
+
+	margin-bottom: 0px;
+
+	font-size: 18px;
+
+	color: #6c757d;
+}
+
+.milestone-icon {
+	height: 40px;
+	width: 40px;
+
+	border-radius: 50%;
+	margin-top: -10px;
+
+	font-size: 20px;
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
+
+	background: #e9ecef;
+	color: #6c757d;
+}
+
+.milestone.active .milestone-text {
+	color: #28a745;
+}
+
+.milestone.active .milestone-icon {
+	background: #28a745;
+	color: white;
+}
+
+.position-0 {
+	left: calc(0% - 20px)
+}
+
+.position-1 {
+	left: calc(33% - 20px)
+}
+
+.position-2 {
+	left: calc(66% - 20px)
+}
+
+.position-3 {
+	left: calc(100% - 20px)
+}

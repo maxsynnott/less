@@ -1,27 +1,8 @@
-<h2>You're Order is on the way!</h2>
+<div class="container bg-white mt-5 pt-5">
+	<%= render 'progress' %>
 
-<h3>
-	To be delivered on: 
-	<%= @order.delivery.scheduled_at %>
-</h3>
+	<div class="mt-5 pb-3">
+		<%= render "milestone_#{@current_milestone}" %>
+	</div>
+</div>
 
-
-<h4>Items:</h4>
-
-<ul class="list-group">
-	<% @order.order_items.each do |order_item| %>
-		<li class="list-group-item">
-			<p>
-				<b>Item Name: </b>
-				<%= order_item.item.name %>
-			</p>
-
-			<p>
-				<b>Quantity: </b>
-				<%= order_item.quantity %>
-			</p>
-		</li>
-	<% end %>
-</ul>
-
-<%= link_to "Track delivery", track_delivery_path(@order.delivery), class: "btn btn-primary" %>

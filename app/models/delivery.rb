@@ -42,6 +42,14 @@ class Delivery < ApplicationRecord
 	  slots
   end
 
+  def scheduled_date_string
+    scheduled_at.strftime('%B %d')
+  end
+
+  def scheduled_slot_string
+    "#{scheduled_at.strftime('%H:%M')} to #{(scheduled_at + 2.hours).strftime('%H:%M')}"
+  end
+
   private
 
   def assign_price

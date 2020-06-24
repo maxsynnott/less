@@ -1,0 +1,15 @@
+<div class="mx-5" style="position: relative;">
+	<% @milestones.each_with_index do |milestone, index| %>
+		<div class="position-<%= index %> milestone <%= milestone[:active] ? 'active' : '' %>">
+			<%= fa_icon milestone[:icon], class: "milestone-icon" %>
+
+			<p class="milestone-text">
+				<%= milestone[:text] %>
+			</p>
+		</div>
+	<% end %>
+
+	<div class="progress" style="height: 20px;">
+	  <div class="progress-bar bg-success" role="progressbar" style="width: <%= @current_percentage %>%" aria-valuenow="<%= @current_percentage %>" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
+</div>
