@@ -3,8 +3,18 @@
 		Less
 	</h1>
 
-	<p class="text-center">
+	<h3 class="text-center">
 		Thank you for shopping with us
+	</h3>
+
+	<p class="text-center">
+		Less is more
+	</p>
+	
+	<p>
+		Order Id: 
+
+		<%= @order.id %>
 	</p>
 
 	<p>
@@ -36,7 +46,7 @@
 			</td>
 
 			<td>
-				Price
+				Price (EUR)
 			</td>
 		</tr>
 	</thead>
@@ -57,7 +67,7 @@
 				</td>
 
 				<td>
-					<%= order_item.total.to_cents / 100.0 %> EUR
+					<%= order_item.total.to_cents / 100.0 %>
 				</td>
 			</tr>
 		<% end %>
@@ -78,7 +88,7 @@
 			</td>
 
 			<td>
-				<%= @order.total.to_cents / 100.0 %> EUR
+				<%= @order.total.to_cents / 100.0 %>
 			</td>
 		</tr>
 
