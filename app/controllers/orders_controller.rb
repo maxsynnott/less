@@ -66,6 +66,12 @@ class OrdersController < ApplicationController
     ]
   end
 
+  def receipt
+    @order = Order.find(params[:id])
+
+    render pdf: "file_name", template: "orders/receipt.html.erb", layout: 'pdf.html'
+  end
+
   private
 
   def order_params
@@ -94,6 +100,6 @@ class OrdersController < ApplicationController
   end
 
   def assign_current_milestone
-    @current_milestone = 3
+    @current_milestone = 2
   end
 end

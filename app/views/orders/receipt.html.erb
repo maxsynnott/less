@@ -1,0 +1,161 @@
+<div>
+	<h1 class="text-center">
+		Less
+	</h1>
+
+	<p class="text-center">
+		Thank you for shopping with us
+	</p>
+
+	<p>
+		Purchase date: 
+
+		<%= @order.created_at.strftime('%d/%m/%Y') %>
+	</p>
+
+	<p>
+		Purchase time:
+
+		<%= @order.created_at.strftime('%H:%M') %>
+	</p>
+</div>
+
+<table>
+	<thead>
+		<tr>
+			<td>
+				Item Id
+			</td>
+
+			<td>
+				Item Name
+			</td>
+
+			<td>
+				Quantity
+			</td>
+
+			<td>
+				Price
+			</td>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @order.order_items.each do |order_item| %>
+			<tr>
+				<td>
+					<%= order_item.item.id %>
+				</td>
+
+				<td>
+					<%= order_item.item.name %>
+				</td>
+
+				<td>
+					<%= order_item.quantity %> grams
+				</td>
+
+				<td>
+					<%= order_item.total.to_cents / 100.0 %> EUR
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+
+	<tfoot>
+		<tr>
+			<td>
+				Total
+			</td>
+
+			<td>
+				
+			</td>
+
+			<td>
+				
+			</td>
+
+			<td>
+				<%= @order.total.to_cents / 100.0 %> EUR
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				Payment Method
+			</td>
+
+			<td>
+				
+			</td>
+
+			<td>
+				
+			</td>
+
+			<td>
+				VISA
+			</td>
+		</tr>
+	</tfoot>
+</table>
+
+<div id="footer">
+	<h3>
+		Company Details:
+	</h3>
+
+	<p class="m-0">
+		Name: LMG Less is More Groceries UG (haftungsbeschrankt)
+	</p>
+
+	<p class="m-0">
+		Address: Rheinsberger Strasse 76/77, 10115 Berlin, Germany
+	</p>
+
+	<p class="m-0">
+		Email: support@lessberlin.de
+	</p>
+</div>
+
+<style>
+	body {
+		background: #F7F7F7;
+	}
+
+	* {
+		text-transform: uppercase;
+		font-family: "Courier New", Courier, monospace;
+	}
+
+	tbody td {
+		font-size: 20px;
+	}
+
+	thead td, tfoot td {
+		font-weight: bold;
+		font-size: 25px;
+	}
+
+	table {
+		width: 100%;
+	}
+
+	tr {
+		border-bottom: 1px solid black;
+	}
+
+	#footer {
+		margin-top: 50px;
+	}
+
+	.text-center {
+		text-align: center;
+	}
+
+	.m-0 {
+		margin: 0;
+	}
+</style>
