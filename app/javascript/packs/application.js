@@ -64,13 +64,9 @@ document.addEventListener("turbolinks:load", () => {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
-
-// https://www.honeybadger.io/blog/turbolinks/
 document.addEventListener('turbolinks:before-cache', () => {
-  // Manually tear down bootstrap modals before caching. If turbolinks
-  // caches the modal then tries to restore it, it breaks bootstrap's JS.
-  // We can't just use bootstrap's `modal('close')` method because it is async.
-  // Turbolinks will cache the page before it finishes running.
+  // Prevent's modals being stuck open on back button
+  // https://www.honeybadger.io/blog/turbolinks/
   if (document.body.classList.contains('modal-open')) {
     $('.modal')
       .hide()
@@ -79,4 +75,8 @@ document.addEventListener('turbolinks:before-cache', () => {
     $('.modal-backdrop').remove();
     $('body').removeClass('modal-open');
   }
+
+  // Prevents select2 duplication on back button
+  $('.select2-input').select2('destroy');
+  $('.select2-container').remove();
 });
