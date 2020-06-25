@@ -7,7 +7,7 @@ class Order < ApplicationRecord
 	accepts_nested_attributes_for :delivery, reject_if: :all_blank, allow_destroy: true
 	accepts_nested_attributes_for :order_items, reject_if: :all_blank, allow_destroy: true
 
-	validates_presence_of :user
+	validates_presence_of :user, :delivery, :payment_method_id
 
 	validate :payment_method_id_is_valid, unless: Proc.new { |o| o.paid? or !o.user or Rails.env.test? }
 
@@ -63,6 +63,33 @@ class Order < ApplicationRecord
 
 	def delivered?
 		delivery.delivered?
+	end
+
+	def milestone
+		# Milstones:
+		# 0: Confirmed
+		# 1: Packed
+		# 2: On the way
+		# 3: Delivered
+		current_milestone = nil
+
+		if confirmed?
+		  current_milestone = 0
+
+		  if packed?
+		    current_milestone = 1
+
+		    if on_the_way?
+		      current_milestone = 2
+
+		      if delivered?
+		        current_milestone = 3
+		      end
+		    end
+		  end
+		end
+
+		current_milestone
 	end
 
 	private

@@ -59,6 +59,9 @@ require("trix")
 require("@rails/actiontext")
 import "./trix_editor_overrides"
 
+require('@client-side-validations/client-side-validations')
+require('@client-side-validations/simple-form/dist/simple-form.bootstrap4')
+
 document.addEventListener("turbolinks:load", () => {
 	// Activates all tooltips
   $('[data-toggle="tooltip"]').tooltip()

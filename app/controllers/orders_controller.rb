@@ -10,19 +10,24 @@ class OrdersController < ApplicationController
 		@order.delivery = Delivery.new
 		@order.order_items = @user.cart.to_order_items
 
-    @payment_method_collection = Stripe::PaymentMethod.list(
-      customer: @user.stripe_customer_id,
-      type: 'card'
-    ).data
+    assign_payment_methods
 	end
 
 	def create
+    @user = current_user
+
     @order = Order.new(order_params)
-    @order.user = current_user
+    @order.user = @user
+
+    @order.delivery = Delivery.new unless @order.delivery
 
     if @order.save
       redirect_to order_path(@order)
     else
+      assign_payment_methods
+
+      p "ERRORS"
+      p @order.errors
       render :new
     end
   end
@@ -63,13 +68,18 @@ class OrdersController < ApplicationController
 
   private
 
+  def assign_payment_methods
+    @payment_methods = Stripe::PaymentMethod.list(
+      customer: @user.stripe_customer_id,
+      type: 'card'
+    ).data.map { |pm| [pm.id, "**** " * 3 + pm.card.last4] }
+  end
+
   def order_params
     params.require(:order).permit(order_items_attributes: [:quantity, :item_id], delivery_attributes: [:scheduled_at, :address, :phone, :instructions])
   end
 
   def assign_milestones
-    assign_current_milestone
-
     @milestones = [
       { icon: "check", text: "Confirmed" },
       { icon: "truck-loading", text: "Packed" },
@@ -78,38 +88,13 @@ class OrdersController < ApplicationController
     ]
 
     @milestones.map!.with_index do |milestone, i|
-      if i <= @current_milestone
+      if i <= @order.milestone
         milestone.merge(active: true)
       else
         milestone
       end
     end
 
-    @current_percentage = 16.5 + (33 * @current_milestone)
-  end
-
-  # Rough temp code
-  def assign_current_milestone
-    # Milstones:
-    # 0: Confirmed
-    # 1: Packed
-    # 2: On the way
-    # 3: Delivered
-
-    if @order.confirmed?
-      @current_milestone = 0
-
-      if @order.packed?
-        @current_milestone = 1
-
-        if @order.on_the_way?
-          @current_milestone = 2
-
-          if @order.delivered?
-            @current_milestone = 3
-          end
-        end
-      end
-    end
+    @current_percentage = 16.5 + (33 * @order.milestone)
   end
 end

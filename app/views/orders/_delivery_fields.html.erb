@@ -1,26 +1,18 @@
 <li class="list-group-item">
 	<div data-controller="algolia-places">
-		<%= f.input :address, label: "Delivery Address", autocomplete: "off", input_html: { data: { target: "algolia-places.input", action: "focus->checkout#clearSelf blur->checkout#checkSelf" }, id: "deliveries__address-input" }, required: false %>
-		<%= f.error :address, id: "deliveries__address-errors", class: "error-div" %>
+		<%= f.input :address, label: "Delivery Address", autocomplete: "off", input_html: { data: { target: "algolia-places.input" } }, required: false %>
+		<%= f.error :address %>
 	</div>
 </li>
 
 <li class="list-group-item">
-	<%= f.input :scheduled_at, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] }, label: "Delivery Timeslot", required: false, input_html: { id: "deliveries__scheduled_at-input", data: { action: "focus->checkout#clearSelf blur->checkout#checkSelf" } } %>
-	<%= f.error :scheduled_at, id: "deliveries__scheduled_at-errors", class: "error-div" %>
-
+	<%= f.input :scheduled_at, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] }, label: "Delivery Timeslot", required: false %>
 </li>
 
 <li class="list-group-item">
-	<%= f.input :phone, label: "Phone number", input_html: { id: "deliveries__phone-input", data: { action: "focus->checkout#clearSelf blur->checkout#checkSelf" } } %>
-	<%= f.error :phone, id: "deliveries__phone-errors", class: "error-div" %>
-
+	<%= f.input :phone, label: "Phone number", required: false %>
 </li>
 
 <li class="list-group-item">
-	<%= f.input :instructions, input_html: { id: "deliveries__instructions-input", action: "focus->checkout#clearSelf blur->checkout#checkSelf" } %>
-	<%= f.error :instructions, id: "deliveries__instructions-errors", class: "error-div" %>
+	<%= f.input :instructions %>
 </li>
-
-
-

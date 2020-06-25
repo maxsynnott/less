@@ -4,7 +4,7 @@ FactoryBot.define do
     first_name { "Max" }
 
     sequence :email do |n|
-      "user#{n}@example.com"
+      "factory_user_#{n}@example.com"
     end
 
     transient do
@@ -25,7 +25,7 @@ FactoryBot.define do
     end
 
     after(:create) do |user, evaluator|
-      create_list(:order, evaluator.orders_count, :with_delivery, user: user)
+      create_list(:order, evaluator.orders_count, user: user)
     end
 
     # Handling has_one association

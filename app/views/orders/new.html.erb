@@ -1,9 +1,9 @@
 <div class="container mt-5" data-controller="checkout">
-	<div class="row">
-		<div class="col-12 col-lg-8">
-			<div class="card border-0">
-				<div class="card-body px-5">
-					<%= simple_form_for @order, disabled: true, data: { target: "checkout.form", action: "checkouts#submitForm" } do |f| %>
+	<%= simple_form_for @order, validate: true, data: { target: "checkout.form" } do |f| %>
+		<div class="row">
+			<div class="col-12 col-lg-8">
+				<div class="card border-0">
+					<div class="card-body px-5">
 						<!-- Order_Items are hidden -->
 						<div id='order_items' class="d-none">
 						  <%= f.simple_fields_for :order_items do |order_item| %>
@@ -16,15 +16,15 @@
 						    <%= render 'delivery_fields', f: delivery %>
 						  <% end %>
 
-							<%= render 'payment_methods', payment_method_collection: @payment_method_collection, f: f %>
+							<%= render 'payment_methods', f: f %>
 						</ul>
-					<% end %>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="col-12 col-lg-4">
-			<%= render 'overview', order: @order %>
+			<div class="col-12 col-lg-4">
+				<%= render 'overview', order: @order %>
+			</div>
 		</div>
-	</div>
+	<% end %>
 </div>

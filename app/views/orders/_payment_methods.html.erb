@@ -2,15 +2,9 @@
 	<h5>Select a payment method</h5>
 
 	<div data-target="channels--payment-methods.inputs">
-		<% payment_method_collection.each do |payment_method| %>
-			<%= label_tag "order_payment_method_id_#{payment_method.id}", class: "list-group-item py-3 mb-0" do %>
-				<%= radio_button_tag "order[payment_method_id]", payment_method.id %>
-				<%= '**** ' * 3 + payment_method.card.last4 %>
-			<% end %>
-		<% end %>
+		<%= f.collection_select :payment_method_id, @payment_methods, :first, :last %>
+		<%= f.error :payment_method_id %>
 	</div>
-
-	<%= f.error :payment_method_id, id: "payment_method_id-errors", class: "error-div" %>
 
 	<li class="list-group-item">
 		<%= link_to new_stripe_payment_method_path, remote: true, class: 'btn btn-primary' do %>

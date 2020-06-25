@@ -10,11 +10,11 @@ class Delivery < ApplicationRecord
   belongs_to :order
   belongs_to :driver, optional: true
 
-  validates_presence_of :address, :scheduled_at
+  validates_presence_of :address, :scheduled_at, :phone
 
   before_validation :assign_price
 
-  validates :phone, phone: { possible: true }
+  validates :phone, phone: true
 
   # Returns all available datetimes (60 min increments)
   def self.available_datetimes
