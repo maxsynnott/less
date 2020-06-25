@@ -53,6 +53,8 @@ Rails.application.routes.draw do
       #
 
       resources :payment_methods, only: [:new]
+
+      get "payment_intents/:id/confirm", to: "payment_intents#confirm", as: :payment_intents_confirm
     end
 
     namespace :api, defaults: { format: :json } do
