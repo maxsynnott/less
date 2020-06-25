@@ -15,15 +15,27 @@
 						  <%= f.simple_fields_for :delivery do |delivery| %>
 						    <%= render 'delivery_fields', f: delivery %>
 						  <% end %>
-
-							<%= render 'payment_methods', f: f %>
 						</ul>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-12 col-lg-4">
-				<%= render 'overview', order: @order %>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<%= render 'breakdown' %>
+					</li>
+
+					<li class="list-group-item">
+						<%= render 'payment_methods', f: f %>
+					</li>
+
+					<li class="list-group-item">
+						<button data-target="checkout.payButton" type="submit" class="btn btn-success btn-lg btn-block">
+							Place Order
+						</button>
+					</li>
+				</ul>
 			</div>
 		</div>
 	<% end %>

@@ -9,31 +9,37 @@
 </li>
 
 <li class="list-group-item">
+	<p class="mb-2" style="font-size: 1.25rem">Select a time slot</p>
+
 	<div class="row">
 	  <div class="col-3">
-	    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-	    	<% @grouped_datetimes.keys.each do |date| %>
-		    	<%= link_to date.strftime("%B, %d"), "#v-pills-#{date.jd}", role: "tab", class: "nav-link", data: { toggle: "pill" } %>
-	    	<% end %>
-	    </div>
+	  	<div style="max-height: 275px; overflow: auto;">
+		    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+		    	<% @grouped_datetimes.keys.each do |date| %>
+			    	<%= link_to date.strftime("%B %d"), "#v-pills-#{date.jd}", role: "tab", class: "nav-link", data: { toggle: "pill" } %>
+		    	<% end %>
+		    </div>
+	  	</div>
 	  </div>
 
 	  <div class="col-9">
-	    <div class="tab-content" id="v-pills-tabContent">
-	    	<% @grouped_datetimes.each do |date, datetimes| %>
-	    		<div class="tab-pane fade" id="v-pills-<%= date.jd %>" role="tabpanel">
-	    			<% datetimes.each do |datetime| %>
-	    				<label>
-	    					<%= radio_button_tag "order[delivery_attributes][scheduled_at]", datetime %>
+	  	<div style="max-height: 275px; overflow: auto;">
+	  		<div class="tab-content" id="v-pills-tabContent">
+	  			<% @grouped_datetimes.each do |date, datetimes| %>
+	  				<div class="tab-pane fade" id="v-pills-<%= date.jd %>" role="tabpanel">
+	  					<% datetimes.each do |datetime| %>
+	  						<label class="d-block">
+	  							<%= radio_button_tag "order[delivery_attributes][scheduled_at]", datetime %>
 
-	    					<%= datetime.strftime('%H:%M') %>
-	    					to
-	    					<%= (datetime + 2.hours).strftime('%H:%M') %>
-	    				</label>
-	    			<% end %>
-	    		</div>
-	    	<% end %>
-	    </div>
+	  							<%= datetime.strftime('%H:%M') %>
+	  							to
+	  							<%= (datetime + 2.hours).strftime('%H:%M') %>
+	  						</label>
+	  					<% end %>
+	  				</div>
+	  			<% end %>
+	  		</div>
+	  	</div>
 	  </div>
 	</div>
 </li>

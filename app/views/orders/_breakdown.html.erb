@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-between">
+	<p>
+		Subtotal
+	</p>
+
+	<p id="breakdown_subtotal">
+		<%= number_to_currency(@order.subtotal) %>
+	</p>
+</div>
+
+<div class="d-flex justify-content-between">
+	<p>
+		Delivery
+	</p>
+
+	<p id="breakdown_delivery">
+		<%= number_to_currency(@order.delivery_price) %>
+	</p>
+</div>
+
+<div class="d-flex justify-content-between">
+	<p>
+		Total
+	</p>
+
+	<p id="breakdown_total">
+		<%= number_to_currency(@order.total) %>
+	</p>
+</div>
