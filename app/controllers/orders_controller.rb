@@ -49,23 +49,6 @@ class OrdersController < ApplicationController
     ]
   end
 
-  def track
-    @order = Order.find(params[:id])
-    @delivery = @order.delivery
-
-    @initial_markers = [
-      {
-        lat: @delivery.latitude,
-        lng: @delivery.longitude
-      },
-      {
-        lat: @delivery.driver_latitude,
-        lng: @delivery.driver_longitude,
-        image_url: helpers.asset_url("delivery_driver_icon.png")
-      }
-    ]
-  end
-
   def receipt
     @order = Order.find(params[:id])
 
@@ -105,7 +88,28 @@ class OrdersController < ApplicationController
     @current_percentage = 16.5 + (33 * @current_milestone)
   end
 
+  # Rough temp code
   def assign_current_milestone
-    @current_milestone = 2
+    # Milstones:
+    # 0: Confirmed
+    # 1: Packed
+    # 2: On the way
+    # 3: Delivered
+
+    if @order.confirmed?
+      @current_milestone = 0
+
+      if @order.packed?
+        @current_milestone = 1
+
+        if @order.on_the_way?
+          @current_milestone = 2
+
+          if @order.delivered?
+            @current_milestone = 3
+          end
+        end
+      end
+    end
   end
 end

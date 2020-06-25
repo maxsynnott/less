@@ -27,10 +27,6 @@ class Order < ApplicationRecord
 		subtotal + delivery_price
 	end
 
-	def delivered?
-		delivery.delivered?
-	end
-
 	def create_payment_intent(args)
 	  defaults = {
 	    currency: 'eur',
@@ -50,6 +46,23 @@ class Order < ApplicationRecord
 			delivery: delivery_price,
 			total: total
 		}
+	end
+
+	# Temp milestone logic
+	def confirmed?
+	  paid?
+	end
+
+	def packed?
+	  Date.today == delivery.scheduled_at.to_date
+	end
+
+	def on_the_way?
+	  DateTime.now >= delivery.scheduled_at
+	end
+
+	def delivered?
+		delivery.delivered?
 	end
 
 	private

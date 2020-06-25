@@ -41,7 +41,6 @@ Rails.application.routes.draw do
 
     resources :orders, only: [:index, :new, :create, :show] do
       member do
-        get :track, action: :track
         get :receipt, action: :receipt
         post :add_to_cart, action: :add_to_cart
       end
