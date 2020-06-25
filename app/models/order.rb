@@ -27,6 +27,11 @@ class Order < ApplicationRecord
 		subtotal + delivery_price
 	end
 
+	def confirm
+		# Add more to this
+		update(paid: true)
+	end
+
 	def create_payment_intent(args)
 	  defaults = {
 	    currency: 'eur',

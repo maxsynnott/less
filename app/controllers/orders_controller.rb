@@ -26,12 +26,23 @@ class OrdersController < ApplicationController
     if @order.save
       payment_intent = @order.create_payment_intent(
         payment_method: @order.payment_method_id,
-        off_session: false
+        off_session: false,
+        confirm: true,
+        return_url: order_url(@order)
       )
 
       @order.update(payment_intent_id: payment_intent.id)
 
-      redirect_to stripe_payment_intents_confirm_path(id: @order.payment_intent_id)
+      p payment_intent
+
+      case payment_intent.status
+      when 'succeeded'
+        order.confirm
+
+        redirect_to order_path(@order)
+      when 'requires_action'
+        redirect_to stripe_payment_intents_confirm_path(id: @order.payment_intent_id)
+      end
     else
       assign_payment_methods
       @grouped_datetimes = Delivery.available_datetimes.group_by(&:to_date)

@@ -8,14 +8,14 @@ module Stripe
 
         order = ::Order.find(order_id)
 
-        OrderMailer.with(order: order).new_order_email.deliver_later
+        # OrderMailer.with(order: order).new_order_email.deliver_later
 
-        # Untested
-        if object.metadata[:adjustment]
-          order.user.adjust_balance(object.metadata[:adjustment].to_i)
-        end
+        # # Untested
+        # if object.metadata[:adjustment]
+        #   order.user.adjust_balance(object.metadata[:adjustment].to_i)
+        # end
 
-        order.update(paid: true)
+        order.confirm
   		end
   	end
   end

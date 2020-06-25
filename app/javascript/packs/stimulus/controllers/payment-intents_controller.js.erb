@@ -9,14 +9,11 @@ export default class extends Controller {
 
 	confirmCardPayment() {
 		this.stripe
-			.confirmCardPayment(this.data.get('clientSecret'), {
-				return_url: window.location.origin + routes.order_path({ id: this.data.get("orderId") })
-			})
+			.confirmCardPayment(this.data.get('clientSecret'))
 			.then((result) => {
 				if (result.error) {
 					console.log(result.error)
 				} else {
-					window.location.href = routes.order_path({ id: this.data.get("orderId") })
 					console.log(result.paymentIntent)
 				}
 			})
