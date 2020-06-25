@@ -24,13 +24,22 @@ class OrdersController < ApplicationController
     @order.delivery = Delivery.new unless @order.delivery
 
     if @order.save
+      payment_intent = @order.create_payment_intent(
+        confirm: true,
+        payment_method: @order.payment_method_id,
+        off_session: false,
+        return_url: order_url(@order)
+      )
+
+      if payment_intent.status == "succeeded"
+        @order.update(paid: true)
+      end
+
       redirect_to order_path(@order)
     else
       assign_payment_methods
       @grouped_datetimes = Delivery.available_datetimes.group_by(&:to_date)
 
-      p "ERRORS"
-      p @order.errors
       render :new
     end
   end
