@@ -10,6 +10,8 @@ class OrdersController < ApplicationController
 		@order.delivery = Delivery.new
 		@order.order_items = @user.cart.to_order_items
 
+    @grouped_datetimes = Delivery.available_datetimes.group_by(&:to_date)
+
     assign_payment_methods
 	end
 
@@ -25,6 +27,7 @@ class OrdersController < ApplicationController
       redirect_to order_path(@order)
     else
       assign_payment_methods
+      @grouped_datetimes = Delivery.available_datetimes.group_by(&:to_date)
 
       p "ERRORS"
       p @order.errors
