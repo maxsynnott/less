@@ -1,15 +1,12 @@
-<div id="payment_methods" data-controller="channels--payment-methods" data-channels--payment-methods-user-id="<%= current_user.id %>">
-	<h5>Select a payment method</h5>
+<div class="list-group-item" id="payment_methods" data-controller="channels--payment-methods" data-channels--payment-methods-user-id="<%= current_user.id %>">
 
 	<div data-target="channels--payment-methods.inputs">
-		<%= f.collection_select :payment_method_id, @payment_methods, :first, :last %>
+		<%= f.input :payment_method_id, collection: @payment_methods %>
 		<%= f.error :payment_method_id %>
 	</div>
 
-	<li class="list-group-item">
-		<%= link_to new_stripe_payment_method_path, remote: true, class: 'btn btn-primary' do %>
-			<%= fa_icon 'plus', class: "mr-1" %>
-			New card
-		<% end %>
-	</li>
+	<%= link_to new_stripe_payment_method_path, remote: true, class: 'btn btn-primary' do %>
+		<%= fa_icon 'plus', class: "mr-1" %>
+		New card
+	<% end %>
 </div>

@@ -10,73 +10,10 @@ export default class extends Controller {
 		})
 	}
 
-	async checkValidity() {
-		const response = await fetch(
-			routes.check_validity_api_v1_orders_path(),
-			{
-				method: "POST",
-				body: new FormData(this.formTarget)
-			}
-		)
-
-		const data = await response.json()
-
-		if (Object.keys(data.errors).length == 0) {
-			this.enablePayButton()
-		} else {
-			this.disablePayButton()
-		}
-
-		this.updateBreakdown(data.breakdown)
-
-		return data
-	}
-
-	async fetchSetupIntent() {
-		const response = await fetch(
-			routes.api_v1_stripe_setup_intents_path(),
-			{
-				method: "POST"
-			}
-		)
-
-		const data = await response.json()
-
-		return data
-	}
-
-	displayErrorObjects(errorObjects) {
-		this.clearFormErrors()
-
-		errorObjects.forEach((errorObject) => {
-			errorObject.input.addClass('is-invalid')
-			errorObject.errorsDisplay.text(errorObject.errors)
-		})
-	}
-
 	updateBreakdown(breakdown) {
 		$("#breakdown_subtotal").text(this.formatter.format(breakdown.subtotal))
 		$("#breakdown_delivery").text(this.formatter.format(breakdown.delivery))
 		$("#breakdown_total").text(this.formatter.format(breakdown.total))
-	}
-
-	async createOrder() {
-		const response = await fetch(
-			routes.api_v1_orders_path(),
-			{ 
-				method: "POST",
-				body: new FormData(this.formTarget)
-			}
-		)
-
-		const data = await response.json()
-
-		return data
-	}
-
-	clearFormErrors() {
-		$("input").removeClass("is-invalid")
-		$(".error-div").text("")
 	}
 
 	enablePayButton() {
@@ -95,71 +32,5 @@ export default class extends Controller {
 		button.disabled = true
 		button.classList.remove("btn-success")
 		button.classList.add("btn-secondary")
-	}
-
-	async payOrder() {
-		const data = this.createOrder()
-
-		data
-			.then((data) => {
-				if (data.errors) {
-					this.displayErrors(data.errors)
-				} else {
-					fetch(
-						routes.pay_api_v1_orders_path({ id: data.id }),
-						{
-							method: "POST"
-						}
-					)
-					.then(response => response.json())
-					.then((data) => {
-						if (data.status == "succeeded") {
-							console.log("SUCCESS!")
-
-							document.location.href = routes.orders_path()
-						} else {
-							console.log("Something went wrong")
-						}
-					})
-				}
-			})
-	}
-
-	errorsToObjects(errors) {
-		const errorObjects = []
-
-		Object.keys(errors).forEach((key) => {
-			const errorObject = {}
-
-			const prefix = key.replace(/\./, '__')
-
-			errorObject.input = $(`#${prefix}-input`)
-			errorObject.errorsDisplay = $(`#${prefix}-errors`)
-			errorObject.errors = errors[key]
-
-			errorObjects.push(errorObject)
-		})
-
-		return errorObjects
-	}
-
-	clearSelf(event) {
-		$(event.target).removeClass('is-invalid')
-		$(`#${event.target.id.slice(0, -6)}-errors`).text('')
-	}
-
-	checkSelf(event) {
-		const data = this.checkValidity()
-
-		data
-			.then((data) => {
-				const errorObjects = this.errorsToObjects(data.errors)
-
-				this.displayErrorObjects(errorObjects.filter(object => object.input[0] === event.target))
-			})
-	}
-
-	displayErrors(errors) {
-		this.displayErrorObjects(this.errorsToObjects(errors))
 	}
 }

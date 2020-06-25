@@ -72,11 +72,11 @@ class OrdersController < ApplicationController
     @payment_methods = Stripe::PaymentMethod.list(
       customer: @user.stripe_customer_id,
       type: 'card'
-    ).data.map { |pm| [pm.id, "**** " * 3 + pm.card.last4] }
+    ).data.map { |pm| ["**** " * 3 + pm.card.last4, pm.id] }
   end
 
   def order_params
-    params.require(:order).permit(order_items_attributes: [:quantity, :item_id], delivery_attributes: [:scheduled_at, :address, :phone, :instructions])
+    params.require(:order).permit(:payment_method_id, order_items_attributes: [:quantity, :item_id], delivery_attributes: [:scheduled_at, :address, :phone, :instructions])
   end
 
   def assign_milestones

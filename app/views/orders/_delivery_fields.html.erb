@@ -1,18 +1,13 @@
-<li class="list-group-item">
-	<div data-controller="algolia-places">
-		<%= f.input :address, label: "Delivery Address", autocomplete: "off", input_html: { data: { target: "algolia-places.input" } }, required: false %>
-		<%= f.error :address %>
+<li class="list-group-item" data-controller="algolia-places">
+	<div class="d-flex">
+		<%= f.input :address, label: "Delivery address", autocomplete: "off", input_html: { data: { target: "algolia-places.input" } }, required: false %>
+		
+		<%= f.input :phone, label: "Phone number", required: false, wrapper_html: { class: "ml-3" }  %>
 	</div>
+
+	<%= f.input :instructions, label: "Delivery instructions" %>
 </li>
 
 <li class="list-group-item">
 	<%= f.input :scheduled_at, collection: Delivery.available_datetimes.map { |dt| ["#{dt.strftime('%d/%m | %H:%M')} to #{(dt + 2.hours).strftime('%H:%M')}", dt] }, label: "Delivery Timeslot", required: false %>
-</li>
-
-<li class="list-group-item">
-	<%= f.input :phone, label: "Phone number", required: false %>
-</li>
-
-<li class="list-group-item">
-	<%= f.input :instructions %>
 </li>

@@ -29,9 +29,14 @@ export default class extends Controller {
 
   _cableReceived(data) {
     // Called when there's incoming data on the websocket for this channel
-    const html = this.dataToHTML(data)
 
-    $(this.inputsTarget).append(html)
+    console.log("NEW CARD RECEIVED")
+
+    // INSERT NEW OPTION INTO DOM
+
+    // const html = this.dataToHTML(data)
+
+    // $(this.inputsTarget).append(html)
   }
 
   dataToHTML(data) {
