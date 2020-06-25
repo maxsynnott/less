@@ -76,6 +76,12 @@ document.addEventListener('turbolinks:before-cache', () => {
     $('body').removeClass('modal-open');
   }
 
+  if (document.body.classList.contains('sidebar-open')) {
+    sidebar.hide()
+    
+    $("#sidebar-backdrop").remove()
+  }
+
   // Prevents select2 duplication on back button
   $('.select2-input').select2('destroy');
   $('.select2-container').remove();
