@@ -1,12 +1,27 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["form", "payButton"]
+	static targets = ["form", "submitButton"]
 
 	connect() {
 		this.formatter = new Intl.NumberFormat("de", {
 			style: "currency",
 			currency: "EUR"
+		})
+
+		// This is temporary and far from fool proof
+		this.disableSubmitButton()
+		$(this.formTarget).on('input', () => {
+			if (
+				!$('#order_delivery_attributes_address').val() ||
+				!$('#order_delivery_attributes_phone').val() ||
+				!$("[name='order[delivery_attributes][scheduled_at]']:checked") ||
+				!$("#order_payment_method_id option[value*='pm']:checked")[0]
+			) {
+				this.disableSubmitButton()
+			} else {
+				this.enableSubmitButton()
+			}
 		})
 	}
 
@@ -16,8 +31,8 @@ export default class extends Controller {
 		$("#breakdown_total").text(this.formatter.format(breakdown.total))
 	}
 
-	enablePayButton() {
-		const button = this.payButtonTarget
+	enableSubmitButton() {
+		const button = this.submitButtonTarget
 
 		button.style.cursor = "pointer"
 		button.disabled = false
@@ -25,8 +40,8 @@ export default class extends Controller {
 		button.classList.add("btn-success")
 	}
 
-	disablePayButton() {
-		const button = this.payButtonTarget
+	disableSubmitButton() {
+		const button = this.submitButtonTarget
 
 		button.style.cursor = "not-allowed"
 		button.disabled = true
