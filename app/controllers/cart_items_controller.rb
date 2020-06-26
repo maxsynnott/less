@@ -6,6 +6,11 @@ class CartItemsController < ApplicationController
   	@cart_item = CartItem.new(cart_item_params)
 
     current_cart.add_item(@cart_item.item, @cart_item.quantity)
+
+    respond_to do |format|
+      format.html { redirect_to items_path }
+      format.js
+    end
   end
 
   private

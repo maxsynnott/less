@@ -1,1 +1,203 @@
-<h1>Show page for <%= @item.name %></h1>
+<div class="container bg-white my-5">
+	<div class="row align-items-center">
+		<div class="col-12 col-lg-6 text-center">
+			<% if @item.image_count.positive? %>
+				<% if @item.image_count > 1 %>
+					<!-- Slider main container -->
+					<div class="swiper-container" data-controller="swiper">
+				    <!-- Additional required wrapper -->
+				    <div class="swiper-wrapper align-items-center">
+			        <!-- Slides -->
+			        <div class="swiper-slide">
+			        	<%= image_tag @item.main_image, alt: @item.main_image.filename, class: 'img-fluid' %>
+			        </div>
+
+			        <% @item.images.each do |image| %>
+			        	<div class="swiper-slide">
+			        		<%= image_tag image, alt: image.filename, class: 'img-fluid' %>
+			        	</div>
+			        <% end %>
+				    </div>
+
+				    <div class="swiper-button-prev" style="color: lightgray;"></div>
+		        <div class="swiper-button-next" style="color: lightgray;"></div>
+					</div>
+				<% else %>
+					<%= image_tag @item.main_image, alt: @item.main_image.filename, class: "img-fluid" %>
+				<% end %>
+			<% end %>
+		</div>
+
+		<div class="col-12 col-lg-6">
+			<div class="card border-0">
+				<div class="card-body">
+					<h2 class="card-title">
+						<%= @item.name %>
+					</h2>
+
+					<h3 class="card-subtitle mt-2 text-success">
+						<%= number_to_currency(@item.price_for(1000)) %>
+
+						<small class="text-muted">
+							per kg
+						</small>
+					</h3>
+
+					<p class="card-text mt-3">
+						<%= @item.description %>
+					</p>
+
+					<%= simple_form_for CartItem.new(item_id: @item.id), html: { class: "mt-4 border-top pt-4", data: { "item-price": @item.price, controller: "item" } } do |f| %>
+						<%= f.hidden_field :item_id %>
+
+						<%= f.input :quantity, hint: "Enter your desired quantity in grams", input_html: { data: { target: "item.input", action: "input->item#updateValues" } } %>
+
+						<div class="row">
+							<div class="col-6">
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item" data-target="item.quantity">
+										Chosen quantity
+									</li>
+
+									<li class="list-group-item" data-target="item.price">
+										Price
+									</li>
+								</ul>
+							</div>
+
+							<div class="col-6 d-flex justify-content-end align-items-center">
+								<%= f.submit "Add to cart", class: "btn btn-success btn-lg" %>
+							</div>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row border-top pt-5">
+		<div class="col-12 col-lg-6">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<h4>
+						Product information
+					</h4>
+				</li>
+
+				<li class="list-group-item py-3">
+					<div class="row justify-content-between">
+						<div class="col-6">
+							<h5 class="font-weight-light mb-0">
+								Ingredients
+							</h5>
+						</div>
+
+						<div class="col-6">
+							<p class="mb-0">
+								Oatmeal 65%, cane sugar, coconut fat, grated coconut, rice extrudate (whole grain rice flour), sea salt
+							</p>
+						</div>
+					</div>
+				</li>
+
+				<li class="list-group-item py-3">
+					<div class="row justify-content-between">
+						<div class="col-6">
+							<h5 class="font-weight-light mb-0">
+								Origin
+							</h5>
+						</div>
+
+						<div class="col-6">
+							<p class="mb-0">
+								Ethiopia
+							</p>
+						</div>
+					</div>
+				</li>
+
+				<li class="list-group-item py-3">
+					<div class="row justify-content-between">
+						<div class="col-6">
+							<h5 class="font-weight-light mb-0">
+								Organic control code
+							</h5>
+						</div>
+
+						<div class="col-6">
+							<p class="mb-0">
+								DE-ÖKO-003
+							</p>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-12 col-lg-6">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<h4>
+						Average nutritional values per 100g
+					</h4>
+				</li>
+
+				<li class="list-group-item">
+					<table class="table table-striped">
+						<tbody>
+							<tr>
+								<td>
+									Energy
+								</td>
+
+								<td>
+									2544 kJ / 608 kcal
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Fat
+								</td>
+
+								<td>
+									51.6 g
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Carbohydrates
+								</td>
+
+								<td>
+									11.6 g
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Protein
+								</td>
+
+								<td>
+									20.0 g
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									Salt
+								</td>
+
+								<td>
+									0.030 g
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
