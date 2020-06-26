@@ -8,7 +8,12 @@ class CartItemsController < ApplicationController
     current_cart.add_item(@cart_item.item, @cart_item.quantity)
 
     respond_to do |format|
-      format.html { redirect_to items_path }
+      format.html do
+        flash.notice = "#{@cart_item.item.name} added to cart"
+
+        redirect_to items_path
+      end
+
       format.js
     end
   end

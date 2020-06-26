@@ -9,7 +9,9 @@ export default class extends Controller {
 		places({
 		  appId: "<%= ENV['AP_APP_ID'] %>",
 		  apiKey: "<%= ENV['AP_API_KEY'] %>",
-		  container: this.inputTarget
+		  container: this.inputTarget,
+		  countries: ['de'],
+		  language: $('body').data('locale')
 		});
 	}
 }
