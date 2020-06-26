@@ -2,9 +2,20 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
 	connect() {
-		$(this.element).select2({
+		this.select = $(this.element).select2({
 			theme: 'bootstrap4',
 			minimumResultsForSearch: Infinity
 		})
+
+		this.select.on('change', (event) => {
+			this.clearErrors()
+		})
+	}
+
+	clearErrors() {
+		const parent = this.select.parent()
+
+		parent.find(".is-invalid").removeClass('is-invalid')
+		parent.find(".invalid-feedback").text(" ")
 	}
 }

@@ -47,6 +47,7 @@ class OrdersController < ApplicationController
 
       @order.user.cart.clear
     else
+      p @order.errors
       assign_payment_methods
       @grouped_time_slots = TimeSlot.available.group_by(&:date)
 
