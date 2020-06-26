@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
 	def index
-    @orders = current_user.orders.reject(&:delivered?)
+    @orders = current_user.orders.sort_by { |order| order.delivery.scheduled_at }
+
+    @upcoming_orders = @orders.reject(&:delivered?)
+    @past_orders = @orders - @upcoming_orders
 	end
 
 	def new

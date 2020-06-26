@@ -17,7 +17,7 @@ class Delivery < ApplicationRecord
   validates :phone, phone: true
 
   def price_for(time_slot)
-    if order.total < 35
+    if order.subtotal < 35
       5
     elsif time_slot.start_datetime.wday == 6
       2
