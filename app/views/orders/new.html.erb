@@ -4,13 +4,6 @@
 			<div class="col-12 col-lg-8">
 				<div class="card border-0">
 					<div class="card-body px-5">
-						<!-- Order_Items are hidden -->
-						<div id='order_items' class="d-none">
-						  <%= f.simple_fields_for :order_items do |order_item| %>
-						    <%= render 'order_item_fields', f: order_item %>
-						  <% end %>
-						</div>
-
 						<ul class="list-group list-group-flush">
 						  <%= f.simple_fields_for :delivery do |delivery| %>
 						    <%= render 'delivery_fields', f: delivery %>
@@ -21,21 +14,35 @@
 			</div>
 
 			<div class="col-12 col-lg-4 mt-3 mt-lg-0">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">
-						<%= render 'breakdown' %>
-					</li>
+				<div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<%= render 'breakdown' %>
+						</li>
 
-					<li class="list-group-item">
-						<%= render 'payment_methods', f: f %>
-					</li>
+						<li class="list-group-item">
+							<%= render 'payment_methods', f: f %>
+						</li>
 
-					<li class="list-group-item">
-						<button data-target="checkout.submitButton" type="submit" class="btn btn-secondary btn-lg btn-block" disabled style="cursor: not-allowed;">
-							Place Order
-						</button>
-					</li>
-				</ul>
+						<li class="list-group-item">
+							<button data-target="checkout.submitButton" type="submit" class="btn btn-secondary btn-lg btn-block" disabled style="cursor: not-allowed;">
+								Place Order
+							</button>
+						</li>
+					</ul>
+				</div>
+
+				<div class="card mt-3 border-0">
+					<h4 class="font-weight-light text-center py-3 border-bottom mb-0">
+						Review order
+					</h4>
+
+					<ul class="list-group list-group-flush overflow-auto" style="max-height: 364px" data-simplebar data-simplebar-auto-hide="false">
+						<%= f.simple_fields_for :order_items do |order_item| %>
+							<%= render 'order_item_fields', f: order_item %>
+						<% end %>
+					</ul>
+				</div>
 			</div>
 		</div>
 	<% end %>

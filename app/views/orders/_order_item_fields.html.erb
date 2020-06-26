@@ -1,2 +1,18 @@
-<%= f.hidden_field :quantity %>
-<%= f.hidden_field :item_id %>
+<li class="list-group-item d-flex align-items-center justify-content-between">
+	<%= f.hidden_field :quantity %>
+	<%= f.hidden_field :item_id %>
+	
+	<div>
+		<p class="mb-0">
+			<%= f.object.item.name %>
+		</p>
+
+		<p class="mb-0 text-muted">
+			<%= f.object.quantity %> grams
+		</p>
+	</div>
+
+	<p class="mb-0">
+		<%= number_to_currency(f.object.total) %>
+	</p>
+</li>
