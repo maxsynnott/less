@@ -15,7 +15,7 @@
 	  <div class="col-3">
 	  	<div style="max-height: 275px; overflow: auto;">
 		    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-		    	<% @grouped_datetimes.keys.each_with_index do |date, i| %>
+		    	<% @grouped_time_slots.keys.each_with_index do |date, i| %>
 			    	<%= link_to date.strftime("%B %d"), "#v-pills-#{date.jd}", role: "tab", class: "nav-link #{i.zero? ? 'active' : ''}", data: { toggle: "pill" } %>
 		    	<% end %>
 		    </div>
@@ -25,15 +25,13 @@
 	  <div class="col-9">
 	  	<div style="max-height: 275px; overflow: auto;">
 	  		<div class="tab-content" id="v-pills-tabContent">
-	  			<% @grouped_datetimes.each do |date, datetimes| %>
-	  				<div class="tab-pane fade <%= @grouped_datetimes.keys.first == date ? 'active show' : '' %>" id="v-pills-<%= date.jd %>" role="tabpanel">
-	  					<% datetimes.each do |datetime| %>
+	  			<% @grouped_time_slots.each do |date, time_slots| %>
+	  				<div class="tab-pane fade <%= @grouped_time_slots.keys.first == date ? 'active show' : '' %>" id="v-pills-<%= date.jd %>" role="tabpanel">
+	  					<% time_slots.each do |time_slot| %>
 	  						<label class="d-block">
-	  							<%= radio_button_tag "order[delivery_attributes][scheduled_at]", datetime %>
+	  							<%= radio_button_tag "order[delivery_attributes][scheduled_at]", time_slot.start_datetime %>
 
-	  							<%= datetime.strftime('%H:%M') %>
-	  							to
-	  							<%= (datetime + 2.hours).strftime('%H:%M') %>
+	  							<%= time_slot.to_s %>
 	  						</label>
 	  					<% end %>
 	  				</div>

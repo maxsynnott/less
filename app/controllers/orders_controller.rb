@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
 		@order.delivery = Delivery.new
 		@order.order_items = @user.cart.to_order_items
 
-    @grouped_datetimes = Delivery.available_datetimes.group_by(&:to_date)
+    @grouped_time_slots = TimeSlot.available.group_by(&:date)
 
     assign_payment_methods
 	end
@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
       end
     else
       assign_payment_methods
-      @grouped_datetimes = Delivery.available_datetimes.group_by(&:to_date)
+      @grouped_time_slots = TimeSlot.available.group_by(&:date)
 
       render :new
     end

@@ -1,3 +1,6 @@
+<% p @order %>
+<% p @order.delivery %>
+
 <div class="container mt-5" data-controller="checkout">
 	<%= simple_form_for @order, validate: true, data: { target: "checkout.form" } do |f| %>
 		<div class="row">
