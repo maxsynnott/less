@@ -29,7 +29,7 @@
 	  				<div class="tab-pane pl-2 fade <%= @grouped_time_slots.keys.first == date ? 'active show' : '' %>" id="v-pills-<%= date.jd %>" role="tabpanel">
 	  					<% time_slots.each do |time_slot| %>
 	  						<label class="custom-control custom-radio border-bottom d-flex align-items-center mb-0 py-3">
-	  							<%= radio_button_tag "order[delivery_attributes][scheduled_at]", time_slot.start_datetime, false, class: 'custom-control-input' %>
+	  							<%= radio_button_tag "order[delivery_attributes][scheduled_at]", time_slot.start_datetime, false, class: 'custom-control-input', data: { action: "checkout#updateBreakdown" } %>
 
 	  							<%= label_tag "order_delivery_attributes_scheduled_at_#{time_slot.start_datetime.to_s}", class: "custom-control-label text-secondary d-flex justify-content-between w-100" do %>
 	  								<span>

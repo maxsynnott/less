@@ -25,10 +25,22 @@ export default class extends Controller {
 		})
 	}
 
-	updateBreakdown(breakdown) {
-		$("#breakdown_subtotal").text(this.formatter.format(breakdown.subtotal))
-		$("#breakdown_delivery").text(this.formatter.format(breakdown.delivery))
-		$("#breakdown_total").text(this.formatter.format(breakdown.total))
+	updateBreakdown(event) {
+		console.log('change')
+
+		fetch(
+			routes.breakdown_api_v1_orders_path(),
+			{
+				method: "POST",
+				body: new FormData(this.formTarget)
+			}
+		)
+		.then(response => response.json())
+		.then((data) => {
+			$("#breakdown_subtotal").text(this.formatter.format(data.breakdown.subtotal))
+			$("#breakdown_delivery").text(this.formatter.format(data.breakdown.delivery))
+			$("#breakdown_total").text(this.formatter.format(data.breakdown.total))
+		})
 	}
 
 	enableSubmitButton() {

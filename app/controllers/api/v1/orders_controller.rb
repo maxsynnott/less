@@ -10,15 +10,10 @@ class Api::V1::OrdersController < Api::V1::BaseController
     end
   end
 
-  def check_validity
+  def breakdown
     @order = Order.new(order_params)
-    @order.user = current_user
 
-    @order.delivery = Delivery.new unless @order.delivery
-
-    @order.valid?
-
-    render :check_validity, status: :ok
+    render :breakdown, status: :ok
   end
 
   def pay

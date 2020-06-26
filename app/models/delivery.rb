@@ -12,7 +12,7 @@ class Delivery < ApplicationRecord
 
   validates_presence_of :address, :scheduled_at, :phone
 
-  before_validation :assign_price
+  after_initialize :assign_price
 
   validates :phone, phone: true
 
@@ -27,7 +27,7 @@ class Delivery < ApplicationRecord
   end
 
   def time_slot
-    TimeSlot.new(start_datetime: scheduled_at)
+    TimeSlot.new(start_datetime: scheduled_at) if scheduled_at
   end
 
   def scheduled_date_string
@@ -41,8 +41,8 @@ class Delivery < ApplicationRecord
   private
 
   def assign_price
-    # Simple placeholder logic
-    self.price = order.total >= 35 ? 0 : 5
+    # Simple placeholder logic 
+    self.price = time_slot ? price_for(time_slot) : 0
   end
 
   def broadcast_status
