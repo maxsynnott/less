@@ -15,7 +15,7 @@ export default class extends Controller {
 			if (
 				!$('#order_delivery_attributes_address').val() ||
 				!$('#order_delivery_attributes_phone').val() ||
-				!$("[name='order[delivery_attributes][scheduled_at]']:checked") ||
+				!$("[name='order[delivery_attributes][scheduled_at]']:checked")[0] ||
 				!$("#order_payment_method_id option[value*='pm']:checked")[0]
 			) {
 				this.disableSubmitButton()
