@@ -1,8 +1,8 @@
 <div class="input-group" data-controller="channels--payment-methods" data-channels--payment-methods-user-id="<%= current_user.id %>">
-	<%= f.input_field :payment_method_id, collection: @payment_methods, include_blank: 'Select payment method', class: "custom-select" %>
+	<%= f.input_field :payment_method_id, collection: @payment_methods, include_blank: 'Select payment method', data: { controller: "select2" } %>
 
 	<div class="input-group-append">
-    <%= link_to new_stripe_payment_method_path, remote: true, class: 'btn btn-outline-primary' do %>
+    <%= link_to new_stripe_payment_method_path, remote: true, class: 'btn btn-outline-success' do %>
     	<%= fa_icon 'plus' %>
     <% end %>
   </div>

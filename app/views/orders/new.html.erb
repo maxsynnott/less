@@ -1,6 +1,3 @@
-<% p @order %>
-<% p @order.delivery %>
-
 <div class="container mt-5" data-controller="checkout">
 	<%= simple_form_for @order, validate: true, data: { target: "checkout.form" } do |f| %>
 		<div class="row">
@@ -34,7 +31,7 @@
 					</li>
 
 					<li class="list-group-item">
-						<button data-target="checkout.submitButton" type="submit" class="btn btn-success btn-lg btn-block">
+						<button data-target="checkout.submitButton" type="submit" class="btn btn-secondary btn-lg btn-block" disabled style="cursor: not-allowed;">
 							Place Order
 						</button>
 					</li>

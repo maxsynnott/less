@@ -9,8 +9,6 @@ export default class extends Controller {
 			currency: "EUR"
 		})
 
-		// This is temporary and far from fool proof
-		this.disableSubmitButton()
 		$(this.formTarget).on('input', () => {
 			if (
 				!$('#order_delivery_attributes_address').val() ||

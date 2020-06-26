@@ -5,7 +5,7 @@
 		    <label class="input-group-text" for="order_by_select"><%= t('.sort_by') %></label>
 		  </div>
 
-		  <select name="order" class="custom-select" id="order_by_select" data-controller="select2 order" data-target="order.select">
+		  <select name="order" id="order_by_select" data-controller="select2 order" data-target="order.select">
 		  	<%= options_for_select @order_options, params[:order] %>
 		  </select>
 		</div>
