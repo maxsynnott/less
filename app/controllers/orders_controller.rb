@@ -44,6 +44,8 @@ class OrdersController < ApplicationController
       when 'requires_action'
         redirect_to stripe_payment_intents_confirm_path(id: @order.payment_intent_id)
       end
+
+      @order.user.cart.clear
     else
       assign_payment_methods
       @grouped_time_slots = TimeSlot.available.group_by(&:date)
