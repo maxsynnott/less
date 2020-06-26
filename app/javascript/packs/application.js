@@ -54,6 +54,11 @@ global.mapboxgl = mapboxgl
 import Select2 from 'select2';
 global.Select2 = Select2
 
+// Simplebar
+import 'simplebar';
+import 'simplebar/dist/simplebar.css';
+//
+
 // Actiontext/trix
 require("trix")
 require("@rails/actiontext")
@@ -65,6 +70,7 @@ require('@client-side-validations/simple-form/dist/simple-form.bootstrap4')
 document.addEventListener("turbolinks:load", () => {
 	// Activates all tooltips
   $('[data-toggle="tooltip"]').tooltip()
+
 })
 
 document.addEventListener('turbolinks:before-cache', () => {

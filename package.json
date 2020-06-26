@@ -20,6 +20,7 @@
     "popper.js": "^1.16.1",
     "rails-erb-loader": "^5.5.2",
     "select2": "^4.0.13",
+    "simplebar": "^5.2.1",
     "stimulus": "^1.1.1",
     "swiper": "^5.4.5",
     "trix": "^1.0.0",

@@ -13,7 +13,7 @@
 
 	<div class="row">
 	  <div class="col-3">
-	  	<div style="max-height: 275px; overflow: auto;">
+	  	<div style="max-height: 275px; overflow: auto;" data-simplebar data-simplebar-auto-hide="false">
 		    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 		    	<% @grouped_time_slots.keys.each_with_index do |date, i| %>
 			    	<%= link_to date.strftime("%B %d"), "#v-pills-#{date.jd}", role: "tab", class: "nav-link text-secondary #{i.zero? ? 'active' : ''}", data: { toggle: "pill" } %>
@@ -23,7 +23,7 @@
 	  </div>
 
 	  <div class="col-9">
-	  	<div style="max-height: 275px; overflow: auto;">
+	  	<div style="max-height: 275px; overflow: auto;" data-simplebar data-simplebar-auto-hide="false">
 	  		<div class="tab-content" id="v-pills-tabContent">
 	  			<% @grouped_time_slots.each do |date, time_slots| %>
 	  				<div class="tab-pane pl-2 fade <%= @grouped_time_slots.keys.first == date ? 'active show' : '' %>" id="v-pills-<%= date.jd %>" role="tabpanel">
