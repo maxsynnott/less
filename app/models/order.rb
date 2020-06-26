@@ -7,7 +7,7 @@ class Order < ApplicationRecord
 	accepts_nested_attributes_for :delivery, reject_if: :all_blank, allow_destroy: true
 	accepts_nested_attributes_for :order_items, reject_if: :all_blank, allow_destroy: true
 
-	validates_presence_of :user, :delivery, :payment_method_id
+	validates_presence_of :user, :delivery
 
 	validate :payment_method_id_is_valid, unless: Proc.new { |o| o.confirmed? or !o.user or Rails.env.test? }
 
