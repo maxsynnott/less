@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_165541) do
+ActiveRecord::Schema.define(version: 2020_06_26_070443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_165541) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.boolean "paid", default: false
+    t.boolean "confirmed", default: false
     t.string "payment_method_id"
     t.string "payment_intent_id"
     t.index ["user_id"], name: "index_orders_on_user_id"

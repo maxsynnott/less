@@ -9,7 +9,7 @@ class Order < ApplicationRecord
 
 	validates_presence_of :user, :delivery, :payment_method_id
 
-	validate :payment_method_id_is_valid, unless: Proc.new { |o| o.paid? or !o.user or Rails.env.test? }
+	validate :payment_method_id_is_valid, unless: Proc.new { |o| o.confirmed? or !o.user or Rails.env.test? }
 
 	def add_to_cart(cart)
 		order_items.each { |order_item| order_item.add_to_cart(cart) }
@@ -29,7 +29,8 @@ class Order < ApplicationRecord
 
 	def confirm
 		# Add more to this
-		update(paid: true)
+		# Send emails etc.
+		update(confirmed: true)
 	end
 
 	def create_payment_intent(args)
@@ -51,11 +52,6 @@ class Order < ApplicationRecord
 			delivery: delivery_price,
 			total: total
 		}
-	end
-
-	# Temp milestone logic
-	def confirmed?
-	  paid?
 	end
 
 	def packed?

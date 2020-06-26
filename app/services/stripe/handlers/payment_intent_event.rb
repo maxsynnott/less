@@ -16,6 +16,8 @@ module Stripe
         # end
 
         order.confirm
+
+        OrderRefreshChannel.broadcast_to order, { refresh: true }
   		end
   	end
   end

@@ -33,11 +33,9 @@ class OrdersController < ApplicationController
 
       @order.update(payment_intent_id: payment_intent.id)
 
-      p payment_intent
-
       case payment_intent.status
       when 'succeeded'
-        order.confirm
+        @order.confirm
 
         redirect_to order_path(@order)
       when 'requires_action'

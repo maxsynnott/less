@@ -24,7 +24,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   def pay
     @order = Order.find(params[:id])
 
-    unless @order.paid?
+    unless @order.confirmed?
       @payment_intent = @order.create_payment_intent(
         payment_method: @order.payment_method_id,
         confirm: true

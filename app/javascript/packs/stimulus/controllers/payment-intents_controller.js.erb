@@ -14,7 +14,11 @@ export default class extends Controller {
 				if (result.error) {
 					console.log(result.error)
 				} else {
-					console.log(result.paymentIntent)
+					if (result.paymentIntent.status == "succeeded") {
+						window.location.replace(routes.order_path({ id: this.data.get("orderId") }));
+					} else {
+						console.log("Something went wrong")
+					}
 				}
 			})
 	}
