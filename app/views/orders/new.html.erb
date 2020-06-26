@@ -1,4 +1,4 @@
-<div class="container mt-5" data-controller="checkout">
+<div class="container my-5" data-controller="checkout">
 	<%= simple_form_for @order, validate: true, data: { target: "checkout.form" } do |f| %>
 		<div class="row">
 			<div class="col-12 col-lg-8">
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 
-			<div class="col-12 col-lg-4">
+			<div class="col-12 col-lg-4 mt-3 mt-lg-0">
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">
 						<%= render 'breakdown' %>
