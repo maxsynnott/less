@@ -16,6 +16,16 @@ class Delivery < ApplicationRecord
 
   validates :phone, phone: true
 
+  def price_for(time_slot)
+    if order.total < 35
+      5
+    elsif time_slot.start_datetime.wday == 6
+      2
+    else
+      0
+    end
+  end
+
   def time_slot
     TimeSlot.new(start_datetime: scheduled_at)
   end

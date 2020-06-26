@@ -62,3 +62,23 @@
 .position-3 {
 	left: calc(100% - 20px)
 }
+
+.nav-pills .nav-link.active {
+	background-color: #28a745 !important;
+	color: white !important;
+}
+
+.custom-radio .custom-control-input:checked~.custom-control-label::before,
+.custom-radio .custom-control-input:checked~.custom-control-label::after {
+	border-radius: 50%;
+  background-color: #28a745 !important;
+}
+
+.custom-radio .custom-control-input:active ~ .custom-control-label::before {
+  color: #fff;
+  background-color: #28a745 !important;
+}
+
+.custom-radio .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.24);
+}
