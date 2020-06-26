@@ -9,7 +9,7 @@ export default class extends Controller {
 			currency: "EUR"
 		})
 
-		$(this.formTarget).on('input', () => {
+		$(this.formTarget).on('input change', () => {
 			if (
 				!$('#order_delivery_attributes_address').val() ||
 				!$('#order_delivery_attributes_phone').val() ||

@@ -20,7 +20,7 @@
 							<%= render 'breakdown' %>
 						</li>
 
-						<li class="list-group-item">
+						<li class="list-group-item" data-controller="channels--payment-methods" data-channels--payment-methods-user-id="<%= current_user.id %>">
 							<%= render 'payment_methods', f: f %>
 						</li>
 
@@ -37,7 +37,7 @@
 						Review order
 					</h4>
 
-					<ul class="list-group list-group-flush overflow-auto" style="max-height: 364px" data-simplebar data-simplebar-auto-hide="false">
+					<ul class="list-group list-group-flush overflow-auto" style="max-height: 314px" data-simplebar data-simplebar-auto-hide="false">
 						<%= f.simple_fields_for :order_items do |order_item| %>
 							<%= render 'order_item_fields', f: order_item %>
 						<% end %>

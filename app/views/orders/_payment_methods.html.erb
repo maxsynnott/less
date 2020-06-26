@@ -1,5 +1,5 @@
-<div class="input-group" data-controller="channels--payment-methods" data-channels--payment-methods-user-id="<%= current_user.id %>">
-	<%= f.input_field :payment_method_id, collection: @payment_methods, include_blank: 'Select payment method', data: { controller: "select2" } %>
+<div class="input-group <%= @payment_methods.empty? ? 'd-none' : '' %>" data-target="channels--payment-methods.inputGroup">
+	<%= f.input_field :payment_method_id, collection: @payment_methods.map { |pm| ["**** " * 3 + pm.card.last4, pm.id] }, include_blank: 'Select payment method', data: { controller: "select2" } %>
 
 	<div class="input-group-append">
     <%= link_to new_stripe_payment_method_path, remote: true, class: 'btn btn-outline-success' do %>
@@ -7,3 +7,11 @@
     <% end %>
   </div>
 </div>
+
+<% if @payment_methods.empty? %>
+	<div id="empty_payment_method_button">
+		<%= link_to new_stripe_payment_method_path, remote: true, class: 'btn btn-outline-success btn-block' do %>
+			<%= fa_icon 'plus' %> Add Payment Method
+		<% end %>
+	</div>
+<% end %>

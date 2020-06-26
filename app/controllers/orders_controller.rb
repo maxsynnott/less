@@ -94,7 +94,7 @@ class OrdersController < ApplicationController
     @payment_methods = Stripe::PaymentMethod.list(
       customer: @user.stripe_customer_id,
       type: 'card'
-    ).data.map { |pm| ["**** " * 3 + pm.card.last4, pm.id] }
+    ).data
   end
 
   def order_params
