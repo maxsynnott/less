@@ -38,4 +38,28 @@ RSpec.feature "User adds items to cart" do
 
 		expect(page).to have_link "Checkout"
 	end
+
+	context "from show page" do
+		scenario "the items are added to cart", js: true do
+			visit items_path
+
+			expect(find("#cart_count").text).to eq '0'
+
+			click_on "Flour"
+
+			click_on "More product information"
+
+			fill_in "Quantity", with: "1000"
+
+			click_on "Add to cart"
+
+			expect(find("#cart_count").text).to eq '1'
+
+			click_on "Cart"
+
+			expect(page).to have_css("input#cart_item_quantity[value='1000']")
+
+			expect(page).to have_link "Checkout"
+		end
+	end
 end

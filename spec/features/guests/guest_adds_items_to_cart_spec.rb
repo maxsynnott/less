@@ -6,34 +6,60 @@ RSpec.feature "Guest adds items to cart" do
 		create(:item, name: "Rice")
 	end
 
-	scenario "the items are added to cart", js: true do
-		visit items_path
+	context "from show modal" do
+		scenario "the items are added to cart", js: true do
+			visit items_path
 
-		expect(find("#cart_count").text).to eq '0'
+			expect(find("#cart_count").text).to eq '0'
 
-		click_on "Flour"
+			click_on "Flour"
 
-		fill_in "Quantity", with: "1000"
+			fill_in "Quantity", with: "1000"
 
-		sleep(0.2) # Currently required for modal, should find a cleaner way to do this
-		click_on "Add to cart"
+			sleep(0.2) # Currently required for modal, should find a cleaner way to do this
+			click_on "Add to cart"
 
-		expect(find("#cart_count").text).to eq '1'
+			expect(find("#cart_count").text).to eq '1'
 
-		click_on "Rice"
+			click_on "Rice"
 
-		fill_in "Quantity", with: "500"
+			fill_in "Quantity", with: "500"
 
-		sleep(0.2)
-		click_on "Add to cart"
+			sleep(0.2)
+			click_on "Add to cart"
 
-		expect(find("#cart_count").text).to eq '2'
+			expect(find("#cart_count").text).to eq '2'
 
-		click_on "Cart"
+			click_on "Cart"
 
-		expect(page).to have_css("input#cart_item_quantity[value='1000']")
-		expect(page).to have_css("input#cart_item_quantity[value='500']")
+			expect(page).to have_css("input#cart_item_quantity[value='1000']")
+			expect(page).to have_css("input#cart_item_quantity[value='500']")
 
-		expect(page).to have_link "Checkout"
+			expect(page).to have_link "Checkout"
+		end
+	end
+
+	context "from show page" do
+		scenario "the items are added to cart", js: true do
+			visit items_path
+
+			expect(find("#cart_count").text).to eq '0'
+
+			click_on "Flour"
+
+			click_on "More product information"
+
+			fill_in "Quantity", with: "1000"
+
+			click_on "Add to cart"
+
+			expect(find("#cart_count").text).to eq '1'
+
+			click_on "Cart"
+
+			expect(page).to have_css("input#cart_item_quantity[value='1000']")
+
+			expect(page).to have_link "Checkout"
+		end
 	end
 end
