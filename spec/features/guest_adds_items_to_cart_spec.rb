@@ -1,11 +1,9 @@
 require 'rails_helper'
 
-RSpec.feature "User adds items to cart" do
+RSpec.feature "Guest adds items to cart" do
 	before do
 		create(:item, name: "Flour")
 		create(:item, name: "Rice")
-
-		login_as create(:user, email: "user_128@example.com", password: "123456"), scope: :user
 	end
 
 	scenario "the items are added to cart", js: true do

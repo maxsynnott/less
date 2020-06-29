@@ -5,7 +5,9 @@
 				<%= fa_icon 'minus-circle' %>
 			<% end %>
 
-			<%= image_tag cart_item.item.main_image, style: "width: 80px;" %>
+			<% if cart_item.item.main_image.attached? %>
+				<%= image_tag cart_item.item.main_image, style: "width: 80px;" %>
+			<% end %>
 
 			<div class="pl-4 pr-3" style="width: 280px;">
 				<p class="mb-0">
