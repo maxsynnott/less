@@ -5,7 +5,7 @@ RSpec.feature "User adds items to cart" do
 		create(:item, name: "Flour")
 		create(:item, name: "Rice")
 
-		login_as create(:user, email: "user_128@example.com", password: "123456"), scope: :user
+		login_as create(:user), scope: :user
 	end
 
 	scenario "the items are added to cart", js: true do

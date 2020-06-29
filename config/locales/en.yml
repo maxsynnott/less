@@ -31,9 +31,16 @@
 
 en:
   number:
+    # English + German languages should both follow germany currency while Less is only available in Germany
     currency:
       format:
-        unit: €
+        delimiter: "."
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "€"
 
   layouts:
     navbar:

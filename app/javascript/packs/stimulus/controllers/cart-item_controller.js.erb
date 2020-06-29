@@ -42,6 +42,7 @@ export default class extends Controller {
 		const checkButtonHTML = "<button class='btn btn-outline-success' type='submit' data-action='cart-item#submitForm'><i class='fas fa-check'></i></button>"
 
 		$(this.inputTarget).prop('disabled', false)
+		$(this.inputTarget).removeClass('disabled')
 		$(this.buttonDivTarget).html(checkButtonHTML)
 	}
 
@@ -60,6 +61,7 @@ export default class extends Controller {
 				console.log(data.errors)
 			} else {
 				$(this.inputTarget).prop('disabled', true)
+				$(this.inputTarget).addClass('disabled')
 				$(this.inputTarget).val(data.quantity)
 				$(this.buttonDivTarget).html(penButtonHTML)
 
@@ -105,7 +107,7 @@ export default class extends Controller {
 	}
 
 	removeSelf() {
-		$(this.element).css('opacity', 0)
+		$(this.element).addClass('fade')
 
 		setTimeout(() => {
 			$(this.element).remove()

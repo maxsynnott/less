@@ -1,3 +1,11 @@
 // Place all the styles related to the cart_items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.cart-item-partial {
+	transition: all 0.5s ease-in-out;
+}
+
+.cart-item-partial.fade {
+	opacity: 0
+}
