@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
 	before_action :authenticate_user!, :set_locale, :set_tags
 	helper_method :current_cart
 
+	# Seperate set logic from get logic 
 	def current_cart
 		if current_user
 			current_user.cart

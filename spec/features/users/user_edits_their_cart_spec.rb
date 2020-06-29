@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.feature "User edits their cart" do
 	before do
+		StripeMock.start
+
 		user = create(:user)
 
 		user.cart.add_item(create(:item, name: "Flour", price: 2), 1000)
@@ -9,6 +11,8 @@ RSpec.feature "User edits their cart" do
 
 		login_as user, scope: :user
 	end
+
+	after { StripeMock.stop }
 
 	scenario "the cart items are changed accordingly and checkout is accessible", js: true do
 		visit root_path

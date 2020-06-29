@@ -13,12 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super
 
-    # Assign signed out cart to new user
-    if session[:cart_id]
-      Cart.find(session[:cart_id]).update(user_id: resource.id)
-    else
-      resource.cart = Cart.new
-    end
+    Cart.find(session[:cart_id]).update(user_id: resource.id)
   end
 
   # GET /resource/edit

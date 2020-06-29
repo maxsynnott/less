@@ -37,7 +37,7 @@ class Order < ApplicationRecord
 	  defaults = {
 	    currency: 'eur',
 	    customer: user.stripe_customer_id,
-	    amount: total.to_cents,
+	    amount: BigDecimal(total).to_cents,
 	    metadata: {
 	    	order_id: id
 	    }
