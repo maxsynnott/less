@@ -3,13 +3,8 @@ require 'stripe_mock'
 
 include Features::StripeHelper
 
-RSpec.feature "User checks out", ngrok: true do
+RSpec.feature "User checks out" do
 	before do
-		Stripe::WebhookEndpoint.update(
-		  ENV["STRIPE_RSPEC_WEBHOOK_ID"],
-		  { url: "#{Capybara.app_host}/stripe/webhook" },
-		)
-
 		@user = create(:user)
 
 		login_as @user, scope: :user

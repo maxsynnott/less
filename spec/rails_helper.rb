@@ -117,13 +117,27 @@ RSpec.configure do |config|
   end
   #
 
+  # This launches ngrok and runs capybara through it then updates stripes webhook url to ngrok url
+  # 3001 is Ngrok's default port however this could be changed
+  config.before(:suite) do
+    Capybara.server_port = 3001
+    Ngrok::Tunnel.start
+    Capybara.app_host = Ngrok::Tunnel.ngrok_url
 
+    puts "Ngrok started at #{Ngrok::Tunnel.ngrok_url}"
 
-  # any port can be used
-  Capybara.server_port = 3001
-  Ngrok::Rspec.tunnel = { port: Capybara.server_port }
-  
-  config.include Ngrok::Rspec
+    stripe_url = "#{Capybara.app_host}/stripe/webhook"
+
+    Stripe::WebhookEndpoint.update(
+      ENV["STRIPE_RSPEC_WEBHOOK_ID"],
+      { url: stripe_url },
+    )
+
+    puts "Stripe webhook url updated to #{stripe_url}"
+  end
+
+  config.after(:suite) { Ngrok::Tunnel.stop }
+  #
 
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
