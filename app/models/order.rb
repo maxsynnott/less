@@ -29,6 +29,8 @@ class Order < ApplicationRecord
 		# Add more to this
 		# Send emails etc.
 		update(confirmed: true)
+
+		OrderRefreshChannel.broadcast_to self, { refresh: true }
 	end
 
 	def create_payment_intent(args)

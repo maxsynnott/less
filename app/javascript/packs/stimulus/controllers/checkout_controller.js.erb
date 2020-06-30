@@ -97,8 +97,8 @@ export default class extends Controller {
 
 	showNewPaymentMethod() {
 		$("#new_payment_method").removeClass('d-none')
-		$("#show-payment-method-icon").addClass('d-none')
-		$("#hide-payment-method-icon").removeClass('d-none')
+		$("#show_payment_method_icon").addClass('d-none')
+		$("#hide_payment_method_icon").removeClass('d-none')
 
 		$("select#order_payment_method_id").prop('disabled', true)
 		$("#toggle_new_payment_method").attr('data-action', 'checkout#hideNewPaymentMethod')
@@ -110,8 +110,8 @@ export default class extends Controller {
 		$("#existing_payment_methods").removeClass('d-none')
 		
 		$("#new_payment_method").addClass('d-none')
-		$("#show-payment-method-icon").removeClass('d-none')
-		$("#hide-payment-method-icon").addClass('d-none')
+		$("#show_payment_method_icon").removeClass('d-none')
+		$("#hide_payment_method_icon").addClass('d-none')
 
 		$("select#order_payment_method_id").prop('disabled', false)
 		$("#toggle_new_payment_method").attr('data-action', 'checkout#showNewPaymentMethod')

@@ -97,8 +97,6 @@ class OrdersController < ApplicationController
       customer: @user.stripe_customer_id,
       type: 'card'
     ).data
-
-    @payment_methods = []
   end
 
   def order_params

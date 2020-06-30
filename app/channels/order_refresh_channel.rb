@@ -2,6 +2,7 @@ class OrderRefreshChannel < ApplicationCable::Channel
   def subscribed
     # stream_from "some_channel"
     stream_for Order.find(params[:order_id])
+    p 'subscribed to order', params[:order_id]
   end
 
   def unsubscribed

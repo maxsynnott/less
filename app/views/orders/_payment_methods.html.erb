@@ -3,8 +3,8 @@
 
 	<div class="input-group-append">
 		<button class='btn btn-outline-success' type="button" id="toggle_new_payment_method" data-action="checkout#showNewPaymentMethod">
-			<%= fa_icon 'plus', id: "show-payment-method-icon" %>
-			<%= fa_icon 'minus', id: "hide-payment-method-icon", class: 'd-none' %>
+			<%= fa_icon 'plus', id: "show_payment_method_icon" %>
+			<%= fa_icon 'minus', id: "hide_payment_method_icon", class: 'd-none' %>
 		</button>
   </div>
 </div>
@@ -14,11 +14,11 @@
 	  <!-- Stripe Element will be inserted here -->
 	</div>
 
+	<!-- Used to display form errors -->
+	<div id="card-errors" role="alert"></div>
+
 	<button type="button" class="btn btn-outline-success btn-block mt-2" data-action="checkout#createPaymentMethod">
 		<%= fa_icon 'credit-card', class: 'mr-1' %>
 		Add card
 	</button>
-
-	<!-- Used to display form errors -->
-	<div id="card-errors" role="alert"></div>
 </div>

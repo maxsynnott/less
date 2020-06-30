@@ -30,6 +30,13 @@ RSpec.feature "User checks out", js: true do
 	end
 
 	context "they have payment methods" do
+		before do
+			Stripe::PaymentMethod.attach(
+			  'pm_card_visa',
+			  { customer: @user.stripe_customer_id },
+			)
+		end
+
 		context "they enter valid details" do
 			context	"their card requires authentication" do
 
@@ -67,20 +74,19 @@ RSpec.feature "User checks out", js: true do
 					fill_in "Delivery address", with: "Rudi Dutschke str. 26"
 					fill_in "Phone number", with: "+494242424242"
 					fill_in "Delivery instructions", with: "Knock thrice"
-					find("label.custom-control.custom-radio", match: :first).click()
-					click_on "Add Payment Method"
+					find("label.custom-control.custom-radio", match: :first).click
 
-					fill_stripe_elements(number: "4000003800000446")
+					fill_stripe_elements(number: "4000002760003184")
 
-					click_on "Save card"
+					click_on "Add card"
 
-					complete_authentication
-
-					expect(page).to have_css "span.select2-selection__rendered", text: "**** **** **** 0446", wait: 10
+					expect(page).to have_css "span.select2-selection__rendered", text: "**** **** **** 3184"
 
 					find("button[data-target='checkout.submitButton']:enabled").click()
 
-					expect(page).to have_content "Your order has been confirmed and will be delivered on"
+					complete_authentication
+
+					expect(page).to have_content "Your order has been confirmed and will be delivered on", wait: 30
 				end
 			end
 
@@ -97,13 +103,12 @@ RSpec.feature "User checks out", js: true do
 				fill_in "Phone number", with: "+494242424242"
 				fill_in "Delivery instructions", with: "Knock thrice"
 				find("label.custom-control.custom-radio", match: :first).click()
-				click_on "Add Payment Method"
 
 				fill_stripe_elements(number: "4242424242424242")
 
-				click_on "Save card"
+				click_on "Add card"
 
-				expect(page).to have_css "span.select2-selection__rendered", text: "**** **** **** 4242", wait: 10
+				expect(page).to have_css "span.select2-selection__rendered", text: "**** **** **** 4242", wait: 30
 
 				find("button[data-target='checkout.submitButton']:enabled").click()
 
