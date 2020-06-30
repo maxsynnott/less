@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :orders
   has_many :deliveries, foreign_key: :driver_id
 
-  after_create :generate_stripe_customer, unless: Proc.new { Rails.env.test? }
+  after_create :generate_stripe_customer
 
   validates_presence_of :first_name
 

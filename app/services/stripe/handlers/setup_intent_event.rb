@@ -2,6 +2,7 @@ module Stripe
   module Handlers
   	class SetupIntentEvent < Stripe::Handlers::Event
   		def handle_setup_intent_succeeded(event)
+        p "RECEIVED " * 10000
   			object = event.data.object
 
         user = User.find(object.metadata.user_id)

@@ -5,7 +5,12 @@ Rails.configuration.stripe = {
 
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
-StripeEvent.signing_secret = ENV['STRIPE_NGROK_SIGNING_SECRET']
+if Rails.env.test?
+	StripeEvent.signing_secret = ENV['STRIPE_NGROK_RSPEC_SIGNING_SECRET']
+else
+	StripeEvent.signing_secret = ENV['STRIPE_NGROK_PRODUCTION_SIGNING_SECRET']
+end
+
 
 # Needed to manually require here as initializers are run before zeitwerk autoloaders
 require 'stripe/handlers/event'

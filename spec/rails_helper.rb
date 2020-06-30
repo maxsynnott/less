@@ -48,6 +48,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
   
@@ -114,7 +115,16 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
-  # 
+  #
+
+
+
+  # any port can be used
+  Capybara.server_port = 3001
+  Ngrok::Rspec.tunnel = { port: Capybara.server_port }
+  
+  config.include Ngrok::Rspec
+
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
