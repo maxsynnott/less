@@ -21,6 +21,44 @@ export default class extends Controller {
 				this.enableSubmitButton()
 			}
 		})
+
+		this.initStripe()		
+	}
+
+	initStripe() {
+		this.stripe = Stripe('pk_test_Y2HGxcv4B58lA5tEakifsdiC00JK3c15ec');
+		const elements = this.stripe.elements();
+
+		const style = {
+		  base: {
+		    color: '#32325d',
+		    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+		    fontSmoothing: 'antialiased',
+		    fontSize: '16px',
+		    '::placeholder': {
+		      color: '#aab7c4'
+		    }
+		  },
+		  invalid: {
+		    color: '#fa755a',
+		    iconColor: '#fa755a'
+		  }
+		};
+
+		this.card = elements.create("card", { style: style });
+		this.card.mount("#card-element");
+
+		this.card.on('change', this.displayErrors)
+	}
+
+	displayErrors(event) {
+		const displayError = document.getElementById('card-errors');
+
+	  if (event.error) {
+	    displayError.textContent = event.error.message;
+	  } else {
+	    displayError.textContent = '';
+	  }
 	}
 
 	updateBreakdown(event) {
@@ -55,5 +93,52 @@ export default class extends Controller {
 		button.disabled = true
 		button.classList.remove("btn-success")
 		button.classList.add("btn-secondary")
+	}
+
+	showNewPaymentMethod() {
+		$("#new_payment_method").removeClass('d-none')
+		$("#show-payment-method-icon").addClass('d-none')
+		$("#hide-payment-method-icon").removeClass('d-none')
+
+		$("select#order_payment_method_id").prop('disabled', true)
+		$("#toggle_new_payment_method").attr('data-action', 'checkout#hideNewPaymentMethod')
+
+		$("select#order_payment_method_id").val("").trigger('change')
+	}
+
+	hideNewPaymentMethod() {
+		$("#existing_payment_methods").removeClass('d-none')
+		
+		$("#new_payment_method").addClass('d-none')
+		$("#show-payment-method-icon").removeClass('d-none')
+		$("#hide-payment-method-icon").addClass('d-none')
+
+		$("select#order_payment_method_id").prop('disabled', false)
+		$("#toggle_new_payment_method").attr('data-action', 'checkout#showNewPaymentMethod')
+	}
+
+	createPaymentMethod() {
+		this.stripe.createPaymentMethod({
+			type: 'card',
+			card: this.card,
+			billing_details: {
+			  name: 'Example name'
+			}
+		})
+		.then((result) => {
+			if (result.error) {
+				console.log(result.error)
+			} else {
+				const option = this.paymentMethodToOption(result.paymentMethod)
+
+				this.hideNewPaymentMethod()
+
+				$("#order_payment_method_id").append(option).trigger('change')
+			}
+		})
+	}
+
+	paymentMethodToOption(paymentMethod) {
+	  return new Option(`**** **** **** ${paymentMethod.card.last4}`, paymentMethod.id, false, true)
 	}
 }

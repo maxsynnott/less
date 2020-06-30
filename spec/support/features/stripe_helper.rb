@@ -22,5 +22,41 @@ module Features
 			  end
 			end
 		end
+
+		def complete_authentication
+			using_wait_time(10) do
+				frame = find('body > div > iframe')
+
+				within_frame(frame) do
+					challenge_frame = find('#challengeFrame')
+
+					within_frame(challenge_frame) do
+						fullscreen_frame = find('.FullscreenFrame')
+
+						within_frame(fullscreen_frame) do
+							click_on "Complete authentication"
+						end
+					end
+				end
+			end
+		end
+
+		def fail_authentication
+			using_wait_time(10) do
+				frame = find('body > div > iframe')
+
+				within_frame(frame) do
+					challenge_frame = find('#challengeFrame')
+
+					within_frame(challenge_frame) do
+						fullscreen_frame = find('.FullscreenFrame')
+
+						within_frame(fullscreen_frame) do
+							click_on "Fail authentication"
+						end
+					end
+				end
+			end
+		end
 	end
 end

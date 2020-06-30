@@ -106,4 +106,27 @@ export default class extends Controller {
 			}
 		})
 	}
+
+	createPaymentMethod() {
+		this.stripe.createPaymentMethod({
+			type: 'card',
+			card: this.card,
+			billing_details: {
+			  name: 'Example name'
+			}
+		})
+		.then(function(result) {
+			if (result.error) {
+				console.log(result.error)
+			} else {
+				const option = this.paymentMethodToOption(result.paymentMethod)
+
+				$("#order_payment_method_id").append(option).trigger('change')
+			}
+		})
+	}
+
+	paymentMethodToOption(paymentMethod) {
+	  return new Option(`**** **** **** ${paymentMethod.card.last4}`, paymentMethod.id, false, true)
+	}
 }

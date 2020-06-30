@@ -31,7 +31,8 @@ class OrdersController < ApplicationController
         payment_method: @order.payment_method_id,
         off_session: false,
         confirm: true,
-        return_url: order_url(@order)
+        return_url: order_url(@order),
+        setup_future_usage: "on_session"
       )
 
       @order.update(payment_intent_id: payment_intent.id)
@@ -47,6 +48,7 @@ class OrdersController < ApplicationController
 
       @order.user.cart.clear
     else
+
       assign_payment_methods
       @grouped_time_slots = TimeSlot.available.group_by(&:date)
 
@@ -95,6 +97,8 @@ class OrdersController < ApplicationController
       customer: @user.stripe_customer_id,
       type: 'card'
     ).data
+
+    @payment_methods = []
   end
 
   def order_params

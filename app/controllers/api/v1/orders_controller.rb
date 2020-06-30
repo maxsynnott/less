@@ -26,7 +26,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
       )
 
       render :pay, status: :ok
-    end    
+    end
   end
 
   private

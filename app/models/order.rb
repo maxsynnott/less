@@ -9,8 +9,6 @@ class Order < ApplicationRecord
 
 	validates_presence_of :user, :delivery, :payment_method_id
 
-	validate :payment_method_id_is_valid, unless: Proc.new { |o| o.confirmed? or !o.user or Rails.env.test? }
-
 	def add_to_cart(cart)
 		order_items.each { |order_item| order_item.add_to_cart(cart) }
 	end
@@ -91,16 +89,5 @@ class Order < ApplicationRecord
 		end
 
 		current_milestone
-	end
-
-	private
-
-	def payment_method_id_is_valid
-		payment_method_ids = Stripe::PaymentMethod.list(
-			customer: user.stripe_customer_id,
-			type: 'card'
-		).data.map(&:id)
-
-		errors.add(:payment_method_id, "must be valid") unless payment_method_ids.include?(payment_method_id)
 	end
 end

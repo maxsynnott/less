@@ -1,17 +1,24 @@
-<div class="input-group <%= @payment_methods.empty? ? 'd-none' : '' %>" data-target="channels--payment-methods.inputGroup">
+<div id="existing_payment_methods" class="input-group <%= @payment_methods.empty? ? 'd-none' : '' %>" data-target="channels--payment-methods.inputGroup">
 	<%= f.input_field :payment_method_id, collection: @payment_methods.map { |pm| ["**** " * 3 + pm.card.last4, pm.id] }, include_blank: 'Select payment method', data: { controller: "select2" }, validate: true %>
 
 	<div class="input-group-append">
-    <%= link_to new_stripe_payment_method_path, remote: true, class: 'btn btn-outline-success' do %>
-    	<%= fa_icon 'plus' %>
-    <% end %>
+		<button class='btn btn-outline-success' type="button" id="toggle_new_payment_method" data-action="checkout#showNewPaymentMethod">
+			<%= fa_icon 'plus', id: "show-payment-method-icon" %>
+			<%= fa_icon 'minus', id: "hide-payment-method-icon", class: 'd-none' %>
+		</button>
   </div>
 </div>
 
-<% if @payment_methods.empty? %>
-	<div id="empty_payment_method_button">
-		<%= link_to new_stripe_payment_method_path, remote: true, class: 'btn btn-outline-success btn-block' do %>
-			<%= fa_icon 'plus' %> Add Payment Method
-		<% end %>
+<div id="new_payment_method" class="mt-2 pt-2 border-top <%= @payment_methods.empty? ? '' : 'd-none' %>">
+	<div id="card-element" class="border">
+	  <!-- Stripe Element will be inserted here -->
 	</div>
-<% end %>
+
+	<button type="button" class="btn btn-outline-success btn-block mt-2" data-action="checkout#createPaymentMethod">
+		<%= fa_icon 'credit-card', class: 'mr-1' %>
+		Add card
+	</button>
+
+	<!-- Used to display form errors -->
+	<div id="card-errors" role="alert"></div>
+</div>
