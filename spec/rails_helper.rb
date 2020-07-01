@@ -7,9 +7,12 @@ SimpleCov.start do
   add_filter "app/services/stripe/handlers/event.rb" # Can't trigger error handlers
   add_filter "app/controllers/api/v1/base_controller.rb" # Handles server errors
 
+  add_group "Lib", "lib/"
   add_group "Admin", "app/admin"
   add_group "Models", "app/models"
+  add_group "Mailers", "app/mailers"
   add_group "Helpers", "app/helpers"
+  add_group "Channels", "app/channels"
   add_group "Services", "app/services"
   add_group "Controllers", "app/controllers"
 end
