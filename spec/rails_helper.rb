@@ -155,6 +155,10 @@ RSpec.configure do |config|
   end
   #
 
+  config.before(:each, js: true) do
+    Capybara.page.driver.browser.manage.window.resize_to(1920, 1080)
+  end
+
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false

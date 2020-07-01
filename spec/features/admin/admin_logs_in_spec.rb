@@ -9,9 +9,7 @@ RSpec.describe "Admin logs in" do
 		fill_in "Email", with: "admin@example.com"
 		fill_in "Password", with: "password"
 
-		# save_and_open_page
-
-		click_on "log_in_button"
+		find("input[value='Log in']").click
 
 		expect(page).to have_selector ".flash", text: "Signed in successfully"
 		expect(page).to have_content "Dashboard"
