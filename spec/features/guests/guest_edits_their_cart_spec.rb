@@ -17,22 +17,22 @@ RSpec.feature "Guest edits their cart" do
 
 		expect(page).to have_css("input#cart_item_quantity.disabled[value='1000']")
 
-		find("button[data-action='cart-item#editButton']", match: :first).click()
+		find("button[data-action='cart-item#editButton']", match: :first).click
 
 		find("input#cart_item_quantity", class: "!disabled", match: :one).fill_in with: "2500"
 
-		find("button[data-action='cart-item#submitForm']", match: :one).click()
+		find("button[data-action='cart-item#submitForm']", match: :one).click
 
-		expect(find("input#cart_item_quantity", class: "disabled", match: :first).value).to eq '2500'
+		expect(find("input#cart_item_quantity.disabled[value='1000']").value).to eq '2500'
 
 		expect(total.text).to eq "5.500,00 €"
 
 		expect(all("input#cart_item_quantity").last.value).to eq '500'
 		expect(all("input#cart_item_quantity").last.disabled?).to eq true
 
-		find("a[data-action='cart-item#destroyItem']", match: :first).click()
+		find("a[data-action='cart-item#destroyItem']", match: :first).click
 
-		expect(all("form[data-controller='cart-item']", class: "!fade").count).to eq 1
+		expect(page).to have_css "form[data-controller='cart-item']", count: 1, wait: 1
 
 		expect(total.text).to eq "500,00 €"
 

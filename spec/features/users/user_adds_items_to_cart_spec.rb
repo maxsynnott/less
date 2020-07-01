@@ -11,7 +11,7 @@ RSpec.feature "User adds items to cart" do
 	scenario "the items are added to cart", js: true do
 		visit items_path
 
-		expect(find("#cart_count").text).to eq '0'
+		expect(page).to have_css "#cart_count", text: '0'
 
 		click_on "Flour"
 
@@ -20,7 +20,7 @@ RSpec.feature "User adds items to cart" do
 		sleep(0.2) # Currently required for modal, should find a cleaner way to do this
 		click_on "Add to cart"
 
-		expect(find("#cart_count").text).to eq '1'
+		expect(page).to have_css "#cart_count", text: '1'
 
 		click_on "Rice"
 
@@ -29,7 +29,7 @@ RSpec.feature "User adds items to cart" do
 		sleep(0.2)
 		click_on "Add to cart"
 
-		expect(find("#cart_count").text).to eq '2'
+		expect(page).to have_css "#cart_count", text: '2'
 
 		click_on "Cart"
 
@@ -43,17 +43,17 @@ RSpec.feature "User adds items to cart" do
 		scenario "the items are added to cart", js: true do
 			visit items_path
 
-			expect(find("#cart_count").text).to eq '0'
+			expect(page).to have_css "#cart_count", text: '0'
 
 			click_on "Flour"
 
 			click_on "More product information"
 
-			fill_in "Quantity", with: "1000"
+			find("#carts_show input#cart_item_quantity").fill_in with: 1000
 
 			click_on "Add to cart"
 
-			expect(find("#cart_count").text).to eq '1'
+			expect(page).to have_css "#cart_count", text: '1'
 
 			click_on "Cart"
 

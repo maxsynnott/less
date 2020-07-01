@@ -119,7 +119,7 @@ RSpec.configure do |config|
   end
   #
 
-  # This launches ngrok and runs capybara through it then updates stripes webhook url to ngrok url
+  # Ngrok / test webhook config
   config.before(:suite) do
     Stripe::WebhookEndpoint.list.data.each { |webhook| Stripe::WebhookEndpoint.update(webhook.id, disabled: true) }
 

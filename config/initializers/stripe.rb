@@ -11,7 +11,6 @@ else
 	StripeEvent.signing_secret = ENV['STRIPE_NGROK_PRODUCTION_SIGNING_SECRET']
 end
 
-
 # Needed to manually require here as initializers are run before zeitwerk autoloaders
 require 'stripe/handlers/event'
 require 'stripe/handlers/payment_intent_event'

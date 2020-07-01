@@ -1,1 +1,1 @@
-json.extract! @order, :id
+json.extract! @order, :id, :confirmed

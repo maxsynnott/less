@@ -13,11 +13,20 @@ export default class extends Controller {
         disconnected: this._cableDisconnected.bind(this),
         received: this._cableReceived.bind(this),
       }
-    );
+    ); 
   }
 
   _cableConnected() {
     // Called when the subscription is ready for use on the server
+
+    // This is for the rare but occuring problem of the order being confirmed between the page render and the cable connection
+    fetch(routes.api_v1_order_path({ id: this.data.get("orderId") }))
+      .then(response => response.json())
+      .then((data) => {
+        if (data.confirmed) {
+          location.reload()
+        }
+      })
   }
 
   _cableDisconnected() {

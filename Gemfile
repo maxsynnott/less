@@ -94,7 +94,6 @@ group :test do
   gem 'launchy'
 
   # Self-Added Gems:
-  gem 'stripe-ruby-mock', '~> 3.0.1', :require => 'stripe_mock'
   gem 'rails-controller-testing'
 end
 
