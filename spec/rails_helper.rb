@@ -121,22 +121,36 @@ RSpec.configure do |config|
 
   # This launches ngrok and runs capybara through it then updates stripes webhook url to ngrok url
   config.before(:suite) do
-    Capybara.server_port = 3001
-    Ngrok::Tunnel.start # 3001 is Ngrok's default port however this could be changed
+    Stripe::WebhookEndpoint.list.data.each { |webhook| Stripe::WebhookEndpoint.update(webhook.id, disabled: true) }
+
+    Capybara.server_port = 3001 # 3001 is Ngrok's default port however this could be changed
+    Ngrok::Tunnel.start
 
     puts "Ngrok started at #{Ngrok::Tunnel.ngrok_url}"
-
-    stripe_url = "#{Ngrok::Tunnel.ngrok_url}/stripe/webhook"
-
-    Stripe::WebhookEndpoint.update(
-      ENV["STRIPE_RSPEC_WEBHOOK_ID"],
-      { url: stripe_url },
-    )
-
-    puts "Stripe webhook url updated to #{stripe_url}"
   end
 
-  config.after(:suite) { Ngrok::Tunnel.stop }
+  config.before(:each, ngrok: true) do
+    webhook = Stripe::WebhookEndpoint.create(
+      url: "#{Ngrok::Tunnel.ngrok_url}/stripe/webhook",
+      enabled_events: [
+        'payment_intent.succeeded'
+      ]
+    )
+
+    StripeEvent.signing_secret = webhook.secret
+  end
+
+  config.after(:each, ngrok: true) do
+    webhook = Stripe::WebhookEndpoint.list.data.first
+
+    Stripe::WebhookEndpoint.delete(webhook.id)
+  end
+
+  config.after(:suite) do
+    Ngrok::Tunnel.stop
+
+    Stripe::WebhookEndpoint.list.data.each { |webhook| Stripe::WebhookEndpoint.update(webhook.id, disabled: false) }
+  end
   #
 
 
