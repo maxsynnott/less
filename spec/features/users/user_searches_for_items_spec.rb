@@ -99,7 +99,7 @@ RSpec.feature "User searches for items", js: true do
 			end
 		end
 
-		context "they don't enter a query" do
+		context "they don't enter a query", js: false do
 			before do
 				visit items_path
 			end
@@ -117,7 +117,7 @@ RSpec.feature "User searches for items", js: true do
 	end
 
 	context "there are no created items" do
-		context "they don't enter a query" do
+		context "they don't enter a query", js: false do
 			context "they submit search" do
 				scenario "they are redirected to items path with no items" do
 					visit items_path

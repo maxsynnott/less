@@ -1,1 +1,0 @@
-json.extract! @setup_intent, :client_secret

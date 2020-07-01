@@ -14,9 +14,7 @@ end
 # Needed to manually require here as initializers are run before zeitwerk autoloaders
 require 'stripe/handlers/event'
 require 'stripe/handlers/payment_intent_event'
-require 'stripe/handlers/setup_intent_event'
 
 StripeEvent.configure do |events|
 	events.subscribe 'payment_intent.', Stripe::Handlers::PaymentIntentEvent.new
-	events.subscribe 'setup_intent.', Stripe::Handlers::SetupIntentEvent.new
 end

@@ -52,17 +52,14 @@ Rails.application.routes.draw do
       mount StripeEvent::Engine, at: '/webhook', as: :event
       #
 
-      resources :payment_methods, only: [:new]
-
       get "payment_intents/:id/confirm", to: "payment_intents#confirm", as: :payment_intents_confirm
     end
 
     namespace :api, defaults: { format: :json } do
       namespace :v1 do
-        resources :orders, only: [:create, :show] do
+        resources :orders, only: [:show] do
           collection do
             post "breakdown"
-            post ":id/pay", action: :pay, as: :pay
           end
         end
 
@@ -70,10 +67,6 @@ Rails.application.routes.draw do
 
         resources :deliveries, only: [:update]
         resources :cart_items, only: [:update, :destroy]
-
-        namespace :stripe do
-          resources :setup_intents, only: [:create]
-        end
       end
     end
   end

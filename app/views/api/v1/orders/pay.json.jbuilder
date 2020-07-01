@@ -1,1 +1,0 @@
-json.extract! @payment_intent, :id, :status

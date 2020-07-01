@@ -11,11 +11,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 	private
 
-	def driver_params
-	  params.require(:user).permit(:first_name)
-	end
-
 	def render_error
-	  render json: { errors: @order.errors.messages }, status: :unprocessable_entity
+	  render json: { errors: @user.errors.messages }, status: :unprocessable_entity
 	end
 end

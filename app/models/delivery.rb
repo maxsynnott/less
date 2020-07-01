@@ -5,7 +5,6 @@ class Delivery < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_address?
   
   before_save :broadcast_driver_coordinates, if: Proc.new { |d| d.will_save_change_to_driver_latitude? or d.will_save_change_to_driver_longitude? }
-  before_save :broadcast_status, if: :will_save_change_to_status?
 
   belongs_to :order
   belongs_to :driver, optional: true
@@ -43,10 +42,6 @@ class Delivery < ApplicationRecord
   def assign_price
     # Simple placeholder logic 
     self.price = time_slot ? price_for(time_slot) : 0
-  end
-
-  def broadcast_status
-    DeliveryTrackerChannel.broadcast_to self, { status: status }
   end
 
   def broadcast_driver_coordinates

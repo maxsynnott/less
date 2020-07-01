@@ -1,15 +1,4 @@
 class Api::V1::OrdersController < Api::V1::BaseController
-  def create
-    @order = Order.new(order_params)
-    @order.user = current_user
-
-    if @order.save
-      render :show, status: :created
-    else
-      render_error
-    end
-  end
-
   def show
     @order = Order.find(params[:id])
   end
@@ -18,19 +7,6 @@ class Api::V1::OrdersController < Api::V1::BaseController
     @order = Order.new(order_params)
 
     render :breakdown, status: :ok
-  end
-
-  def pay
-    @order = Order.find(params[:id])
-
-    unless @order.confirmed?
-      @payment_intent = @order.create_payment_intent(
-        payment_method: @order.payment_method_id,
-        confirm: true
-      )
-
-      render :pay, status: :ok
-    end
   end
 
   private
