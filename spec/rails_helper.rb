@@ -52,7 +52,9 @@ end
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
 
-  Capybara.javascript_driver = :selenium_chrome
+  # default: :selenium_chrome_headless
+  # :selenium_chrome for visualisation
+  Capybara.javascript_driver = :selenium_chrome_headless
   
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -126,12 +128,12 @@ RSpec.configure do |config|
     Capybara.server_port = 3001 # 3001 is Ngrok's default port however this could be changed
     Ngrok::Tunnel.start
 
-    puts "Ngrok started at #{Ngrok::Tunnel.ngrok_url}"
+    puts "Ngrok started at #{Ngrok::Tunnel.ngrok_url_https}"
   end
 
   config.before(:each, ngrok: true) do
     webhook = Stripe::WebhookEndpoint.create(
-      url: "#{Ngrok::Tunnel.ngrok_url}/stripe/webhook",
+      url: "#{Ngrok::Tunnel.ngrok_url_https}/stripe/webhook",
       enabled_events: [
         'payment_intent.succeeded'
       ]

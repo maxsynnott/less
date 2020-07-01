@@ -29,6 +29,7 @@ class Order < ApplicationRecord
 		# Add more to this
 		# Send emails etc.
 		update(confirmed: true)
+		user.cart.clear
 
 		OrderRefreshChannel.broadcast_to self, { refresh: true }
 	end

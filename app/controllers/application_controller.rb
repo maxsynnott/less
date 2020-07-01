@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-	before_action :authenticate_user!, :set_locale, :set_tags
+	before_action :authenticate_user!, :set_locale, :set_tags, :params_to_flashes
 	helper_method :current_cart
 
 	# Seperate set logic from get logic 
@@ -34,5 +34,10 @@ class ApplicationController < ActionController::Base
 
 	def authenticate_admin!
 		redirect_to new_user_session_path unless current_user.try(:admin?)
+	end
+
+	def params_to_flashes
+		flash.now[:notice] = params[:flash_notice] if params[:flash_notice]
+		flash.now[:alert] = params[:flash_alert] if params[:flash_alert]
 	end
 end
