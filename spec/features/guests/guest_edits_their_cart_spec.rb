@@ -19,7 +19,7 @@ RSpec.feature "Guest edits their cart" do
 
 		find("button[data-action='cart-item#editButton']", match: :first).click
 
-		find("input#cart_item_quantity", class: "!disabled", match: :one).fill_in with: "2500"
+		find("input#cart_item_quantity", class: "!disabled", match: :one).fill_in with: "2500" # *
 
 		find("button[data-action='cart-item#submitForm']", match: :one).click
 
