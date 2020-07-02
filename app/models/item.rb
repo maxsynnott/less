@@ -32,9 +32,9 @@ class Item < ApplicationRecord
 	has_many :stocks, dependent: :destroy
 	has_many :units, dependent: :nullify
 
-	validates_presence_of :name, :price, :units
+	validates_presence_of :name, :price
 
-	before_validation :generate_default_units, if: Proc.new { |item| item.units.empty? }
+	before_save :generate_default_units, if: Proc.new { |item| item.units.empty? }
 
 	def base_unit
 		units.find(&:base?)
