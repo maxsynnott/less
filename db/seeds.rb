@@ -1,5 +1,4 @@
 # DELETE THIS BEFORE REAL TIME PRODUCTION!
-AdminUser.destroy_all
 Delivery.destroy_all
 CartItem.destroy_all
 Cart.destroy_all
@@ -11,21 +10,36 @@ User.create!(first_name: "Max", email: 'admin@example.com', password: '123456', 
 
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
 
-items = [
+item_attributes = [
 	{
 		name: "Flour",
 		description: "Whole wheat flour",
 		price: 0.00095,
-		tag_list: ["Grains"]
+		tag_list: ["Grains"],
+		units: ["gram", "cup"]
+	},
+	{
+		name: "Eggs",
+		description: "Free range eggs",
+		price: 0.33,
+		tag_list: [],
+		display_unit: "egg",
+		display_price_quantity: 1,
+		units: ["egg"]
+	},
+	{
+		name: "Salt",
+		description: "Himalayan rock salt",
+		price: 0.0099,
+		tag_list: [],
+		display_unit: "tablespoon",
+		display_price_quantity: 17.07,
+		units: ["gram", "tablespoon"]
 	}
 ]
 
-num_items.times do
-	item = Item.create(
-		name: Faker::Food.unique.ingredient,
-		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis. " * rand(1..5),
-		price: rand(0.001..0.1)
-	)
+item_attributes.each do |attributes|
+	item = Item.create(attributes)
 
 	images = [0, 1, 2, 3].sample(rand(1..4)).map { |i| { io: File.open(Rails.root.join("app", "assets", "images", "glass_jar_#{i}.png")), filename: "jar_#{i}.png" } }
 
@@ -33,13 +47,7 @@ num_items.times do
 	item.images.attach(images)
 end
 
-Item.all.each do |item|
-	tags = ["Meats", "Cereals", "Vegetables", "Grains", "Beverages", "Personal Care"]
-
-	item.update(tag_list: tags.sample(rand(0..3)))
-end
-
-stock_items = Item.all.sample(num_items - 2)
+stock_items = Item.all.sample(item_attributes.length - 2)
 
 stock_items.each { |item| Stock.create(item_id: item.id, balance: rand(2000..10000)) }
 
@@ -47,12 +55,6 @@ user = User.create(first_name: "Max", email: "user@example.com", password: "1234
 user_2 = User.create(first_name: "Max", email: "user_2@example.com", password: "123456", cart: Cart.new)
 
 puts "Default user account created with: email: user@example.com, password: 123456"
-
-num_cart_items = rand(2..5)
-
-cart_item_items = Item.all.sample(num_cart_items)
-
-cart_item_items.each { |item| user.cart.add_item(item, rand(1..3000)) }
 
 containers = [
 	{

@@ -5,6 +5,7 @@ export default class extends Controller {
 
 	connect() {
 		this.price = parseFloat(this.data.get('price'), 10)
+		this.unit = this.data.get('unit')
 
 		this.formatter = new Intl.NumberFormat("de", {
 			style: "currency",
@@ -14,19 +15,14 @@ export default class extends Controller {
 		setTimeout(() => {
 			this.inputTarget.focus()
 		}, 150)
+
+		$(`a[data-toggle='tab'][href='#tab_${this.unit}']`).on('shown.bs.tab', () => {
+			$(this.inputTarget).focus()
+		})
 	}
 
 	updateQuantity(quantity) {
-		let append;
-
-		if (quantity >= 1000) {
-			append = "kg"
-			quantity /= 1000
-		} else {
-			append = "gram"
-		}
-
-		this.quantityTarget.innerText = `${quantity} ${append}${(quantity != 1) ? "s" : ""}`
+		this.quantityTarget.innerText = I18n.t(`unit.${this.unit}`, { count: quantity })
 	}
 
 	updatePrice(price) {

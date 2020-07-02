@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_105709) do
+ActiveRecord::Schema.define(version: 2020_07_02_083934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2020_07_01_105709) do
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "unit", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["item_id"], name: "index_cart_items_on_item_id"
   end
@@ -116,7 +117,8 @@ ActiveRecord::Schema.define(version: 2020_07_01_105709) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "display_unit", default: "kg"
-    t.integer "display_unit_quantity", default: 1000
+    t.integer "display_price_quantity", default: 1000
+    t.string "units", default: ["gram"], array: true
   end
 
   create_table "order_items", force: :cascade do |t|

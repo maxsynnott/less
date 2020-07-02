@@ -4,8 +4,9 @@ class CartItemsController < ApplicationController
   # This is dumb, change this
   def create
   	@cart_item = CartItem.new(cart_item_params)
+    @cart_item.cart = current_cart
 
-    current_cart.add_item(@cart_item.item, @cart_item.quantity)
+    @cart_item.save!
 
     respond_to do |format|
       format.html do
@@ -21,6 +22,6 @@ class CartItemsController < ApplicationController
   private
 
   def cart_item_params
-    params.require(:cart_item).permit(:item_id, :quantity)
+    params.require(:cart_item).permit(:item_id, :quantity, :unit)
   end
 end

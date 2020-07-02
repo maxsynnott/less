@@ -30,6 +30,28 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  unit:
+    gram:
+      zero: 0 grams
+      one: 1 gram
+      other: "%{count} grams"
+    kg:
+      zero: 0 kgs
+      one: 1 kg
+      other: "%{count} kgs"
+    egg:
+      zero: 0 eggs
+      one: 1 egg
+      other: "%{count} eggs"
+    cup:
+      zero: 0 cups
+      one: 1 cup
+      other: "%{count} cups"
+    tablespoon:
+      zero: 0 tablespoons
+      one: 1 tablespoon
+      other: "%{count} tablespoons"
+
   number:
     # English + German languages should both follow germany currency while Less is only available in Germany
     currency:
