@@ -34,7 +34,7 @@ class Item < ApplicationRecord
 
 	validates_presence_of :name, :price, :units
 
-	before_validation :default_units, if: Proc.new { |item| item.units.empty? }
+	before_validation :generate_default_units, if: Proc.new { |item| item.units.empty? }
 
 	def base_unit
 		units.find { |unit| unit.base_units == 1 }
@@ -56,9 +56,17 @@ class Item < ApplicationRecord
 		display_quantity * default_unit.price
 	end
 
+	def display_unit
+		if display_quantity > 1
+			"#{display_quantity.to_s} #{default_unit.name.pluralize}"
+		else
+			default_unit.name
+		end
+	end
+
 	private
 
-	def default_units
+	def generate_default_units
 		units = [
 			Unit.new(name: "gram", base_units: 1),
 			Unit.new(name: "kg", base_units: 1, default: true)

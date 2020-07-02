@@ -13,7 +13,10 @@
         <%= number_to_currency(item.display_price) %>
 
         <span class="text-muted">
-          <%= " / " + item.default_unit.name %>
+          <% if  %>
+            
+          <% end %>
+          <%= " / " + item.display_unit %>
         </span>
       </p>
     </div>

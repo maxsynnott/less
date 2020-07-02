@@ -29,9 +29,10 @@ items = [
 			description: "Whole wheat flour",
 			price: 0.00095,
 			tag_list: ["Grains"],
+			display_quantity: 100,
 			units: [
-				Unit.new(name: 'gram', base_units: 1),
-				Unit.new(name: 'kg', base_units: 1000, default: true),
+				Unit.new(name: 'gram', base_units: 1, default: true),
+				Unit.new(name: 'kg', base_units: 1000),
 				Unit.new(name: 'cup', base_units: 120)
 			]
 		},
@@ -47,8 +48,6 @@ items = [
 			description: "Free range eggs",
 			price: 0.33,
 			tag_list: [],
-			display_unit: "dozen",
-			display_price_quantity: 12,
 			units: [
 				Unit.new(name: 'egg', base_units: 1, default: true),
 				Unit.new(name: 'dozen', base_units: 12)
@@ -65,8 +64,6 @@ items = [
 			description: "Himalayan rock salt",
 			price: 0.0099,
 			tag_list: [],
-			display_unit: "tablespoon",
-			display_price_quantity: 17,
 			units: [
 				Unit.new(name: 'gram', base_units: 1),
 				Unit.new(name: 'tablespoon', base_units: 17, default: true)
@@ -82,8 +79,6 @@ items = [
 			description: "Muesli with chunky chocolate pieces",
 			price: 0.0033,
 			tag_list: [],
-			display_unit: "kg",
-			display_price_quantity: 1000,
 			units: [
 				Unit.new(name: 'gram', base_units: 1),
 				Unit.new(name: 'bowl', base_units: 250),
@@ -100,8 +95,6 @@ items = [
 			description: "Organic whole grain Penne",
 			price: 0.003,
 			tag_list: [],
-			display_unit: "kg",
-			display_price_quantity: 1000,
 			units: [
 				Unit.new(name: 'gram', base_units: 1),
 				Unit.new(name: 'kg', base_units: 1000, default: true)
@@ -118,8 +111,6 @@ items = [
 			description: "The classic 0.5L",
 			price: 0.6,
 			tag_list: [],
-			display_unit: "bottle",
-			display_price_quantity: 1,
 			units: [
 				Unit.new(name: 'bottle', base_units: 1, default: true)
 			]
@@ -134,8 +125,6 @@ items = [
 			description: "20x The classic 0.5L with crate",
 			price: 12,
 			tag_list: [],
-			display_unit: "crate",
-			display_price_quantity: 1,
 			units: [
 				Unit.new(name: 'crate', base_units: 1, default: true)
 			]
@@ -150,8 +139,6 @@ items = [
 			description: "Hafer good day",
 			price: 0.001,
 			tag_list: [],
-			display_unit: "litre",
-			display_price_quantity: 1000,
 			units: [
 				Unit.new(name: 'ml', base_units: 1),
 				Unit.new(name: 'litre', base_units: 1000, default: true)
@@ -167,8 +154,6 @@ items = [
 			description: "It's a rice to the top",
 			price: 0.003,
 			tag_list: [],
-			display_unit: "kg",
-			display_price_quantity: 1000,
 			units: [
 				Unit.new(name: 'gram', base_units: 1),
 				Unit.new(name: 'kg', base_units: 1000, default: true)
@@ -185,8 +170,6 @@ items = [
 			description: "Organic red lentils",
 			price: 0.0035,
 			tag_list: [],
-			display_unit: "kg",
-			display_price_quantity: 1000,
 			units: [
 				Unit.new(name: 'gram', base_units: 1),
 				Unit.new(name: 'kg', base_units: 1000, default: true)
