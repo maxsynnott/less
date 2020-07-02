@@ -11,14 +11,20 @@ User.create!(first_name: "Max", email: 'admin@example.com', password: '123456', 
 
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
 
-num_items = 36
+items = [
+	{
+		name: "Flour",
+		description: "Whole wheat flour",
+		price: 0.00095,
+		tag_list: ["Grains"]
+	}
+]
 
 num_items.times do
 	item = Item.create(
 		name: Faker::Food.unique.ingredient,
 		description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lobortis. " * rand(1..5),
-		price: rand(0.001..0.1),
-		tag_list: ["vegan", "organic"].sample([0, 1, 2].sample)
+		price: rand(0.001..0.1)
 	)
 
 	images = [0, 1, 2, 3].sample(rand(1..4)).map { |i| { io: File.open(Rails.root.join("app", "assets", "images", "glass_jar_#{i}.png")), filename: "jar_#{i}.png" } }

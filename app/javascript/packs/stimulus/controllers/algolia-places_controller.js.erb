@@ -11,7 +11,7 @@ export default class extends Controller {
 		  apiKey: "<%= ENV['AP_API_KEY'] %>",
 		  container: this.inputTarget,
 		  countries: ['de'],
-		  language: $('body').data('locale')
+		  language: I18n.locale
 		});
 	}
 }

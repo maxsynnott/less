@@ -17,7 +17,7 @@
     <%= favicon_link_tag asset_path('less_favicon.ico') %>
   </head>
 
-  <body data-locale="<%= I18n.locale.to_s %>">
+  <body>
     <%= render 'layouts/navbar' %>
     <%= render 'layouts/flashes' %>
     <%= render 'layouts/sidebar' %>
@@ -30,5 +30,10 @@
         <div class="modal-content"></div>
       </div>
     </div>
+
+    <%= javascript_tag do %>
+      I18n.locale = "<%= I18n.locale %>";
+      I18n.translations = <%= raw I18n::JS.filtered_translations.to_json %>;
+    <% end %>
   </body>
 </html>

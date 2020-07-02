@@ -69,6 +69,11 @@ require('@client-side-validations/client-side-validations')
 require('@client-side-validations/simple-form/dist/simple-form.bootstrap4')
 //
 
+// i18n-js
+import I18n from "i18n-js";
+global.I18n = I18n;
+//
+
 document.addEventListener("turbolinks:load", () => {
 	// Activates all tooltips
   $('[data-toggle="tooltip"]').tooltip()
