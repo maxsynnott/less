@@ -51,9 +51,33 @@ en:
       zero: 0 tablespoons
       one: 1 tablespoon
       other: "%{count} tablespoons"
+    dozen:
+      zero: 0 eggs
+      one: a dozen
+      other: "%{count} dozen"
+    bowl:
+      zero: 0 bowls
+      one: 1 bowl
+      other: "%{count} bowls"
+    bottle:
+      zero: 0 bottles
+      one: 1 bottle
+      other: "%{count} bottles"
+    crate:
+      zero: 0 crates
+      one: 1 crate
+      other: "%{count} crates"
+    ml:
+      zero: 0 mls
+      one: 1 ml
+      other: "%{count} mls"
+    litre:
+      zero: 0 litres
+      one: 1 litre
+      other: "%{count} litres"
 
   number:
-    # English + German languages should both follow germany currency while Less is only available in Germany
+    # English + German languages should both follow germany currency format while Less is only available in Germany
     currency:
       format:
         delimiter: "."
