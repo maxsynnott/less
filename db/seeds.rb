@@ -10,54 +10,204 @@ User.create!(first_name: "Max", email: 'admin@example.com', password: '123456', 
 
 puts "Default Admin account created with: email: admin@example.com, password: 123456"
 
-item_attributes = [
+# Flour
+# Eggs
+# Salt
+# Chocolate Muesli
+# Pasta
+# Sternburg
+# Sternburg Crate
+# Oats Milk
+# Rice
+# Red Lentils
+
+items = [
 	{
-		name: "Flour",
-		description: "Whole wheat flour",
-		price: 0.00095,
-		tag_list: ["Grains"],
-		units: [
-			Unit.new(name: 'gram', base_units: 1, base: true),
-			Unit.new(name: 'kg', base_units: 1000),
-			Unit.new(name: 'cup', base_units: 120)
+		attributes: {
+			name: "Flour",
+			description: "Whole wheat flour",
+			price: 0.00095,
+			tag_list: ["Grains"],
+			units: [
+				Unit.new(name: 'gram', base_units: 1, base: true),
+				Unit.new(name: 'kg', base_units: 1000),
+				Unit.new(name: 'cup', base_units: 120)
+			]
+		},
+		images: [
+			"https://www.goldenacrewines.co.uk/wp-content/uploads/2020/04/eee.png",
+			"https://i.pinimg.com/originals/29/17/61/29176176610a7b70a659e84d107bdd16.png",
+			"https://www.floursackstudio.com/wp-content/uploads/2016/02/custom-flour-sack-small.png"
 		]
 	},
 	{
-		name: "Eggs",
-		description: "Free range eggs",
-		price: 0.33,
-		tag_list: [],
-		display_unit: "egg",
-		display_price_quantity: 1,
-		units: [
-			Unit.new(name: 'egg', base_units: 1, base: true),
-			Unit.new(name: 'dozen', base_units: 12)
+		attributes: {
+			name: "Eggs",
+			description: "Free range eggs",
+			price: 0.33,
+			tag_list: [],
+			display_unit: "dozen",
+			display_price_quantity: 12,
+			units: [
+				Unit.new(name: 'egg', base_units: 1, base: true),
+				Unit.new(name: 'dozen', base_units: 12)
+			]
+		},
+		images: [
+			"https://a591xot9423uvz1c41kdg5yq-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/eggs-rotated.png",
+			"https://cspinet.org/sites/default/files/styles/large/public/egg_PNG40784.png?itok=pXQgfFgI"
 		]
 	},
 	{
-		name: "Salt",
-		description: "Himalayan rock salt",
-		price: 0.0099,
-		tag_list: [],
-		display_unit: "tablespoon",
-		display_price_quantity: 17.07,
-		units: [
-			Unit.new(name: 'gram', base_units: 1, base: true),
-			Unit.new(name: 'tablespoon', base_units: 17)
+		attributes: {
+			name: "Salt",
+			description: "Himalayan rock salt",
+			price: 0.0099,
+			tag_list: [],
+			display_unit: "tablespoon",
+			display_price_quantity: 17,
+			units: [
+				Unit.new(name: 'gram', base_units: 1, base: true),
+				Unit.new(name: 'tablespoon', base_units: 17)
+			]
+		},
+		images: [
+			"https://natural-gas.centre.uq.edu.au/files/7478/salt%20-%20creative%20commons.png"
+		]
+	},
+	{
+		attributes: {
+			name: "Chocolate Muesli",
+			description: "Muesli with chunky chocolate pieces",
+			price: 0.0033,
+			tag_list: [],
+			display_unit: "kg",
+			display_price_quantity: 1000,
+			units: [
+				Unit.new(name: 'gram', base_units: 1, base: true),
+				Unit.new(name: 'bowl', base_units: 250),
+				Unit.new(name: 'kg', base_units: 1000)
+			]
+		},
+		images: [
+			"https://naturesfarm.ca/wp-content/uploads/2020/03/granola-chocolate-chunk-2.png"
+		]
+	},
+	{
+		attributes: {
+			name: "Pasta",
+			description: "Organic whole grain Penne",
+			price: 0.003,
+			tag_list: [],
+			display_unit: "kg",
+			display_price_quantity: 1000,
+			units: [
+				Unit.new(name: 'gram', base_units: 1, base: true),
+				Unit.new(name: 'kg', base_units: 1000)
+			]
+		},
+		images: [
+			"https://www.pngkit.com/png/full/935-9351800_penne-pasta-penne-pasta-png.png",
+			"https://lh3.googleusercontent.com/proxy/typtjhdaLKKIjofYqP5dWVJsvmDhd72IQu20Y6T_pPCQK5TnPRczpb45odGCRKRKUNdSBwecmR7EFuG8bGedaoRmpgLMILfNW6GvbBSFzTmsnySE3SUdCe4ytP3QAa7_g8CpMhSAcg"
+		]
+	},
+	{
+		attributes: {
+			name: "Sternburg",
+			description: "The classic 0.5L",
+			price: 0.6,
+			tag_list: [],
+			display_unit: "bottle",
+			display_price_quantity: 1,
+			units: [
+				Unit.new(name: 'bottle', base_units: 1, base: true)
+			]
+		},
+		images: [
+			"https://img.rewe-static.de/8484490/1245680_digital-image.png"
+		]
+	},
+	{
+		attributes: {
+			name: "Sternburg Crate (20x0.5)",
+			description: "20x The classic 0.5L with crate",
+			price: 12,
+			tag_list: [],
+			display_unit: "crate",
+			display_price_quantity: 1,
+			units: [
+				Unit.new(name: 'crate', base_units: 1, base: true)
+			]
+		},
+		images: [
+			"https://www.magdeburg-liefert.de/images/product_images/original_images/1420470_digital-image.png"
+		]
+	},
+	{
+		attributes: {
+			name: "Oats Milk",
+			description: "Hafer good day",
+			price: 0.001,
+			tag_list: [],
+			display_unit: "litre",
+			display_price_quantity: 1000,
+			units: [
+				Unit.new(name: 'ml', base_units: 1, base: true),
+				Unit.new(name: 'litres', base_units: 1000)
+			]
+		},
+		images: [
+			"https://img.rewe-static.de/2587736/24675765_digital-image.png"
+		]
+	},
+	{
+		attributes: {
+			name: "Rice",
+			description: "It's a rice to the top",
+			price: 0.003,
+			tag_list: [],
+			display_unit: "kg",
+			display_price_quantity: 1000,
+			units: [
+				Unit.new(name: 'gram', base_units: 1, base: true),
+				Unit.new(name: 'kg', base_units: 1000)
+			]
+		},
+		images: [
+			"https://images.squarespace-cdn.com/content/v1/58b72eac46c3c480fcbe7366/1551906370876-2QFYXGTV60734RJA74NX/ke17ZwdGBToddI8pDm48kHxmscvA7sPLr44hRr9b6YhZw-zPPgdn4jUwVcJE1ZvWhcwhEtWJXoshNdA9f1qD7aP-VOPYnKXVfGNi7anTLYFfR8iOka_FOcdiOTfz5L3AoLt7g31T-kqs2xaOSHFQFw/Risotto.png",
+			"https://cdn.shopify.com/s/files/1/0012/1657/7656/products/rice-cup_1200x1200.png?v=1583401953"
+		]
+	},
+	{
+		attributes: {
+			name: "Red Lentils",
+			description: "Organic red lentils",
+			price: 0.0035,
+			tag_list: [],
+			display_unit: "kg",
+			display_price_quantity: 1000,
+			units: [
+				Unit.new(name: 'gram', base_units: 1, base: true),
+				Unit.new(name: 'kg', base_units: 1000)
+			]
+		},
+		images: [
+			"https://sc01.alicdn.com/kf/HTB1GQEqKFXXXXapXVXXq6xXFXXXE.jpg",
+			"https://i.ya-webdesign.com/images/beans-vector-lentils-10.png"
 		]
 	}
 ]
 
-item_attributes.each do |attributes|
-	item = Item.create(attributes)
+items.each do |item|
+	images = item[:images].map.with_index { |image, i| { io: open(image), filename: "#image_#{i}.png" } }
 
-	images = [0, 1, 2, 3].sample(rand(1..4)).map { |i| { io: File.open(Rails.root.join("app", "assets", "images", "glass_jar_#{i}.png")), filename: "jar_#{i}.png" } }
+	item = Item.create(item[:attributes])
 
 	item.main_image.attach(images.delete_at(0))
 	item.images.attach(images)
 end
 
-stock_items = Item.all.sample(item_attributes.length - 2)
+stock_items = Item.all.sample(Item.count - 2)
 
 stock_items.each { |item| Stock.create(item_id: item.id, balance: rand(2000..10000)) }
 
