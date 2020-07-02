@@ -5,13 +5,17 @@ class Cart < ApplicationRecord
 
   accepts_nested_attributes_for :cart_items, reject_if: :all_blank, allow_destroy: true
 
-  def add_item(item, amount = 1)
-  	cart_item = find_cart_item(item)
+  def add_cart_item(cart_item)
+    add_unit(cart_item.unit, cart_item.quantity)
+  end
+
+  def add_unit(unit, amount = 1)
+  	cart_item = cart_items.find { |cart_item| cart_item.unit == unit }
 
   	if cart_item
   		cart_item.add(amount)
   	else
-  		CartItem.create(item_id: item.id, cart_id: id, quantity: amount)
+  		CartItem.create(unit_id: unit.id, cart_id: id, quantity: amount)
   	end
   end
 

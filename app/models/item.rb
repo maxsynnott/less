@@ -30,9 +30,11 @@ class Item < ApplicationRecord
 	has_many_attached :images
 
 	has_many :stocks
-	has_many :units
+	has_many :units, dependent: :nullify
 
-	validates_presence_of :name, :price
+	validates_presence_of :name, :price, :units
+
+	before_validation :default_units, if: Proc.new { |item| item.units.empty? }
 
 	def base_unit
 		units.find(&:base?)
@@ -48,5 +50,11 @@ class Item < ApplicationRecord
 
 	def image_count
 		images.count + (main_image.attached? ? 1 : 0)
+	end
+
+	private
+
+	def default_units
+		update(units: [Unit.new(name: "gram", base_units: 1, base: true)])
 	end
 end

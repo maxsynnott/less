@@ -4,8 +4,8 @@ RSpec.feature "User edits their cart" do
 	before do
 		user = create(:user)
 
-		user.cart.add_item(create(:item, name: "Flour", price: 2), 1000)
-		user.cart.add_item(create(:item, name: "Rice", price: 1), 500)
+		user.cart.add_unit(create(:item, name: "Flour", price: 2).base_unit, 1000)
+		user.cart.add_unit(create(:item, name: "Rice", price: 1).base_unit, 500)
 
 		login_as user, scope: :user
 	end

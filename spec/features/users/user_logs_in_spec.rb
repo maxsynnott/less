@@ -11,8 +11,8 @@ RSpec.feature "User logs in" do
 
 			@cart = Cart.last
 
-			@cart.add_item(create(:item, name: "Flour"), 1000)
-			@cart.add_item(create(:item, name: "Rice"), 500)
+			@cart.add_unit(create(:item, name: "Flour").base_unit, 1000)
+			@cart.add_unit(create(:item, name: "Rice").base_unit, 500)
 
 			expect(@user.cart).to_not eq @cart
 

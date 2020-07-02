@@ -1,12 +1,12 @@
 class CartItemsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:create]
 
-  # This is dumb, change this
+  # This needs to be fixed to not create double up units
   def create
   	@cart_item = CartItem.new(cart_item_params)
     @cart_item.cart = current_cart
 
-    @cart_item.save!
+    current_cart.add_cart_item(@cart_item)
 
     respond_to do |format|
       format.html do

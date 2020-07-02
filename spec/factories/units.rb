@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :unit do
-    item { nil }
-    base_units { "9.99" }
-    name { "MyString" }
+    base_units { "1" }
+    name { "gram" }
+
+    association :item
   end
 end

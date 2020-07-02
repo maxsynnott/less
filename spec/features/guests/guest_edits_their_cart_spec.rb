@@ -6,8 +6,8 @@ RSpec.feature "Guest edits their cart" do
 
 		cart = Cart.last
 
-		cart.add_item(create(:item, name: "Flour", price: 2), 1000)
-		cart.add_item(create(:item, name: "Rice", price: 1), 500)
+		cart.add_unit(create(:item, name: "Flour", price: 2).base_unit, 1000)
+		cart.add_unit(create(:item, name: "Rice", price: 1).base_unit, 500)
 
 		click_on "Cart"
 

@@ -7,7 +7,7 @@ RSpec.feature "Guest signs up" do
 
 			cart = Cart.last
 
-			cart.add_item(create(:item), 100)
+			cart.add_unit(create(:unit), 100)
 
 			fill_in "First name", with: "Max"
 			fill_in "Email", with: "max@example.com"
