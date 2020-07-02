@@ -30,7 +30,7 @@ export default class extends Controller {
 	}
 
 	updateValues(event) {
-		let quantity = parseInt(this.inputTarget.value, 10)
+		let quantity = parseFloat(this.inputTarget.value, 10)
 
 		if (isNaN(quantity)) {
 			quantity = 0

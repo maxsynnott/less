@@ -1,6 +1,8 @@
 class OrderItem < ApplicationRecord
   belongs_to :order
-  belongs_to :item
+  belongs_to :unit
+
+  delegate :item, to: :unit, allow_nil: true
 
   has_many :containers, dependent: :nullify
 
@@ -19,7 +21,7 @@ class OrderItem < ApplicationRecord
   private
 
   def assign_price
-  	self.price = item.price
+  	self.price = unit.price
   end
 
   # This assigns the least amount of containers possible however in some cases not the most efficient use of containers

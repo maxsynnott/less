@@ -35,7 +35,7 @@
 						<%= order_item.quantity %> grams
 					</p>
 
-					<%= link_to add_to_cart_order_item_path(order_item), remote: true, method: :post, class: "btn btn-success btn-sm ml-3", data: { toggle: 'tooltip', placement: 'right' }, title: number_to_currency(order_item.item.price_for(order_item.quantity)) do %>
+					<%= link_to add_to_cart_order_item_path(order_item), remote: true, method: :post, class: "btn btn-success btn-sm ml-3", data: { toggle: 'tooltip', placement: 'right' }, title: number_to_currency(order_item.total) do %>
 						<%= fa_icon 'plus' %>
 
 						Add to cart

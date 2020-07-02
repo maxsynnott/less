@@ -6,8 +6,6 @@ class TimeSlot
 	@@slot_length = 2.hours
 
 	def initialize(args)
-		@slot_length = args[:slot_length] || 2.hours
-
 		@start_datetime = args[:start_datetime]
 		@end_datetime = @start_datetime + @@slot_length
 	end

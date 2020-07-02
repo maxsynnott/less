@@ -1,6 +1,6 @@
 <li class="list-group-item d-flex align-items-center justify-content-between">
 	<%= f.hidden_field :quantity %>
-	<%= f.hidden_field :item_id %>
+	<%= f.hidden_field :unit_id %>
 	
 	<div>
 		<p class="mb-0">
@@ -8,7 +8,7 @@
 		</p>
 
 		<p class="mb-0 text-muted">
-			<%= f.object.quantity %> grams
+			<%= f.object.quantity %> <%= f.object.unit.name.pluralize %>
 		</p>
 	</div>
 

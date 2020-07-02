@@ -19,7 +19,7 @@ export default class extends Controller {
 	}
 
 	updateValues() {
-		let quantity = parseInt(this.inputTarget.value, 10)
+		let quantity = parseFloat(this.inputTarget.value, 10)
 
 		if (isNaN(quantity)) {
 			quantity = 0
@@ -65,7 +65,7 @@ export default class extends Controller {
 				$(this.inputTarget).val(data.quantity)
 				$(this.buttonDivTarget).html(penButtonHTML)
 
-				this.data.set('price', data.item.price)
+				this.data.set('price', data.unit.price)
 				this.updateValues()
 
 				$('#checkout_button_total').text(this.formatter.format(data.cart.total))

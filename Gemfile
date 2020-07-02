@@ -56,7 +56,7 @@ gem 'wkhtmltopdf-binary'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 gem 'ngrok-tunnel'
-gem "i18n-js"
+gem 'i18n-js'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

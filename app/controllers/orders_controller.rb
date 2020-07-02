@@ -98,7 +98,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:payment_method_id, order_items_attributes: [:quantity, :item_id], delivery_attributes: [:scheduled_at, :address, :phone, :instructions])
+    params.require(:order).permit(:payment_method_id, order_items_attributes: [:quantity, :unit_id], delivery_attributes: [:scheduled_at, :address, :phone, :instructions])
   end
 
   def assign_milestones

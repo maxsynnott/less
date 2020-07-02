@@ -1,8 +1,10 @@
 class CartItem < ApplicationRecord
   belongs_to :cart
-  belongs_to :item
+  belongs_to :unit
 
-  validates_presence_of :cart, :quantity, :item
+  delegate :item, to: :unit, allow_nil: true
+
+  validates_presence_of :cart, :quantity, :unit
 
   validates_numericality_of :quantity, only_integer: true, greater_than: 0
 
@@ -10,15 +12,15 @@ class CartItem < ApplicationRecord
   	amount.positive? ? update(quantity: quantity + amount) : false
   end
 
-  def price
-    item.price_for(quantity)
+  def total
+    unit.price * quantity
   end
 
   def to_order_item
     OrderItem.new(
-      item_id: item.id,
+      unit_id: unit.id,
       quantity: quantity,
-      price: item.price
+      price: unit.price
     )
   end
 end

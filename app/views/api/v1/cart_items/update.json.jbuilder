@@ -1,4 +1,4 @@
 json.extract! @cart_item, :quantity
-json.item @cart_item.item, :price
+json.unit @cart_item.unit, :price
 
 json.cart @cart_item.cart, :total

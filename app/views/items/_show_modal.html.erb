@@ -54,27 +54,26 @@
 
 						<nav class="border-top mt-3 pt-3">
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
-								<% @item.units.each_with_index do |unit, i| %>
-									<%= link_to unit.pluralize.capitalize, "#tab_#{unit}", role: "tab", class: "item-tab-link nav-item nav-link #{i.zero? ? 'active' : ''}", data: { toggle: "tab" } %>
+								<% @item.units.each do |unit| %>
+									<%= link_to unit.name.pluralize.capitalize, "#tab_#{unit.name}", role: "tab", class: "item-tab-link nav-item nav-link #{unit.base? ? 'active' : ''}", data: { toggle: "tab" } %>
 								<% end %>
 						  </div>
 						</nav>
 
 						<div class="tab-content" id="nav-tabContent">
-							<% @item.units.each_with_index do |unit, i| %>
+							<% @item.units.each do |unit| %>
 								<div 
-									class="tab-pane fade <%= i.zero? ? 'show active' : '' %>"
-									id="tab_<%= unit %>"
+									class="tab-pane fade <%= unit.base? ? 'show active' : '' %>"
+									id="tab_<%= unit.name %>"
 									role="tabpanel"
 									data-controller="item"
-									data-item-price="<%= @item.price %>"
-									data-item-unit="<%= unit %>"
+									data-item-price="<%= unit.price %>"
+									data-item-unit="<%= unit.name %>"
 								>
-									<%= simple_form_for CartItem.new(item_id: @item.id, unit: unit), html: { class: "mt-3" }, remote: true do |f| %>
-										<%= f.hidden_field :item_id %>
-										<%= f.hidden_field :unit %>
+									<%= simple_form_for CartItem.new(unit_id: unit.id), html: { class: "mt-3" }, remote: true do |f| %>
+										<%= f.hidden_field :unit_id %>
 
-										<%= f.input :quantity, hint: "Enter your desired quantity in #{unit.pluralize}", input_html: { data: { target: "item.input", action: "input->item#updateValues" } } %>
+										<%= f.input :quantity, label: "Quantity (#{unit.name.pluralize})", hint: unit.base? ? '' : "#{t("unit.#{unit.name}", count: 1)} = #{t("unit.#{@item.base_unit.name}", count: unit.base_units.to_i)}", input_html: { data: { target: "item.input", action: "input->item#updateValues" } } %>
 
 										<div class="row">
 											<div class="col-6">

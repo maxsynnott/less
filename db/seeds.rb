@@ -16,7 +16,11 @@ item_attributes = [
 		description: "Whole wheat flour",
 		price: 0.00095,
 		tag_list: ["Grains"],
-		units: ["gram", "cup"]
+		units: [
+			Unit.new(name: 'gram', base_units: 1, base: true),
+			Unit.new(name: 'kg', base_units: 1000),
+			Unit.new(name: 'cup', base_units: 120)
+		]
 	},
 	{
 		name: "Eggs",
@@ -25,7 +29,10 @@ item_attributes = [
 		tag_list: [],
 		display_unit: "egg",
 		display_price_quantity: 1,
-		units: ["egg"]
+		units: [
+			Unit.new(name: 'egg', base_units: 1, base: true),
+			Unit.new(name: 'dozen', base_units: 12)
+		]
 	},
 	{
 		name: "Salt",
@@ -34,7 +41,10 @@ item_attributes = [
 		tag_list: [],
 		display_unit: "tablespoon",
 		display_price_quantity: 17.07,
-		units: ["gram", "tablespoon"]
+		units: [
+			Unit.new(name: 'gram', base_units: 1, base: true),
+			Unit.new(name: 'tablespoon', base_units: 17)
+		]
 	}
 ]
 

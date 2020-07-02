@@ -30,9 +30,13 @@ class Item < ApplicationRecord
 	has_many_attached :images
 
 	has_many :stocks
-	has_many :cart_items
+	has_many :units
 
 	validates_presence_of :name, :price
+
+	def base_unit
+		units.find(&:base?)
+	end
 
 	def price_for(amount)
 		price * amount

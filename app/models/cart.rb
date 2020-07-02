@@ -25,7 +25,7 @@ class Cart < ApplicationRecord
 
   def total
     # Converted to cents and back to money to ensure no rounding disrepencies
-    cart_items.sum { |cart_item| cart_item.price.to_cents }.to_money
+    cart_items.sum { |cart_item| cart_item.total.to_cents }.to_money
   end
 
   def empty?

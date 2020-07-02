@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_083934) do
+ActiveRecord::Schema.define(version: 2020_07_02_104332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -63,13 +63,12 @@ ActiveRecord::Schema.define(version: 2020_07_02_083934) do
 
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
-    t.bigint "item_id", null: false
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "unit", null: false
+    t.bigint "unit_id", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
-    t.index ["item_id"], name: "index_cart_items_on_item_id"
+    t.index ["unit_id"], name: "index_cart_items_on_unit_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -118,18 +117,17 @@ ActiveRecord::Schema.define(version: 2020_07_02_083934) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "display_unit", default: "kg"
     t.integer "display_price_quantity", default: 1000
-    t.string "units", default: ["gram"], array: true
   end
 
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "item_id", null: false
     t.integer "quantity"
     t.decimal "price", precision: 10, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["item_id"], name: "index_order_items_on_item_id"
+    t.bigint "unit_id", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["unit_id"], name: "index_order_items_on_unit_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -208,6 +206,16 @@ ActiveRecord::Schema.define(version: 2020_07_02_083934) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "units", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.decimal "base_units", precision: 10, scale: 6, null: false
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "base", default: false
+    t.index ["item_id"], name: "index_units_on_item_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -243,12 +251,12 @@ ActiveRecord::Schema.define(version: 2020_07_02_083934) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cart_items", "carts"
-  add_foreign_key "cart_items", "items"
+  add_foreign_key "cart_items", "units"
   add_foreign_key "carts", "users"
   add_foreign_key "containers", "order_items"
   add_foreign_key "deliveries", "users", column: "driver_id"
-  add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "units"
   add_foreign_key "orders", "users"
   add_foreign_key "recipe_items", "items"
   add_foreign_key "recipe_items", "recipes"
@@ -257,4 +265,5 @@ ActiveRecord::Schema.define(version: 2020_07_02_083934) do
   add_foreign_key "stock_transactions", "stocks"
   add_foreign_key "stocks", "items"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "units", "items"
 end
