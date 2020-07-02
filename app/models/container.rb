@@ -1,6 +1,9 @@
 class Container < ApplicationRecord
 	belongs_to :order_item, optional: true
 
+	has_many :item_containers, dependent: :destroy
+	has_many :items, through: :item_containers
+
 	delegate :order, to: :order_item, allow_nil: true
 	delegate :user, to: :order, allow_nil: true
 

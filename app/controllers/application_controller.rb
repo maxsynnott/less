@@ -5,7 +5,13 @@ class ApplicationController < ActionController::Base
 	# Seperate set logic from get logic 
 	def current_cart
 		if current_user
-			current_user.cart
+			if current_user.cart
+				current_user.cart
+			else
+				cart = Cart.create
+				current_user.cart = cart
+				cart
+			end
 		elsif session[:cart_id] and (cart = Cart.find_by_id(session[:cart_id])) and cart.user_id.nil?
 			cart
 		else

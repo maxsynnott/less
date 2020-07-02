@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_150046) do
+ActiveRecord::Schema.define(version: 2020_07_02_161518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -107,6 +107,15 @@ ActiveRecord::Schema.define(version: 2020_07_02_150046) do
     t.bigint "driver_id"
     t.index ["driver_id"], name: "index_deliveries_on_driver_id"
     t.index ["order_id"], name: "index_deliveries_on_order_id"
+  end
+
+  create_table "item_containers", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "container_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["container_id"], name: "index_item_containers_on_container_id"
+    t.index ["item_id"], name: "index_item_containers_on_item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -254,6 +263,8 @@ ActiveRecord::Schema.define(version: 2020_07_02_150046) do
   add_foreign_key "carts", "users"
   add_foreign_key "containers", "order_items"
   add_foreign_key "deliveries", "users", column: "driver_id"
+  add_foreign_key "item_containers", "containers"
+  add_foreign_key "item_containers", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "units"
   add_foreign_key "orders", "users"

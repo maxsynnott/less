@@ -146,7 +146,7 @@ items = [
 			]
 		},
 		images: [
-			"https://img.rewe-static.de/2587736/24675765_digital-image.png"
+			"https://purepng.com/public/uploads/medium/purepng.com-milk-bottlebottlenarrowerjarexternalinnersealemptyglassmilk-1421526460671ngcfa.png"
 		]
 	},
 	{

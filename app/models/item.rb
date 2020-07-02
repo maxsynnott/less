@@ -29,8 +29,11 @@ class Item < ApplicationRecord
 	has_one_attached :main_image
 	has_many_attached :images
 
+	has_many :item_containers, dependent: :destroy
 	has_many :stocks, dependent: :destroy
 	has_many :units, dependent: :nullify
+
+	has_many :containers, through: :item_containers
 
 	validates_presence_of :name, :price
 
