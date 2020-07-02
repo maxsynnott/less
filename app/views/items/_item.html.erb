@@ -10,10 +10,10 @@
       </h5>
 
       <p class="card-text text-dark mb-0" style="font-weight: 600">
-        <%= number_to_currency(item.price_for(item.display_price_quantity)) %>
+        <%= number_to_currency(item.display_price) %>
 
         <span class="text-muted">
-          <%= " / " + item.display_unit %>
+          <%= " / " + item.default_unit.name %>
         </span>
       </p>
     </div>

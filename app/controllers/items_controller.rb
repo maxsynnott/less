@@ -41,9 +41,9 @@ class ItemsController < ApplicationController
     when "relevance"
       # Fancy order
     when "price_asc"
-      @items.reorder!(price: :asc)
+      @items = @items.sort_by(&:display_price)
     when "price_desc"
-      @items.reorder!(price: :desc)
+      @items = @items.sort_by(&:display_price).reverse
     when "alphabetical"
       @items.reorder!(name: :asc)
     end

@@ -53,7 +53,7 @@ en:
       other: "%{count} tablespoons"
     dozen:
       zero: 0 eggs
-      one: a dozen
+      one: 1 dozen
       other: "%{count} dozen"
     bowl:
       zero: 0 bowls

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_113822) do
+ActiveRecord::Schema.define(version: 2020_07_02_150046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -115,8 +115,7 @@ ActiveRecord::Schema.define(version: 2020_07_02_113822) do
     t.decimal "price", precision: 10, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "display_unit", default: "kg"
-    t.integer "display_price_quantity", default: 1000
+    t.integer "display_quantity", default: 1
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -212,7 +211,7 @@ ActiveRecord::Schema.define(version: 2020_07_02_113822) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "base", default: false
+    t.boolean "default", default: false
     t.index ["item_id"], name: "index_units_on_item_id"
   end
 

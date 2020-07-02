@@ -36,10 +36,10 @@
 					</h2>
 
 					<h3 class="card-subtitle mt-2 text-success">
-						<%= number_to_currency(@item.price_for(@item.display_price_quantity)) %>
+						<%= number_to_currency(@item.display_price) %>
 
 						<small class="text-muted">
-							per <%= @item.display_unit %>
+							per <%= @item.default_unit.name %>
 						</small>
 					</h3>
 

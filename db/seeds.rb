@@ -4,6 +4,7 @@ CartItem.destroy_all
 Cart.destroy_all
 Order.destroy_all
 User.destroy_all
+Item.destroy_all
 ########################################### IMPORTANT ######################################################################
 
 User.create!(first_name: "Max", email: 'admin@example.com', password: '123456', password_confirmation: '123456', role: 2, cart: Cart.new) if Rails.env.development?
@@ -29,8 +30,8 @@ items = [
 			price: 0.00095,
 			tag_list: ["Grains"],
 			units: [
-				Unit.new(name: 'gram', base_units: 1, base: true),
-				Unit.new(name: 'kg', base_units: 1000),
+				Unit.new(name: 'gram', base_units: 1),
+				Unit.new(name: 'kg', base_units: 1000, default: true),
 				Unit.new(name: 'cup', base_units: 120)
 			]
 		},
@@ -49,7 +50,7 @@ items = [
 			display_unit: "dozen",
 			display_price_quantity: 12,
 			units: [
-				Unit.new(name: 'egg', base_units: 1, base: true),
+				Unit.new(name: 'egg', base_units: 1, default: true),
 				Unit.new(name: 'dozen', base_units: 12)
 			]
 		},
@@ -67,8 +68,8 @@ items = [
 			display_unit: "tablespoon",
 			display_price_quantity: 17,
 			units: [
-				Unit.new(name: 'gram', base_units: 1, base: true),
-				Unit.new(name: 'tablespoon', base_units: 17)
+				Unit.new(name: 'gram', base_units: 1),
+				Unit.new(name: 'tablespoon', base_units: 17, default: true)
 			]
 		},
 		images: [
@@ -84,9 +85,9 @@ items = [
 			display_unit: "kg",
 			display_price_quantity: 1000,
 			units: [
-				Unit.new(name: 'gram', base_units: 1, base: true),
+				Unit.new(name: 'gram', base_units: 1),
 				Unit.new(name: 'bowl', base_units: 250),
-				Unit.new(name: 'kg', base_units: 1000)
+				Unit.new(name: 'kg', base_units: 1000, default: true)
 			]
 		},
 		images: [
@@ -102,8 +103,8 @@ items = [
 			display_unit: "kg",
 			display_price_quantity: 1000,
 			units: [
-				Unit.new(name: 'gram', base_units: 1, base: true),
-				Unit.new(name: 'kg', base_units: 1000)
+				Unit.new(name: 'gram', base_units: 1),
+				Unit.new(name: 'kg', base_units: 1000, default: true)
 			]
 		},
 		images: [
@@ -120,7 +121,7 @@ items = [
 			display_unit: "bottle",
 			display_price_quantity: 1,
 			units: [
-				Unit.new(name: 'bottle', base_units: 1, base: true)
+				Unit.new(name: 'bottle', base_units: 1, default: true)
 			]
 		},
 		images: [
@@ -136,7 +137,7 @@ items = [
 			display_unit: "crate",
 			display_price_quantity: 1,
 			units: [
-				Unit.new(name: 'crate', base_units: 1, base: true)
+				Unit.new(name: 'crate', base_units: 1, default: true)
 			]
 		},
 		images: [
@@ -152,8 +153,8 @@ items = [
 			display_unit: "litre",
 			display_price_quantity: 1000,
 			units: [
-				Unit.new(name: 'ml', base_units: 1, base: true),
-				Unit.new(name: 'litres', base_units: 1000)
+				Unit.new(name: 'ml', base_units: 1),
+				Unit.new(name: 'litre', base_units: 1000, default: true)
 			]
 		},
 		images: [
@@ -169,8 +170,8 @@ items = [
 			display_unit: "kg",
 			display_price_quantity: 1000,
 			units: [
-				Unit.new(name: 'gram', base_units: 1, base: true),
-				Unit.new(name: 'kg', base_units: 1000)
+				Unit.new(name: 'gram', base_units: 1),
+				Unit.new(name: 'kg', base_units: 1000, default: true)
 			]
 		},
 		images: [
@@ -187,8 +188,8 @@ items = [
 			display_unit: "kg",
 			display_price_quantity: 1000,
 			units: [
-				Unit.new(name: 'gram', base_units: 1, base: true),
-				Unit.new(name: 'kg', base_units: 1000)
+				Unit.new(name: 'gram', base_units: 1),
+				Unit.new(name: 'kg', base_units: 1000, default: true)
 			]
 		},
 		images: [
