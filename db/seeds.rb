@@ -66,7 +66,8 @@ items = [
 			tag_list: [],
 			units: [
 				Unit.new(name: 'gram', base_units: 1),
-				Unit.new(name: 'tablespoon', base_units: 17, default: true)
+				Unit.new(name: 'tablespoon', base_units: 17),
+				Unit.new(name: 'kg', base_units: 1000, default: true)
 			]
 		},
 		images: [

@@ -37,7 +37,7 @@ class Item < ApplicationRecord
 	before_validation :generate_default_units, if: Proc.new { |item| item.units.empty? }
 
 	def base_unit
-		units.find { |unit| unit.base_units == 1 }
+		units.find(&:base?)
 	end
 
 	def default_unit

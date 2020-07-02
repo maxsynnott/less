@@ -4,4 +4,8 @@ class Unit < ApplicationRecord
   def price
   	item.price * base_units
   end
+
+  def base?
+  	base_units == 1
+  end
 end
