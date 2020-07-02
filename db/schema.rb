@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_161518) do
+ActiveRecord::Schema.define(version: 2020_07_02_163246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -78,14 +78,21 @@ ActiveRecord::Schema.define(version: 2020_07_02_161518) do
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
-  create_table "containers", force: :cascade do |t|
+  create_table "container_types", force: :cascade do |t|
     t.string "name"
     t.integer "size"
+    t.decimal "price", precision: 10, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.decimal "price", precision: 10, scale: 6
+  end
+
+  create_table "containers", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "unique_key"
     t.bigint "order_item_id"
+    t.bigint "container_type_id", null: false
+    t.index ["container_type_id"], name: "index_containers_on_container_type_id"
     t.index ["order_item_id"], name: "index_containers_on_order_item_id"
   end
 
@@ -109,13 +116,13 @@ ActiveRecord::Schema.define(version: 2020_07_02_161518) do
     t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 
-  create_table "item_containers", force: :cascade do |t|
+  create_table "item_container_types", force: :cascade do |t|
     t.bigint "item_id", null: false
-    t.bigint "container_id", null: false
+    t.bigint "container_type_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["container_id"], name: "index_item_containers_on_container_id"
-    t.index ["item_id"], name: "index_item_containers_on_item_id"
+    t.index ["container_type_id"], name: "index_item_container_types_on_container_type_id"
+    t.index ["item_id"], name: "index_item_container_types_on_item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -261,10 +268,11 @@ ActiveRecord::Schema.define(version: 2020_07_02_161518) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "units"
   add_foreign_key "carts", "users"
+  add_foreign_key "containers", "container_types"
   add_foreign_key "containers", "order_items"
   add_foreign_key "deliveries", "users", column: "driver_id"
-  add_foreign_key "item_containers", "containers"
-  add_foreign_key "item_containers", "items"
+  add_foreign_key "item_container_types", "containers", column: "container_type_id"
+  add_foreign_key "item_container_types", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "units"
   add_foreign_key "orders", "users"

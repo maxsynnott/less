@@ -1,11 +1,13 @@
 class Container < ApplicationRecord
 	belongs_to :order_item, optional: true
-
-	has_many :item_containers, dependent: :destroy
-	has_many :items, through: :item_containers
+	belongs_to :container_type
 
 	delegate :order, to: :order_item, allow_nil: true
 	delegate :user, to: :order, allow_nil: true
+
+	delegate :name, to: :container_type, allow_nil: true
+	delegate :size, to: :container_type, allow_nil: true
+	delegate :price, to: :container_type, allow_nil: true
 
 	before_create :generate_unique_key
 

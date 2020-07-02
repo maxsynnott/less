@@ -201,7 +201,7 @@ user_2 = User.create(first_name: "Max", email: "user_2@example.com", password: "
 
 puts "Default user account created with: email: user@example.com, password: 123456"
 
-containers = [
+container_types = [
 	{
 		name: 'Small glass jar',
 		size: 500,
@@ -219,6 +219,9 @@ containers = [
 	}
 ]
 
-containers.each { |container| 100.times { Container.create(container) } }
+container_types.each do |container_type| 
+	container_type = ContainerType.create(container_type)
+	100.times { Container.create(container_type_id: container_type.id) }
+end
 
 puts "It has been done"
