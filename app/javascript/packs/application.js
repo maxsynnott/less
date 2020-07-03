@@ -19,12 +19,11 @@ require("channels")
 
 // Self-added below:
 import "./stimulus"
-import '../stylesheets/application'
-// Previously import "@fortawesome/fontawesome-free/js/all";
-// Changing prevented from converting <i>s to <svg>s which was needed for tooltip reasons
 import "@fortawesome/fontawesome-free/css/all.css";
 import './bootstrap_custom.js'
 import 'cocoon-js';
+
+import '../stylesheets/application'
 
 // Swiper.js
 import Swiper from 'swiper';

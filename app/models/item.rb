@@ -70,7 +70,7 @@ class Item < ApplicationRecord
 	private
 
 	def generate_default_units
-		units = [
+		self.units = [
 			Unit.new(name: "gram", base_units: 1),
 			Unit.new(name: "kg", base_units: 1, default: true)
 		]

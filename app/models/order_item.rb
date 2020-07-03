@@ -18,6 +18,11 @@ class OrderItem < ApplicationRecord
     cart.add_item(item, quantity)
   end
 
+  # Work on this logic
+  def potential_container_types
+    
+  end
+
   private
 
   def assign_price
@@ -28,7 +33,7 @@ class OrderItem < ApplicationRecord
   # Eg. quantity of 350 with containers: [50, 300, 500] will currently be assigned [500]
   # This should be reworked at some point however not simple due to time complexity issues with large num of containers in db
   def assign_containers
-    remaining_containers = Container.all.select(&:available?).sort_by(&:size)
+    remaining_containers = Container.all.where(container_type_id: item.container_type_ids).select(&:available?).sort_by(&:size)
 
     remaining_quantity = quantity
 
