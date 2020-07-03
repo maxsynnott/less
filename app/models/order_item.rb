@@ -15,7 +15,7 @@ class OrderItem < ApplicationRecord
   end
 
   def add_to_cart(cart)
-    cart.add_item(item, quantity)
+    cart.add_unit(unit, quantity)
   end
 
   # Work on this logic

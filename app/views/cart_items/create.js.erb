@@ -2,3 +2,4 @@ $("#modal-window").modal('hide');
 
 <% current_cart.reload %>
 $("#cart_count").text("<%= current_cart.count %>")
+$("#item_<%= @cart_item.item.id %>").html("<%= j render 'items/item', item: @cart_item.item %>")

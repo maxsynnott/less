@@ -112,6 +112,7 @@ export default class extends Controller {
 
 		setTimeout(() => {
 			$(this.element).remove()
+			$(`#cart_item_display_${this.data.get('id')}`).remove()
 		}, 500)
 	}
 }
