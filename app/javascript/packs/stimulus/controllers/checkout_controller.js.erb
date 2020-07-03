@@ -22,7 +22,13 @@ export default class extends Controller {
 			}
 		})
 
-		this.initStripe()		
+		this.initStripe()
+
+		// Fixing a bootstrap glitch
+		$('.nav-pills a').on('shown.bs.tab', function (e) {
+	    $('.nav-pills a').removeClass('active');
+	    $(this).addClass('active');
+		})
 	}
 
 	initStripe() {
@@ -140,5 +146,13 @@ export default class extends Controller {
 
 	paymentMethodToOption(paymentMethod) {
 	  return new Option(`**** **** **** ${paymentMethod.card.last4}`, paymentMethod.id, false, true)
+	}
+
+	showInstructions(event) {
+		event.preventDefault()
+
+		$(event.target).remove()
+
+		$('#instructions_wrapper').removeClass('d-none')
 	}
 }

@@ -1,11 +1,15 @@
 <li class="list-group-item" data-controller="algolia-places">
-	<div class="d-flex">
-		<%= f.input :address, label: "Delivery address", autocomplete: "off", input_html: { data: { target: "algolia-places.input" } }, required: false %>
-		
-		<%= f.input :phone, label: "Phone number", required: false, wrapper_html: { class: "ml-3" }  %>
-	</div>
+	<%= f.input :address, label: "Delivery address", autocomplete: "off", input_html: { data: { target: "algolia-places.input" } } %>
+	
+	<%= f.input :phone, label: "Phone number", wrapper_html: { class: "" }  %>
 
-	<%= f.input :instructions, label: "Delivery instructions" %>
+	<%= link_to "#", class: "text-secondary text-decoration-none", data: { action: "checkout#showInstructions" } do %>
+		<%= fa_icon 'plus', class: 'mr-1' %>
+
+		Add delivery instructions
+	<% end %>
+
+	<%= f.input :instructions, label: "Delivery instructions", wrapper_html: { class: "d-none", id: "instructions_wrapper" } %>
 </li>
 
 <li class="list-group-item">
@@ -21,42 +25,36 @@
 
 	<%= f.error :scheduled_at, class: 'invalid-feedback mt-0 d-block text-right mr-1' %>
 
-	<div class="row">
-	  <div class="col-4">
-	  	<div style="max-height: 350px; overflow: auto;" data-simplebar data-simplebar-auto-hide="false" class="border-right border-left px-1">
-		    <div class="nav flex-column nav-pills mx-3 text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-		    	<% @grouped_time_slots.keys.each_with_index do |date, i| %>
-			    	<%= link_to date.strftime("%B %d"), "#v-pills-#{date.jd}", role: "tab", class: "nav-link text-secondary #{i.zero? ? 'active' : ''}", data: { toggle: "pill" } %>
-		    	<% end %>
-		    </div>
-	  	</div>
-	  </div>
+  <ul class="nav nav-pills flex-nowrap mb-3 pb-3 border-left border-right px-2" id="pills-tab" role="tablist" style="overflow: auto; white-space: nowrap;" data-simplebar data-simplebar-auto-hide="false">
+  	<% @grouped_time_slots.keys.each_with_index do |date, i| %>
+    	<li class="nav-item d-inline-block">
+    		<%= link_to date.strftime("%B %d"), "#pills-#{date.jd}", role: "tab", class: "nav-link text-secondary #{i.zero? ? 'active' : ''}", data: { toggle: "pill" } %>
+    	</li>
+  	<% end %>
+  </ul>
 
-	  <div class="col-8">
-	  	<div style="max-height: 350px; overflow: auto;" data-simplebar data-simplebar-auto-hide="false" class="px-3 border-right border-left">
-	  		<div class="tab-content" id="v-pills-tabContent">
-	  			<% @grouped_time_slots.each do |date, time_slots| %>
-	  				<div class="tab-pane pl-2 fade <%= @grouped_time_slots.keys.first == date ? 'active show' : '' %>" id="v-pills-<%= date.jd %>" role="tabpanel">
-	  					<% time_slots.each do |time_slot| %>
-	  						<label class="custom-control custom-radio border-bottom d-flex align-items-center mb-0 py-3">
-	  							<%= radio_button_tag "order[delivery_attributes][scheduled_at]", time_slot.start_datetime, false, class: 'custom-control-input', data: { action: "checkout#updateBreakdown" } %>
+	<div style="max-height: 350px; overflow: auto;" data-simplebar data-simplebar-auto-hide="false" class="px-3 border-right border-left">
+		<div class="tab-content" id="pills-tabContent">
+			<% @grouped_time_slots.each do |date, time_slots| %>
+				<div class="tab-pane pl-2 fade <%= @grouped_time_slots.keys.first == date ? 'active show' : '' %>" id="pills-<%= date.jd %>" role="tabpanel">
+					<% time_slots.each do |time_slot| %>
+						<label class="custom-control custom-radio border-bottom d-flex align-items-center mb-0 py-3">
+							<%= radio_button_tag "order[delivery_attributes][scheduled_at]", time_slot.start_datetime, false, class: 'custom-control-input', data: { action: "checkout#updateBreakdown" } %>
 
-	  							<%= label_tag "order_delivery_attributes_scheduled_at_#{time_slot.start_datetime.to_s}", class: "custom-control-label text-secondary d-flex justify-content-between w-100" do %>
-	  								<span>
-	  									<%= time_slot.to_s %>
-	  								</span>
+							<%= label_tag "order_delivery_attributes_scheduled_at_#{time_slot.start_datetime.to_s}", class: "custom-control-label text-secondary d-flex justify-content-between w-100" do %>
+								<span>
+									<%= time_slot.to_s %>
+								</span>
 
-	  								<span class="price pr-3">
-	  									<% price = @order.delivery.price_for(time_slot) %>
-	  									<%= price.zero? ? "FREE" : number_to_currency(price) %>
-	  								</span>
-	  							<% end %>
-	  						</label>
-	  					<% end %>
-	  				</div>
-	  			<% end %>
-	  		</div>
-	  	</div>
-	  </div>
+								<span class="price pr-3">
+									<% price = @order.delivery.price_for(time_slot) %>
+									<%= price.zero? ? "FREE" : number_to_currency(price) %>
+								</span>
+							<% end %>
+						</label>
+					<% end %>
+				</div>
+			<% end %>
+		</div>
 	</div>
 </li>
