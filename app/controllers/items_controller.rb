@@ -15,6 +15,8 @@ class ItemsController < ApplicationController
     filter_items if params[:filter].present?
     order_items if params[:order].present?
 
+    @item_count = @items.count # Neccessary to count before pagination when .paginate is called on array
+
   	@items = @items.paginate(page: params[:page], per_page: 24)
   end
 

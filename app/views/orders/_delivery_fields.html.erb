@@ -1,7 +1,7 @@
 <li class="list-group-item" data-controller="algolia-places">
-	<%= f.input :address, label: "Delivery address", autocomplete: "off", input_html: { data: { target: "algolia-places.input" } } %>
+	<%= f.input :address, label: "Delivery address", autocomplete: "off", input_html: { data: { target: "algolia-places.input" } }, required: false %>
 	
-	<%= f.input :phone, label: "Phone number", wrapper_html: { class: "" }  %>
+	<%= f.input :phone, label: "Phone number", wrapper_html: { class: "" }, required: false  %>
 
 	<%= link_to "#", class: "text-secondary text-decoration-none", data: { action: "checkout#showInstructions" } do %>
 		<%= fa_icon 'plus', class: 'mr-1' %>

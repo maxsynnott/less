@@ -30,11 +30,11 @@ class Delivery < ApplicationRecord
   end
 
   def scheduled_date_string
-    scheduled_at.strftime('%B %d')
+    scheduled_at.in_time_zone.strftime('%B %d')
   end
 
   def scheduled_slot_string
-    "#{scheduled_at.strftime('%H:%M')} to #{(scheduled_at + 2.hours).strftime('%H:%M')}"
+    "#{scheduled_at.in_time_zone.strftime('%H:%M')} to #{(scheduled_at.in_time_zone + 2.hours).strftime('%H:%M')}"
   end
 
   private

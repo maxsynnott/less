@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
 	before_action :authenticate_user!, :set_locale, :set_tags, :params_to_flashes
 	helper_method :current_cart
 
+	around_action :set_time_zone, if: :current_user
+
 	# Seperate set logic from get logic 
 	def current_cart
 		if current_user
@@ -45,5 +47,9 @@ class ApplicationController < ActionController::Base
 	def params_to_flashes
 		flash.now[:notice] = params[:flash_notice] if params[:flash_notice]
 		flash.now[:alert] = params[:flash_alert] if params[:flash_alert]
+	end
+
+	def set_time_zone(&block)
+	  Time.use_zone(current_user.time_zone, &block)
 	end
 end

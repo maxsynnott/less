@@ -7,6 +7,6 @@ FactoryBot.define do
     address { "rudi dutschke str. 26" }
     phone { "+494242424242" }
 
-    association :order
+    order { association :order, delivery: @instance }
   end
 end

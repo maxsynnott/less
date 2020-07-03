@@ -2,7 +2,7 @@
 	<a data-toggle="collapse" role="button" href="#orderCollapsable<%= order.id %>" class="d-flex align-items-center justify-content-between text-decoration-none text-dark">
 		<div>
 			<p class="font-weight-bold">
-				<%= order.delivery.scheduled_at.strftime("%B %d | %H:%M") %> to <%= (order.delivery.scheduled_at + 2.hours).strftime("%H:%M") %>
+				<%= order.delivery.scheduled_date_string %> | <%= order.delivery.scheduled_slot_string %>
 			</p>
 
 			<p class="mb-0">
