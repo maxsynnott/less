@@ -23,6 +23,7 @@ RSpec.feature "User checks out", js: true do
 
 						fill_in "Delivery address", with: "Rudi Dutschke str. 26"
 						fill_in "Phone number", with: "+494242424242"
+						click_on "Add delivery instructions"
 						fill_in "Delivery instructions", with: "Knock thrice"
 						find("label.custom-control.custom-radio", match: :first).click
 						find("span#select2-order_payment_method_id-container").click
@@ -45,6 +46,7 @@ RSpec.feature "User checks out", js: true do
 
 					fill_in "Delivery address", with: "Rudi Dutschke str. 26"
 					fill_in "Phone number", with: "+494242424242"
+					click_on "Add delivery instructions"
 					fill_in "Delivery instructions", with: "Knock thrice"
 					find("label.custom-control.custom-radio", match: :first).click
 					find("span#select2-order_payment_method_id-container").click
@@ -97,6 +99,7 @@ RSpec.feature "User checks out", js: true do
 
 					fill_in "Delivery address", with: "Rudi Dutschke str. 26"
 					fill_in "Phone number", with: "+494242424242"
+					click_on "Add delivery instructions"
 					fill_in "Delivery instructions", with: "Knock thrice"
 					find("label.custom-control.custom-radio", match: :first).click
 
@@ -122,6 +125,7 @@ RSpec.feature "User checks out", js: true do
 
 					fill_in "Delivery address", with: "Rudi Dutschke str. 26"
 					fill_in "Phone number", with: "+494242424242"
+					click_on "Add delivery instructions"
 					fill_in "Delivery instructions", with: "Knock thrice"
 					find("label.custom-control.custom-radio", match: :first).click
 
@@ -148,6 +152,7 @@ RSpec.feature "User checks out", js: true do
 
 				fill_in "Delivery address", with: "Rudi Dutschke str. 26"
 				fill_in "Phone number", with: "+494242424242"
+				click_on "Add delivery instructions"
 				fill_in "Delivery instructions", with: "Knock thrice"
 				find("label.custom-control.custom-radio", match: :first).click
 

@@ -19,8 +19,7 @@ class CartItem < ApplicationRecord
   def to_order_item
     OrderItem.new(
       unit_id: unit.id,
-      quantity: quantity,
-      price: unit.price
+      quantity: quantity
     )
   end
 
