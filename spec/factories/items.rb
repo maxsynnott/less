@@ -4,7 +4,7 @@ FactoryBot.define do
     price { 0.0025 }
 
   	transient do
-  		units_count { 1 }
+  		units_count { 0 }
   	end
 
     trait :with_unit do

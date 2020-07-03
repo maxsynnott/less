@@ -58,7 +58,7 @@ RSpec.configure do |config|
 
   # default: :selenium_chrome_headless
   # :selenium_chrome for visualisation
-  Capybara.javascript_driver = :selenium_chrome_headless
+  Capybara.javascript_driver = :selenium_chrome#_headless
   
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

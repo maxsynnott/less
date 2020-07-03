@@ -10,11 +10,13 @@ RSpec.feature "User views their orders" do
 	context "they have orders" do
 		context "they have both upcoming and past orders" do
 			before do
+				@order = create(:order, user: @user)
 				future_datetime = (DateTime.now.in_time_zone("Berlin") + 3.days).change(hour: 14)
-				@order = create(:order, user: @user, delivery: build(:delivery, scheduled_at: future_datetime, delivered: false))
+				@order.delivery.update(scheduled_at: future_datetime)
 
+				@order_2 = create(:order, user: @user)
 				past_datetime = (DateTime.now.in_time_zone("Berlin") - 3.days).change(hour: 10)
-				@order = create(:order, user: @user, delivery: build(:delivery, scheduled_at: past_datetime, delivered: true))
+				@order_2.delivery.update(scheduled_at: past_datetime, delivered: true)
 			end
 
 			scenario "they see both their upcoming and past orders" do
@@ -29,8 +31,9 @@ RSpec.feature "User views their orders" do
 
 		context "they have upcoming orders" do
 			before do
+				@order = create(:order, user: @user)
 				future_datetime = (DateTime.now.in_time_zone("Berlin") + 3.days).change(hour: 14)
-				@order = create(:order, user: @user, delivery: build(:delivery, scheduled_at: future_datetime, delivered: false))
+				@order.delivery.update(scheduled_at: future_datetime)
 			end
 
 			scenario "they see their upcoming orders" do
@@ -45,8 +48,9 @@ RSpec.feature "User views their orders" do
 
 		context "they have past orders" do
 			before do
+				@order = create(:order, user: @user)
 				past_datetime = (DateTime.now.in_time_zone("Berlin") - 3.days).change(hour: 10)
-				@order = create(:order, user: @user, delivery: build(:delivery, scheduled_at: past_datetime, delivered: true))
+				@order.delivery.update(scheduled_at: past_datetime, delivered: true)
 			end
 
 			scenario "they see their past orders" do

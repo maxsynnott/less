@@ -6,12 +6,10 @@ class OrderItem < ApplicationRecord
 
   has_many :containers, dependent: :nullify
 
-  after_initialize :assign_price
-
   after_create :assign_containers
 
   def total
-  	quantity * price
+  	unit.price * quantity
   end
 
   def add_to_cart(cart)
@@ -24,10 +22,6 @@ class OrderItem < ApplicationRecord
   end
 
   private
-
-  def assign_price
-  	self.price = unit.price
-  end
 
   # This assigns the least amount of containers possible however in some cases not the most efficient use of containers
   # Eg. quantity of 350 with containers: [50, 300, 500] will currently be assigned [500]

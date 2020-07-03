@@ -3,5 +3,7 @@ FactoryBot.define do
     base_units { "1" }
     name { "gram" }
     default { true }
+
+    item
   end
 end

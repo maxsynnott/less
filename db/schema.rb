@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_03_133149) do
+ActiveRecord::Schema.define(version: 2020_07_03_144328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 2020_07_03_133149) do
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.integer "quantity"
-    t.decimal "price", precision: 10, scale: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "unit_id", null: false
