@@ -13,11 +13,16 @@ export default class extends Controller {
 		})
 
 		setTimeout(() => {
-			this.inputTarget.focus()
+			// Focus field unless on mobile
+			if (!/Mobi|Android/i.test(navigator.userAgent)) {
+			  this.inputTarget.focus()
+			}
 		}, 150)
 
 		$(`a[data-toggle='tab'][href='#tab_${this.unit}']`).on('shown.bs.tab', () => {
-			$(this.inputTarget).focus()
+			if (!/Mobi|Android/i.test(navigator.userAgent)) {
+			  $(this.inputTarget).focus()
+			}
 		})
 	}
 
