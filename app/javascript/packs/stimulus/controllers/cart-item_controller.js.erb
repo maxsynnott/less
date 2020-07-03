@@ -43,6 +43,7 @@ export default class extends Controller {
 
 		$(this.inputTarget).prop('disabled', false)
 		$(this.inputTarget).removeClass('disabled')
+		$(this.inputTarget).focus()
 		$(this.buttonDivTarget).html(checkButtonHTML)
 	}
 

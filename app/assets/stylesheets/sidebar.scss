@@ -10,6 +10,8 @@
   transition: right 0.5s;
 
   z-index: 1050;
+
+  max-width: 100vw;
 }
 
 #sidebar.show {
