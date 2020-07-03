@@ -24,6 +24,13 @@ export default class extends Controller {
 			  $(this.inputTarget).focus()
 			}
 		})
+
+		$(this.inputTarget).on('focus', () => {
+			if (/Mobi|Android/i.test(navigator.userAgent) && this.data.get('show') == 'true') {	
+				console.log('scroll')
+				$('html, body').scrollTop($(this.inputTarget).offset().top - 220);
+			}
+		})
 	}
 
 	updateQuantity(quantity) {

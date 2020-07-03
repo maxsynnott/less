@@ -64,6 +64,7 @@
 								data-controller="item"
 								data-item-price="<%= unit.price %>"
 								data-item-unit="<%= unit.name %>"
+								data-item-show="true"
 							>
 								<%= simple_form_for CartItem.new(unit_id: unit.id), html: { class: "mt-3" }, remote: true do |f| %>
 									<%= f.hidden_field :unit_id %>
