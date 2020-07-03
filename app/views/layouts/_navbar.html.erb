@@ -1,6 +1,8 @@
 <nav class="sticky-top bg-white" style="box-shadow: 0 1px 5px rgba(0,0,0,.16);">
 	<div class="navbar navbar-light">
-		<%= link_to "Less", root_path, class: "navbar-brand px-4 text-success", style: "letter-spacing: 0.5rem; font-weight: 300;" %>
+		<div class="navbar-brand px-lg-5 mr-0">
+			<%= link_to "Less", root_path, class: "text-success font-weight-light", style: "letter-spacing: 0.5rem;" %>
+		</div>
 
 		<div class="flex-grow-1 d-none d-lg-block" data-controller="autocomplete" data-autocomplete-url="<%= autocomplete_items_url %>">
 			<%= form_tag items_path, method: :get, autocomplete: "off" do %>
